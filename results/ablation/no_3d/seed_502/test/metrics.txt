@@ -1,0 +1,14 @@
+Ablation: no_3d | seed: 502 | ESM: esm2_t33_650M_UR50D
+train: training_v2.csv | val: validation_v2.csv | test: testing_v2.csv
+-------------------------------------------------
+Test Metrics (no_3d)
+-------------------------------------------------
+Accuracy                      : 0.8941
+Precision                     : 0.9555
+Sensitivity (Recall)          : 0.8258
+Specificity                   : 0.9619
+Matthews Corr Coef (MCC)      : 0.7955
+AUC                           : 0.9742
+F1-Score                      : 0.8859
+Confusion Matrix (TP/TN/FP/FN): 365 / 429 / 17 / 77
+-------------------------------------------------

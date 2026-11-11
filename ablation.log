@@ -1,0 +1,1492 @@
+nohup: 忽略输入
+================================================================
+  NeuroPred-3D-EGNN 消融实验
+  变体: ['full', 'no_3d', 'no_esm', 'no_attn', 'no_coord']
+  种子: [500, 501, 502]  (共 15 个训练单元)
+  ESM: esm2_t33_650M_UR50D | epochs: 50 | 设备: 自动
+  结果目录: ./results/ablation
+================================================================
+
+>>> [跳过] full / seed 500: 产物已存在 (加 --force 可重跑)
+
+################################################################
+# 消融单元: full | seed 501
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: full | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/full/seed_501/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.92 M
+Epoch 00 | Train Loss: 0.4568, Acc: 0.8060, Sens: 0.7985, Spec: 0.8135, AUC: 0.8911, MCC: 0.6121, F1: 0.8039
+Epoch 00 | Valid Loss: 0.2932, Acc: 0.8706, Sens: 0.8307, Spec: 0.9103, AUC: 0.9547, MCC: 0.7435, F1: 0.8649 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3045, Acc: 0.9031, Sens: 0.9025, Spec: 0.9037, AUC: 0.9671, MCC: 0.8062, F1: 0.9026
+Epoch 01 | Valid Loss: 0.2476, Acc: 0.8920, Sens: 0.9300, Spec: 0.8543, AUC: 0.9652, MCC: 0.7864, F1: 0.8957 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2784, Acc: 0.9201, Sens: 0.9240, Spec: 0.9163, AUC: 0.9749, MCC: 0.8403, F1: 0.9201
+Epoch 02 | Valid Loss: 0.2627, Acc: 0.8898, Sens: 0.9594, Spec: 0.8206, AUC: 0.9671, MCC: 0.7873, F1: 0.8966 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2659, Acc: 0.9284, Sens: 0.9319, Spec: 0.9250, AUC: 0.9785, MCC: 0.8568, F1: 0.9284
+Epoch 03 | Valid Loss: 0.2545, Acc: 0.8864, Sens: 0.8420, Spec: 0.9305, AUC: 0.9687, MCC: 0.7757, F1: 0.8808 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2509, Acc: 0.9343, Sens: 0.9370, Spec: 0.9317, AUC: 0.9828, MCC: 0.8687, F1: 0.9342
+Epoch 04 | Valid Loss: 0.2272, Acc: 0.9156, Sens: 0.8939, Spec: 0.9372, AUC: 0.9741, MCC: 0.8320, F1: 0.9135 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2349, Acc: 0.9442, Sens: 0.9477, Spec: 0.9406, AUC: 0.9861, MCC: 0.8884, F1: 0.9441
+Epoch 05 | Valid Loss: 0.2152, Acc: 0.9033, Sens: 0.9187, Spec: 0.8879, AUC: 0.9742, MCC: 0.8069, F1: 0.9044 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2258, Acc: 0.9502, Sens: 0.9511, Spec: 0.9493, AUC: 0.9883, MCC: 0.9004, F1: 0.9500
+Epoch 06 | Valid Loss: 0.2139, Acc: 0.9111, Sens: 0.9300, Spec: 0.8924, AUC: 0.9749, MCC: 0.8229, F1: 0.9125 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.2144, Acc: 0.9529, Sens: 0.9537, Spec: 0.9521, AUC: 0.9911, MCC: 0.9058, F1: 0.9527
+Epoch 07 | Valid Loss: 0.2473, Acc: 0.8931, Sens: 0.8397, Spec: 0.9462, AUC: 0.9682, MCC: 0.7906, F1: 0.8868
+Epoch 08 | Train Loss: 0.2054, Acc: 0.9601, Sens: 0.9604, Spec: 0.9597, AUC: 0.9923, MCC: 0.9201, F1: 0.9599
+Epoch 08 | Valid Loss: 0.2538, Acc: 0.8875, Sens: 0.8104, Spec: 0.9641, AUC: 0.9730, MCC: 0.7841, F1: 0.8778
+Epoch 09 | Train Loss: 0.1940, Acc: 0.9643, Sens: 0.9624, Spec: 0.9661, AUC: 0.9943, MCC: 0.9286, F1: 0.9641
+Epoch 09 | Valid Loss: 0.2172, Acc: 0.9055, Sens: 0.9187, Spec: 0.8924, AUC: 0.9724, MCC: 0.8113, F1: 0.9065
+Epoch 10 | Train Loss: 0.2000, Acc: 0.9606, Sens: 0.9613, Spec: 0.9600, AUC: 0.9935, MCC: 0.9212, F1: 0.9605
+Epoch 10 | Valid Loss: 0.2433, Acc: 0.9089, Sens: 0.8623, Spec: 0.9552, AUC: 0.9699, MCC: 0.8212, F1: 0.9041
+Epoch 11 | Train Loss: 0.1822, Acc: 0.9726, Sens: 0.9726, Spec: 0.9726, AUC: 0.9959, MCC: 0.9451, F1: 0.9725
+Epoch 11 | Valid Loss: 0.2908, Acc: 0.8785, Sens: 0.7901, Spec: 0.9664, AUC: 0.9653, MCC: 0.7688, F1: 0.8663
+Epoch 12 | Train Loss: 0.1766, Acc: 0.9776, Sens: 0.9765, Spec: 0.9787, AUC: 0.9966, MCC: 0.9553, F1: 0.9775
+Epoch 12 | Valid Loss: 0.2500, Acc: 0.9089, Sens: 0.8533, Spec: 0.9641, AUC: 0.9663, MCC: 0.8227, F1: 0.9032
+Epoch 13 | Train Loss: 0.1702, Acc: 0.9790, Sens: 0.9765, Spec: 0.9815, AUC: 0.9974, MCC: 0.9581, F1: 0.9789
+Epoch 13 | Valid Loss: 0.2483, Acc: 0.9089, Sens: 0.8488, Spec: 0.9686, AUC: 0.9670, MCC: 0.8236, F1: 0.9028
+Epoch 14 | Train Loss: 0.1711, Acc: 0.9785, Sens: 0.9788, Spec: 0.9782, AUC: 0.9975, MCC: 0.9570, F1: 0.9784
+Epoch 14 | Valid Loss: 0.2235, Acc: 0.9078, Sens: 0.8781, Spec: 0.9372, AUC: 0.9712, MCC: 0.8169, F1: 0.9047
+Epoch 15 | Train Loss: 0.1611, Acc: 0.9840, Sens: 0.9833, Spec: 0.9846, AUC: 0.9983, MCC: 0.9679, F1: 0.9839
+Epoch 15 | Valid Loss: 0.2398, Acc: 0.9100, Sens: 0.9142, Spec: 0.9058, AUC: 0.9659, MCC: 0.8201, F1: 0.9101
+Epoch 16 | Train Loss: 0.1584, Acc: 0.9847, Sens: 0.9833, Spec: 0.9860, AUC: 0.9982, MCC: 0.9693, F1: 0.9846
+Epoch 16 | Valid Loss: 0.2383, Acc: 0.9033, Sens: 0.9300, Spec: 0.8767, AUC: 0.9681, MCC: 0.8077, F1: 0.9055
+Epoch 17 | Train Loss: 0.1504, Acc: 0.9893, Sens: 0.9887, Spec: 0.9899, AUC: 0.9990, MCC: 0.9786, F1: 0.9893
+Epoch 17 | Valid Loss: 0.2634, Acc: 0.9010, Sens: 0.8488, Spec: 0.9529, AUC: 0.9616, MCC: 0.8063, F1: 0.8952
+Epoch 18 | Train Loss: 0.1479, Acc: 0.9904, Sens: 0.9910, Spec: 0.9899, AUC: 0.9993, MCC: 0.9809, F1: 0.9904
+Epoch 18 | Valid Loss: 0.2887, Acc: 0.8898, Sens: 0.8194, Spec: 0.9596, AUC: 0.9571, MCC: 0.7871, F1: 0.8811
+Epoch 19 | Train Loss: 0.1515, Acc: 0.9879, Sens: 0.9878, Spec: 0.9880, AUC: 0.9986, MCC: 0.9758, F1: 0.9878
+Epoch 19 | Valid Loss: 0.2550, Acc: 0.9033, Sens: 0.8510, Spec: 0.9552, AUC: 0.9699, MCC: 0.8108, F1: 0.8976
+Epoch 20 | Train Loss: 0.1431, Acc: 0.9927, Sens: 0.9918, Spec: 0.9936, AUC: 0.9996, MCC: 0.9854, F1: 0.9926
+Epoch 20 | Valid Loss: 0.2314, Acc: 0.9168, Sens: 0.8871, Spec: 0.9462, AUC: 0.9653, MCC: 0.8349, F1: 0.9140
+Epoch 21 | Train Loss: 0.1417, Acc: 0.9930, Sens: 0.9929, Spec: 0.9930, AUC: 0.9996, MCC: 0.9859, F1: 0.9929
+Epoch 21 | Valid Loss: 0.2848, Acc: 0.8943, Sens: 0.8194, Spec: 0.9686, AUC: 0.9634, MCC: 0.7973, F1: 0.8854
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/full/seed_501/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/full/seed_501/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/full/seed_501/train/training_log.csv | 最新 checkpoint: ./results/ablation/full/seed_501/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9749 (对应 Acc: 0.9111)
+最优模型: ./results/ablation/full/seed_501/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/full/seed_501/train/best_model.pth
+ 结果保存: ./results/ablation/full/seed_501/test/test_predictions.csv
+============================================================
+ 模型变体: full (use_egnn=True, use_esm=True, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9189
+Precision                     : 0.8953
+Sensitivity (Recall)          : 0.9480
+Specificity                   : 0.8901
+Matthews Corr Coef (MCC)      : 0.8393
+AUC                           : 0.9753
+F1-Score                      : 0.9209
+Confusion Matrix (TP/TN/FP/FN): 419 / 397 / 49 / 23
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/full/seed_501/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 full/seed501, 耗时 154s, AUC=0.9753
+
+################################################################
+# 消融单元: full | seed 502
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: full | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/full/seed_502/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.92 M
+Epoch 00 | Train Loss: 0.4070, Acc: 0.8399, Sens: 0.8468, Spec: 0.8331, AUC: 0.9199, MCC: 0.6800, F1: 0.8404
+Epoch 00 | Valid Loss: 0.3066, Acc: 0.8864, Sens: 0.8488, Spec: 0.9238, AUC: 0.9537, MCC: 0.7749, F1: 0.8816 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3099, Acc: 0.9001, Sens: 0.9124, Spec: 0.8880, AUC: 0.9644, MCC: 0.8006, F1: 0.9009
+Epoch 01 | Valid Loss: 0.2968, Acc: 0.8729, Sens: 0.8307, Spec: 0.9148, AUC: 0.9590, MCC: 0.7483, F1: 0.8669 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2800, Acc: 0.9183, Sens: 0.9294, Spec: 0.9073, AUC: 0.9747, MCC: 0.8368, F1: 0.9188
+Epoch 02 | Valid Loss: 0.2590, Acc: 0.8909, Sens: 0.8713, Spec: 0.9103, AUC: 0.9654, MCC: 0.7823, F1: 0.8884 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2676, Acc: 0.9266, Sens: 0.9387, Spec: 0.9146, AUC: 0.9779, MCC: 0.8534, F1: 0.9272
+Epoch 03 | Valid Loss: 0.2363, Acc: 0.8898, Sens: 0.9120, Spec: 0.8677, AUC: 0.9681, MCC: 0.7803, F1: 0.8918 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2557, Acc: 0.9328, Sens: 0.9426, Spec: 0.9230, AUC: 0.9811, MCC: 0.8657, F1: 0.9331
+Epoch 04 | Valid Loss: 0.2753, Acc: 0.8841, Sens: 0.8217, Spec: 0.9462, AUC: 0.9671, MCC: 0.7741, F1: 0.8761
+Epoch 05 | Train Loss: 0.2477, Acc: 0.9347, Sens: 0.9418, Spec: 0.9278, AUC: 0.9831, MCC: 0.8696, F1: 0.9349
+Epoch 05 | Valid Loss: 0.3154, Acc: 0.8661, Sens: 0.7607, Spec: 0.9709, AUC: 0.9649, MCC: 0.7487, F1: 0.8499
+Epoch 06 | Train Loss: 0.2360, Acc: 0.9395, Sens: 0.9460, Spec: 0.9331, AUC: 0.9863, MCC: 0.8791, F1: 0.9397
+Epoch 06 | Valid Loss: 0.2346, Acc: 0.9066, Sens: 0.8713, Spec: 0.9417, AUC: 0.9724, MCC: 0.8152, F1: 0.9029 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.2271, Acc: 0.9470, Sens: 0.9506, Spec: 0.9434, AUC: 0.9879, MCC: 0.8940, F1: 0.9469
+Epoch 07 | Valid Loss: 0.2676, Acc: 0.8886, Sens: 0.8217, Spec: 0.9552, AUC: 0.9697, MCC: 0.7841, F1: 0.8803
+Epoch 08 | Train Loss: 0.2154, Acc: 0.9539, Sens: 0.9554, Spec: 0.9524, AUC: 0.9897, MCC: 0.9077, F1: 0.9537
+Epoch 08 | Valid Loss: 0.2442, Acc: 0.9010, Sens: 0.8623, Spec: 0.9395, AUC: 0.9703, MCC: 0.8043, F1: 0.8967
+Epoch 09 | Train Loss: 0.2091, Acc: 0.9579, Sens: 0.9576, Spec: 0.9583, AUC: 0.9912, MCC: 0.9159, F1: 0.9578
+Epoch 09 | Valid Loss: 0.2167, Acc: 0.9100, Sens: 0.8916, Spec: 0.9283, AUC: 0.9738, MCC: 0.8205, F1: 0.9080 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.1977, Acc: 0.9655, Sens: 0.9661, Spec: 0.9650, AUC: 0.9932, MCC: 0.9311, F1: 0.9654
+Epoch 10 | Valid Loss: 0.2670, Acc: 0.8943, Sens: 0.8262, Spec: 0.9619, AUC: 0.9638, MCC: 0.7957, F1: 0.8862
+Epoch 11 | Train Loss: 0.1955, Acc: 0.9627, Sens: 0.9596, Spec: 0.9658, AUC: 0.9939, MCC: 0.9255, F1: 0.9624
+Epoch 11 | Valid Loss: 0.2425, Acc: 0.9055, Sens: 0.8713, Spec: 0.9395, AUC: 0.9695, MCC: 0.8128, F1: 0.9019
+Epoch 12 | Train Loss: 0.1892, Acc: 0.9691, Sens: 0.9703, Spec: 0.9678, AUC: 0.9937, MCC: 0.9381, F1: 0.9690
+Epoch 12 | Valid Loss: 0.2367, Acc: 0.9055, Sens: 0.8600, Spec: 0.9507, AUC: 0.9693, MCC: 0.8143, F1: 0.9007
+Epoch 13 | Train Loss: 0.1809, Acc: 0.9716, Sens: 0.9689, Spec: 0.9742, AUC: 0.9962, MCC: 0.9432, F1: 0.9714
+Epoch 13 | Valid Loss: 0.2488, Acc: 0.9033, Sens: 0.9368, Spec: 0.8700, AUC: 0.9686, MCC: 0.8084, F1: 0.9061
+Epoch 14 | Train Loss: 0.1829, Acc: 0.9685, Sens: 0.9686, Spec: 0.9684, AUC: 0.9954, MCC: 0.9370, F1: 0.9684
+Epoch 14 | Valid Loss: 0.2570, Acc: 0.8931, Sens: 0.8352, Spec: 0.9507, AUC: 0.9719, MCC: 0.7914, F1: 0.8862
+Epoch 15 | Train Loss: 0.1693, Acc: 0.9782, Sens: 0.9774, Spec: 0.9790, AUC: 0.9972, MCC: 0.9564, F1: 0.9781
+Epoch 15 | Valid Loss: 0.2375, Acc: 0.9100, Sens: 0.8871, Spec: 0.9327, AUC: 0.9685, MCC: 0.8208, F1: 0.9076
+Epoch 16 | Train Loss: 0.1604, Acc: 0.9820, Sens: 0.9833, Spec: 0.9807, AUC: 0.9982, MCC: 0.9640, F1: 0.9819
+Epoch 16 | Valid Loss: 0.2370, Acc: 0.9111, Sens: 0.8984, Spec: 0.9238, AUC: 0.9663, MCC: 0.8225, F1: 0.9097
+Epoch 17 | Train Loss: 0.1613, Acc: 0.9831, Sens: 0.9822, Spec: 0.9840, AUC: 0.9979, MCC: 0.9662, F1: 0.9830
+Epoch 17 | Valid Loss: 0.2699, Acc: 0.9066, Sens: 0.8578, Spec: 0.9552, AUC: 0.9625, MCC: 0.8170, F1: 0.9015
+Epoch 18 | Train Loss: 0.1550, Acc: 0.9868, Sens: 0.9850, Spec: 0.9885, AUC: 0.9985, MCC: 0.9736, F1: 0.9867
+Epoch 18 | Valid Loss: 0.2466, Acc: 0.9145, Sens: 0.9074, Spec: 0.9215, AUC: 0.9612, MCC: 0.8291, F1: 0.9136
+Epoch 19 | Train Loss: 0.1532, Acc: 0.9871, Sens: 0.9873, Spec: 0.9868, AUC: 0.9987, MCC: 0.9741, F1: 0.9870
+Epoch 19 | Valid Loss: 0.2410, Acc: 0.9078, Sens: 0.9029, Spec: 0.9126, AUC: 0.9684, MCC: 0.8155, F1: 0.9070
+Epoch 20 | Train Loss: 0.1469, Acc: 0.9896, Sens: 0.9878, Spec: 0.9913, AUC: 0.9991, MCC: 0.9792, F1: 0.9895
+Epoch 20 | Valid Loss: 0.2518, Acc: 0.8976, Sens: 0.8578, Spec: 0.9372, AUC: 0.9658, MCC: 0.7977, F1: 0.8931
+Epoch 21 | Train Loss: 0.1422, Acc: 0.9934, Sens: 0.9935, Spec: 0.9933, AUC: 0.9994, MCC: 0.9868, F1: 0.9934
+Epoch 21 | Valid Loss: 0.2467, Acc: 0.9145, Sens: 0.9029, Spec: 0.9260, AUC: 0.9577, MCC: 0.8292, F1: 0.9132
+Epoch 22 | Train Loss: 0.1421, Acc: 0.9918, Sens: 0.9912, Spec: 0.9924, AUC: 0.9996, MCC: 0.9837, F1: 0.9918
+Epoch 22 | Valid Loss: 0.2507, Acc: 0.9123, Sens: 0.9007, Spec: 0.9238, AUC: 0.9583, MCC: 0.8247, F1: 0.9110
+Epoch 23 | Train Loss: 0.1422, Acc: 0.9927, Sens: 0.9921, Spec: 0.9933, AUC: 0.9994, MCC: 0.9854, F1: 0.9926
+Epoch 23 | Valid Loss: 0.2885, Acc: 0.8988, Sens: 0.8442, Spec: 0.9529, AUC: 0.9555, MCC: 0.8021, F1: 0.8926
+Epoch 24 | Train Loss: 0.1380, Acc: 0.9941, Sens: 0.9929, Spec: 0.9952, AUC: 0.9997, MCC: 0.9882, F1: 0.9941
+Epoch 24 | Valid Loss: 0.2700, Acc: 0.9066, Sens: 0.8713, Spec: 0.9417, AUC: 0.9561, MCC: 0.8152, F1: 0.9029
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/full/seed_502/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/full/seed_502/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/full/seed_502/train/training_log.csv | 最新 checkpoint: ./results/ablation/full/seed_502/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9738 (对应 Acc: 0.9100)
+最优模型: ./results/ablation/full/seed_502/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/full/seed_502/train/best_model.pth
+ 结果保存: ./results/ablation/full/seed_502/test/test_predictions.csv
+============================================================
+ 模型变体: full (use_egnn=True, use_esm=True, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9212
+Precision                     : 0.9097
+Sensitivity (Recall)          : 0.9344
+Specificity                   : 0.9081
+Matthews Corr Coef (MCC)      : 0.8427
+AUC                           : 0.9757
+F1-Score                      : 0.9219
+Confusion Matrix (TP/TN/FP/FN): 413 / 405 / 41 / 29
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/full/seed_502/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 full/seed502, 耗时 173s, AUC=0.9757
+
+################################################################
+# 消融单元: no_3d | seed 500
+# 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_3d | 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_3d/seed_500/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.27 M
+Epoch 00 | Train Loss: 0.3925, Acc: 0.8425, Sens: 0.8545, Spec: 0.8306, AUC: 0.9265, MCC: 0.6852, F1: 0.8438
+Epoch 00 | Valid Loss: 0.2685, Acc: 0.8785, Sens: 0.9233, Spec: 0.8341, AUC: 0.9584, MCC: 0.7602, F1: 0.8834 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3100, Acc: 0.9004, Sens: 0.9130, Spec: 0.8880, AUC: 0.9647, MCC: 0.8011, F1: 0.9013
+Epoch 01 | Valid Loss: 0.2614, Acc: 0.8819, Sens: 0.8939, Spec: 0.8700, AUC: 0.9605, MCC: 0.7640, F1: 0.8829 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2809, Acc: 0.9173, Sens: 0.9251, Spec: 0.9095, AUC: 0.9749, MCC: 0.8347, F1: 0.9176
+Epoch 02 | Valid Loss: 0.2541, Acc: 0.8943, Sens: 0.8713, Spec: 0.9170, AUC: 0.9666, MCC: 0.7893, F1: 0.8915 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2655, Acc: 0.9249, Sens: 0.9313, Spec: 0.9185, AUC: 0.9794, MCC: 0.8499, F1: 0.9251
+Epoch 03 | Valid Loss: 0.2442, Acc: 0.8976, Sens: 0.8804, Spec: 0.9148, AUC: 0.9680, MCC: 0.7957, F1: 0.8955 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2528, Acc: 0.9329, Sens: 0.9404, Spec: 0.9255, AUC: 0.9828, MCC: 0.8659, F1: 0.9331
+Epoch 04 | Valid Loss: 0.2369, Acc: 0.9089, Sens: 0.8894, Spec: 0.9283, AUC: 0.9679, MCC: 0.8183, F1: 0.9068
+Epoch 05 | Train Loss: 0.2353, Acc: 0.9459, Sens: 0.9477, Spec: 0.9440, AUC: 0.9870, MCC: 0.8917, F1: 0.9457
+Epoch 05 | Valid Loss: 0.2401, Acc: 0.8931, Sens: 0.8555, Spec: 0.9305, AUC: 0.9696, MCC: 0.7884, F1: 0.8886 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2379, Acc: 0.9425, Sens: 0.9469, Spec: 0.9381, AUC: 0.9863, MCC: 0.8850, F1: 0.9425
+Epoch 06 | Valid Loss: 0.2518, Acc: 0.8875, Sens: 0.8420, Spec: 0.9327, AUC: 0.9687, MCC: 0.7781, F1: 0.8818
+Epoch 07 | Train Loss: 0.2203, Acc: 0.9506, Sens: 0.9525, Spec: 0.9488, AUC: 0.9901, MCC: 0.9013, F1: 0.9505
+Epoch 07 | Valid Loss: 0.2507, Acc: 0.8976, Sens: 0.8465, Spec: 0.9484, AUC: 0.9699, MCC: 0.7993, F1: 0.8918 -> [已保存最优模型]
+Epoch 08 | Train Loss: 0.2160, Acc: 0.9561, Sens: 0.9576, Spec: 0.9546, AUC: 0.9906, MCC: 0.9122, F1: 0.9560
+Epoch 08 | Valid Loss: 0.2293, Acc: 0.9078, Sens: 0.9391, Spec: 0.8767, AUC: 0.9696, MCC: 0.8172, F1: 0.9103
+Epoch 09 | Train Loss: 0.2028, Acc: 0.9626, Sens: 0.9621, Spec: 0.9630, AUC: 0.9930, MCC: 0.9252, F1: 0.9624
+Epoch 09 | Valid Loss: 0.2195, Acc: 0.9156, Sens: 0.9052, Spec: 0.9260, AUC: 0.9731, MCC: 0.8314, F1: 0.9145 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.1996, Acc: 0.9653, Sens: 0.9664, Spec: 0.9642, AUC: 0.9932, MCC: 0.9305, F1: 0.9651
+Epoch 10 | Valid Loss: 0.2544, Acc: 0.8875, Sens: 0.8172, Spec: 0.9574, AUC: 0.9735, MCC: 0.7826, F1: 0.8786 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.1830, Acc: 0.9737, Sens: 0.9743, Spec: 0.9731, AUC: 0.9960, MCC: 0.9474, F1: 0.9736
+Epoch 11 | Valid Loss: 0.2546, Acc: 0.8898, Sens: 0.8375, Spec: 0.9417, AUC: 0.9710, MCC: 0.7837, F1: 0.8833
+Epoch 12 | Train Loss: 0.1803, Acc: 0.9717, Sens: 0.9720, Spec: 0.9714, AUC: 0.9969, MCC: 0.9435, F1: 0.9716
+Epoch 12 | Valid Loss: 0.2964, Acc: 0.8774, Sens: 0.7833, Spec: 0.9709, AUC: 0.9686, MCC: 0.7682, F1: 0.8643
+Epoch 13 | Train Loss: 0.1886, Acc: 0.9692, Sens: 0.9686, Spec: 0.9698, AUC: 0.9954, MCC: 0.9384, F1: 0.9690
+Epoch 13 | Valid Loss: 0.2240, Acc: 0.9123, Sens: 0.9142, Spec: 0.9103, AUC: 0.9725, MCC: 0.8245, F1: 0.9122
+Epoch 14 | Train Loss: 0.1791, Acc: 0.9764, Sens: 0.9782, Spec: 0.9745, AUC: 0.9965, MCC: 0.9527, F1: 0.9763
+Epoch 14 | Valid Loss: 0.3118, Acc: 0.8616, Sens: 0.7472, Spec: 0.9753, AUC: 0.9695, MCC: 0.7425, F1: 0.8433
+Epoch 15 | Train Loss: 0.1661, Acc: 0.9824, Sens: 0.9811, Spec: 0.9838, AUC: 0.9980, MCC: 0.9648, F1: 0.9823
+Epoch 15 | Valid Loss: 0.2859, Acc: 0.8796, Sens: 0.8126, Spec: 0.9462, AUC: 0.9662, MCC: 0.7660, F1: 0.8706
+Epoch 16 | Train Loss: 0.1717, Acc: 0.9793, Sens: 0.9805, Spec: 0.9782, AUC: 0.9974, MCC: 0.9587, F1: 0.9793
+Epoch 16 | Valid Loss: 0.2219, Acc: 0.9078, Sens: 0.8939, Spec: 0.9215, AUC: 0.9716, MCC: 0.8158, F1: 0.9062
+Epoch 17 | Train Loss: 0.1575, Acc: 0.9878, Sens: 0.9884, Spec: 0.9871, AUC: 0.9989, MCC: 0.9755, F1: 0.9877
+Epoch 17 | Valid Loss: 0.2304, Acc: 0.9078, Sens: 0.8849, Spec: 0.9305, AUC: 0.9700, MCC: 0.8163, F1: 0.9053
+Epoch 18 | Train Loss: 0.1516, Acc: 0.9889, Sens: 0.9884, Spec: 0.9894, AUC: 0.9994, MCC: 0.9778, F1: 0.9888
+Epoch 18 | Valid Loss: 0.2417, Acc: 0.9100, Sens: 0.8713, Spec: 0.9484, AUC: 0.9679, MCC: 0.8224, F1: 0.9061
+Epoch 19 | Train Loss: 0.1491, Acc: 0.9917, Sens: 0.9901, Spec: 0.9933, AUC: 0.9992, MCC: 0.9834, F1: 0.9917
+Epoch 19 | Valid Loss: 0.2338, Acc: 0.9078, Sens: 0.9007, Spec: 0.9148, AUC: 0.9670, MCC: 0.8156, F1: 0.9068
+Epoch 20 | Train Loss: 0.1464, Acc: 0.9910, Sens: 0.9904, Spec: 0.9916, AUC: 0.9997, MCC: 0.9820, F1: 0.9910
+Epoch 20 | Valid Loss: 0.2639, Acc: 0.8909, Sens: 0.8239, Spec: 0.9574, AUC: 0.9681, MCC: 0.7887, F1: 0.8827
+Epoch 21 | Train Loss: 0.1439, Acc: 0.9942, Sens: 0.9932, Spec: 0.9952, AUC: 0.9997, MCC: 0.9885, F1: 0.9942
+Epoch 21 | Valid Loss: 0.2538, Acc: 0.9044, Sens: 0.8713, Spec: 0.9372, AUC: 0.9619, MCC: 0.8105, F1: 0.9008
+Epoch 22 | Train Loss: 0.1418, Acc: 0.9948, Sens: 0.9938, Spec: 0.9958, AUC: 0.9997, MCC: 0.9896, F1: 0.9948
+Epoch 22 | Valid Loss: 0.2489, Acc: 0.9055, Sens: 0.8804, Spec: 0.9305, AUC: 0.9646, MCC: 0.8120, F1: 0.9028
+Epoch 23 | Train Loss: 0.1391, Acc: 0.9959, Sens: 0.9960, Spec: 0.9958, AUC: 0.9998, MCC: 0.9918, F1: 0.9959
+Epoch 23 | Valid Loss: 0.2694, Acc: 0.8943, Sens: 0.8330, Spec: 0.9552, AUC: 0.9634, MCC: 0.7943, F1: 0.8870
+Epoch 24 | Train Loss: 0.1388, Acc: 0.9968, Sens: 0.9972, Spec: 0.9964, AUC: 0.9997, MCC: 0.9935, F1: 0.9968
+Epoch 24 | Valid Loss: 0.2304, Acc: 0.9134, Sens: 0.9142, Spec: 0.9126, AUC: 0.9657, MCC: 0.8268, F1: 0.9132
+Epoch 25 | Train Loss: 0.1377, Acc: 0.9959, Sens: 0.9960, Spec: 0.9958, AUC: 0.9999, MCC: 0.9918, F1: 0.9959
+Epoch 25 | Valid Loss: 0.2612, Acc: 0.8988, Sens: 0.8600, Spec: 0.9372, AUC: 0.9622, MCC: 0.7998, F1: 0.8944
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_3d/seed_500/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_3d/seed_500/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_3d/seed_500/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_3d/seed_500/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9735 (对应 Acc: 0.8875)
+最优模型: ./results/ablation/no_3d/seed_500/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_3d/seed_500/train/best_model.pth
+ 结果保存: ./results/ablation/no_3d/seed_500/test/test_predictions.csv
+============================================================
+ 模型变体: no_3d (use_egnn=False, use_esm=True, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9043
+Precision                     : 0.9364
+Sensitivity (Recall)          : 0.8665
+Specificity                   : 0.9417
+Matthews Corr Coef (MCC)      : 0.8107
+AUC                           : 0.9745
+F1-Score                      : 0.9001
+Confusion Matrix (TP/TN/FP/FN): 383 / 420 / 26 / 59
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_3d/seed_500/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_3d/seed500, 耗时 54s, AUC=0.9745
+
+################################################################
+# 消融单元: no_3d | seed 501
+# 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_3d | 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_3d/seed_501/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.27 M
+Epoch 00 | Train Loss: 0.4426, Acc: 0.8167, Sens: 0.8036, Spec: 0.8297, AUC: 0.8996, MCC: 0.6336, F1: 0.8136
+Epoch 00 | Valid Loss: 0.3157, Acc: 0.8684, Sens: 0.8352, Spec: 0.9013, AUC: 0.9517, MCC: 0.7383, F1: 0.8635 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3117, Acc: 0.9001, Sens: 0.9051, Spec: 0.8953, AUC: 0.9641, MCC: 0.8003, F1: 0.9002
+Epoch 01 | Valid Loss: 0.2637, Acc: 0.8875, Sens: 0.9187, Spec: 0.8565, AUC: 0.9620, MCC: 0.7766, F1: 0.8906 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2850, Acc: 0.9145, Sens: 0.9175, Spec: 0.9115, AUC: 0.9734, MCC: 0.8290, F1: 0.9144
+Epoch 02 | Valid Loss: 0.2458, Acc: 0.8954, Sens: 0.8826, Spec: 0.9081, AUC: 0.9668, MCC: 0.7910, F1: 0.8937 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2654, Acc: 0.9267, Sens: 0.9291, Spec: 0.9244, AUC: 0.9792, MCC: 0.8535, F1: 0.9266
+Epoch 03 | Valid Loss: 0.2965, Acc: 0.8571, Sens: 0.7449, Spec: 0.9686, AUC: 0.9682, MCC: 0.7325, F1: 0.8386 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2674, Acc: 0.9222, Sens: 0.9209, Spec: 0.9236, AUC: 0.9787, MCC: 0.8444, F1: 0.9218
+Epoch 04 | Valid Loss: 0.2374, Acc: 0.9055, Sens: 0.9233, Spec: 0.8879, AUC: 0.9698, MCC: 0.8116, F1: 0.9069 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2391, Acc: 0.9428, Sens: 0.9415, Spec: 0.9440, AUC: 0.9860, MCC: 0.8855, F1: 0.9424
+Epoch 05 | Valid Loss: 0.2277, Acc: 0.9089, Sens: 0.9029, Spec: 0.9148, AUC: 0.9708, MCC: 0.8178, F1: 0.9081 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2286, Acc: 0.9487, Sens: 0.9497, Spec: 0.9476, AUC: 0.9882, MCC: 0.8973, F1: 0.9485
+Epoch 06 | Valid Loss: 0.2276, Acc: 0.9021, Sens: 0.9052, Spec: 0.8991, AUC: 0.9697, MCC: 0.8043, F1: 0.9021
+Epoch 07 | Train Loss: 0.2259, Acc: 0.9498, Sens: 0.9483, Spec: 0.9513, AUC: 0.9886, MCC: 0.8996, F1: 0.9495
+Epoch 07 | Valid Loss: 0.2935, Acc: 0.8774, Sens: 0.7923, Spec: 0.9619, AUC: 0.9672, MCC: 0.7656, F1: 0.8656
+Epoch 08 | Train Loss: 0.2086, Acc: 0.9594, Sens: 0.9624, Spec: 0.9563, AUC: 0.9923, MCC: 0.9187, F1: 0.9593
+Epoch 08 | Valid Loss: 0.2200, Acc: 0.9033, Sens: 0.9007, Spec: 0.9058, AUC: 0.9726, MCC: 0.8065, F1: 0.9027 -> [已保存最优模型]
+Epoch 09 | Train Loss: 0.2081, Acc: 0.9584, Sens: 0.9571, Spec: 0.9597, AUC: 0.9924, MCC: 0.9167, F1: 0.9581
+Epoch 09 | Valid Loss: 0.2299, Acc: 0.9021, Sens: 0.8758, Spec: 0.9283, AUC: 0.9704, MCC: 0.8053, F1: 0.8992
+Epoch 10 | Train Loss: 0.2014, Acc: 0.9644, Sens: 0.9610, Spec: 0.9678, AUC: 0.9932, MCC: 0.9288, F1: 0.9641
+Epoch 10 | Valid Loss: 0.2283, Acc: 0.9066, Sens: 0.8668, Spec: 0.9462, AUC: 0.9741, MCC: 0.8158, F1: 0.9025 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.1898, Acc: 0.9705, Sens: 0.9684, Spec: 0.9726, AUC: 0.9950, MCC: 0.9409, F1: 0.9703
+Epoch 11 | Valid Loss: 0.2225, Acc: 0.9100, Sens: 0.8804, Spec: 0.9395, AUC: 0.9729, MCC: 0.8214, F1: 0.9070
+Epoch 12 | Train Loss: 0.1876, Acc: 0.9731, Sens: 0.9726, Spec: 0.9737, AUC: 0.9950, MCC: 0.9463, F1: 0.9730
+Epoch 12 | Valid Loss: 0.2772, Acc: 0.8886, Sens: 0.8104, Spec: 0.9664, AUC: 0.9684, MCC: 0.7867, F1: 0.8788
+Epoch 13 | Train Loss: 0.1857, Acc: 0.9720, Sens: 0.9689, Spec: 0.9751, AUC: 0.9959, MCC: 0.9440, F1: 0.9718
+Epoch 13 | Valid Loss: 0.2327, Acc: 0.9055, Sens: 0.8623, Spec: 0.9484, AUC: 0.9737, MCC: 0.8139, F1: 0.9009
+Epoch 14 | Train Loss: 0.1730, Acc: 0.9792, Sens: 0.9763, Spec: 0.9821, AUC: 0.9973, MCC: 0.9584, F1: 0.9790
+Epoch 14 | Valid Loss: 0.2578, Acc: 0.8999, Sens: 0.9300, Spec: 0.8700, AUC: 0.9663, MCC: 0.8013, F1: 0.9025
+Epoch 15 | Train Loss: 0.1739, Acc: 0.9789, Sens: 0.9768, Spec: 0.9810, AUC: 0.9973, MCC: 0.9578, F1: 0.9788
+Epoch 15 | Valid Loss: 0.2615, Acc: 0.8954, Sens: 0.8330, Spec: 0.9574, AUC: 0.9715, MCC: 0.7968, F1: 0.8881
+Epoch 16 | Train Loss: 0.1644, Acc: 0.9844, Sens: 0.9833, Spec: 0.9854, AUC: 0.9979, MCC: 0.9688, F1: 0.9843
+Epoch 16 | Valid Loss: 0.2345, Acc: 0.9145, Sens: 0.8849, Spec: 0.9439, AUC: 0.9714, MCC: 0.8304, F1: 0.9116
+Epoch 17 | Train Loss: 0.1604, Acc: 0.9859, Sens: 0.9845, Spec: 0.9874, AUC: 0.9986, MCC: 0.9719, F1: 0.9859
+Epoch 17 | Valid Loss: 0.2259, Acc: 0.9145, Sens: 0.8758, Spec: 0.9529, AUC: 0.9746, MCC: 0.8314, F1: 0.9108 -> [已保存最优模型]
+Epoch 18 | Train Loss: 0.1536, Acc: 0.9906, Sens: 0.9907, Spec: 0.9905, AUC: 0.9992, MCC: 0.9812, F1: 0.9905
+Epoch 18 | Valid Loss: 0.2313, Acc: 0.9134, Sens: 0.8894, Spec: 0.9372, AUC: 0.9693, MCC: 0.8277, F1: 0.9110
+Epoch 19 | Train Loss: 0.1534, Acc: 0.9896, Sens: 0.9904, Spec: 0.9888, AUC: 0.9990, MCC: 0.9792, F1: 0.9896
+Epoch 19 | Valid Loss: 0.2307, Acc: 0.9100, Sens: 0.9210, Spec: 0.8991, AUC: 0.9702, MCC: 0.8202, F1: 0.9107
+Epoch 20 | Train Loss: 0.1488, Acc: 0.9925, Sens: 0.9924, Spec: 0.9927, AUC: 0.9996, MCC: 0.9851, F1: 0.9925
+Epoch 20 | Valid Loss: 0.2640, Acc: 0.9021, Sens: 0.8533, Spec: 0.9507, AUC: 0.9656, MCC: 0.8080, F1: 0.8968
+Epoch 21 | Train Loss: 0.1507, Acc: 0.9918, Sens: 0.9921, Spec: 0.9916, AUC: 0.9993, MCC: 0.9837, F1: 0.9918
+Epoch 21 | Valid Loss: 0.2840, Acc: 0.8909, Sens: 0.8172, Spec: 0.9641, AUC: 0.9633, MCC: 0.7902, F1: 0.8819
+Epoch 22 | Train Loss: 0.1445, Acc: 0.9934, Sens: 0.9924, Spec: 0.9944, AUC: 0.9997, MCC: 0.9868, F1: 0.9934
+Epoch 22 | Valid Loss: 0.2395, Acc: 0.9123, Sens: 0.9029, Spec: 0.9215, AUC: 0.9651, MCC: 0.8246, F1: 0.9112
+Epoch 23 | Train Loss: 0.1385, Acc: 0.9969, Sens: 0.9972, Spec: 0.9966, AUC: 0.9999, MCC: 0.9938, F1: 0.9969
+Epoch 23 | Valid Loss: 0.2640, Acc: 0.9021, Sens: 0.8397, Spec: 0.9641, AUC: 0.9642, MCC: 0.8104, F1: 0.8953
+Epoch 24 | Train Loss: 0.1386, Acc: 0.9972, Sens: 0.9960, Spec: 0.9983, AUC: 0.9999, MCC: 0.9944, F1: 0.9972
+Epoch 24 | Valid Loss: 0.2394, Acc: 0.9123, Sens: 0.8826, Spec: 0.9417, AUC: 0.9664, MCC: 0.8259, F1: 0.9093
+Epoch 25 | Train Loss: 0.1364, Acc: 0.9979, Sens: 0.9983, Spec: 0.9975, AUC: 1.0000, MCC: 0.9958, F1: 0.9979
+Epoch 25 | Valid Loss: 0.2515, Acc: 0.9100, Sens: 0.8804, Spec: 0.9395, AUC: 0.9629, MCC: 0.8214, F1: 0.9070
+Epoch 26 | Train Loss: 0.1373, Acc: 0.9970, Sens: 0.9966, Spec: 0.9975, AUC: 0.9999, MCC: 0.9941, F1: 0.9970
+Epoch 26 | Valid Loss: 0.2406, Acc: 0.9190, Sens: 0.8984, Spec: 0.9395, AUC: 0.9643, MCC: 0.8387, F1: 0.9171
+Epoch 27 | Train Loss: 0.1357, Acc: 0.9976, Sens: 0.9972, Spec: 0.9980, AUC: 0.9999, MCC: 0.9952, F1: 0.9976
+Epoch 27 | Valid Loss: 0.2542, Acc: 0.9111, Sens: 0.8736, Spec: 0.9484, AUC: 0.9624, MCC: 0.8245, F1: 0.9074
+Epoch 28 | Train Loss: 0.1348, Acc: 0.9977, Sens: 0.9972, Spec: 0.9983, AUC: 1.0000, MCC: 0.9955, F1: 0.9977
+Epoch 28 | Valid Loss: 0.2523, Acc: 0.9055, Sens: 0.8804, Spec: 0.9305, AUC: 0.9606, MCC: 0.8120, F1: 0.9028
+Epoch 29 | Train Loss: 0.1334, Acc: 0.9983, Sens: 0.9977, Spec: 0.9989, AUC: 1.0000, MCC: 0.9966, F1: 0.9983
+Epoch 29 | Valid Loss: 0.2615, Acc: 0.9078, Sens: 0.8736, Spec: 0.9417, AUC: 0.9610, MCC: 0.8173, F1: 0.9042
+Epoch 30 | Train Loss: 0.1328, Acc: 0.9993, Sens: 0.9992, Spec: 0.9994, AUC: 1.0000, MCC: 0.9986, F1: 0.9993
+Epoch 30 | Valid Loss: 0.2487, Acc: 0.9145, Sens: 0.8916, Spec: 0.9372, AUC: 0.9626, MCC: 0.8298, F1: 0.9122
+Epoch 31 | Train Loss: 0.1314, Acc: 0.9992, Sens: 0.9992, Spec: 0.9992, AUC: 1.0000, MCC: 0.9983, F1: 0.9992
+Epoch 31 | Valid Loss: 0.2397, Acc: 0.9145, Sens: 0.9120, Spec: 0.9170, AUC: 0.9652, MCC: 0.8290, F1: 0.9140
+Epoch 32 | Train Loss: 0.1325, Acc: 0.9982, Sens: 0.9983, Spec: 0.9980, AUC: 1.0000, MCC: 0.9963, F1: 0.9982
+Epoch 32 | Valid Loss: 0.2514, Acc: 0.9066, Sens: 0.8849, Spec: 0.9283, AUC: 0.9605, MCC: 0.8140, F1: 0.9043
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_3d/seed_501/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_3d/seed_501/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_3d/seed_501/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_3d/seed_501/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9746 (对应 Acc: 0.9145)
+最优模型: ./results/ablation/no_3d/seed_501/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_3d/seed_501/train/best_model.pth
+ 结果保存: ./results/ablation/no_3d/seed_501/test/test_predictions.csv
+============================================================
+ 模型变体: no_3d (use_egnn=False, use_esm=True, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9065
+Precision                     : 0.9325
+Sensitivity (Recall)          : 0.8756
+Specificity                   : 0.9372
+Matthews Corr Coef (MCC)      : 0.8145
+AUC                           : 0.9743
+F1-Score                      : 0.9032
+Confusion Matrix (TP/TN/FP/FN): 387 / 418 / 28 / 55
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_3d/seed_501/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_3d/seed501, 耗时 68s, AUC=0.9743
+
+################################################################
+# 消融单元: no_3d | seed 502
+# 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_3d | 开关: {'use_egnn': False, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_3d/seed_502/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.27 M
+Epoch 00 | Train Loss: 0.4178, Acc: 0.8269, Sens: 0.8607, Spec: 0.7933, AUC: 0.9120, MCC: 0.6554, F1: 0.8319
+Epoch 00 | Valid Loss: 0.2834, Acc: 0.8661, Sens: 0.8894, Spec: 0.8430, AUC: 0.9519, MCC: 0.7331, F1: 0.8688 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3085, Acc: 0.8992, Sens: 0.9144, Spec: 0.8841, AUC: 0.9661, MCC: 0.7987, F1: 0.9003
+Epoch 01 | Valid Loss: 0.2771, Acc: 0.8819, Sens: 0.8284, Spec: 0.9350, AUC: 0.9628, MCC: 0.7680, F1: 0.8749 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2906, Acc: 0.9124, Sens: 0.9209, Spec: 0.9039, AUC: 0.9717, MCC: 0.8249, F1: 0.9128
+Epoch 02 | Valid Loss: 0.3158, Acc: 0.8605, Sens: 0.7585, Spec: 0.9619, AUC: 0.9628, MCC: 0.7361, F1: 0.8442 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2723, Acc: 0.9241, Sens: 0.9302, Spec: 0.9180, AUC: 0.9774, MCC: 0.8482, F1: 0.9242
+Epoch 03 | Valid Loss: 0.2424, Acc: 0.9066, Sens: 0.9007, Spec: 0.9126, AUC: 0.9676, MCC: 0.8133, F1: 0.9058 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2695, Acc: 0.9238, Sens: 0.9404, Spec: 0.9073, AUC: 0.9779, MCC: 0.8480, F1: 0.9247
+Epoch 04 | Valid Loss: 0.2496, Acc: 0.8999, Sens: 0.8646, Spec: 0.9350, AUC: 0.9681, MCC: 0.8017, F1: 0.8959 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2470, Acc: 0.9360, Sens: 0.9424, Spec: 0.9297, AUC: 0.9845, MCC: 0.8721, F1: 0.9361
+Epoch 05 | Valid Loss: 0.2339, Acc: 0.9044, Sens: 0.9007, Spec: 0.9081, AUC: 0.9687, MCC: 0.8088, F1: 0.9037 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2393, Acc: 0.9411, Sens: 0.9449, Spec: 0.9373, AUC: 0.9859, MCC: 0.8822, F1: 0.9410
+Epoch 06 | Valid Loss: 0.2765, Acc: 0.8920, Sens: 0.8239, Spec: 0.9596, AUC: 0.9695, MCC: 0.7912, F1: 0.8838 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.2278, Acc: 0.9474, Sens: 0.9483, Spec: 0.9465, AUC: 0.9887, MCC: 0.8948, F1: 0.9472
+Epoch 07 | Valid Loss: 0.2582, Acc: 0.8954, Sens: 0.8555, Spec: 0.9350, AUC: 0.9664, MCC: 0.7932, F1: 0.8907
+Epoch 08 | Train Loss: 0.2188, Acc: 0.9530, Sens: 0.9554, Spec: 0.9507, AUC: 0.9903, MCC: 0.9061, F1: 0.9529
+Epoch 08 | Valid Loss: 0.2402, Acc: 0.9010, Sens: 0.8578, Spec: 0.9439, AUC: 0.9687, MCC: 0.8049, F1: 0.8962
+Epoch 09 | Train Loss: 0.2038, Acc: 0.9610, Sens: 0.9587, Spec: 0.9633, AUC: 0.9934, MCC: 0.9221, F1: 0.9608
+Epoch 09 | Valid Loss: 0.2353, Acc: 0.9134, Sens: 0.8962, Spec: 0.9305, AUC: 0.9669, MCC: 0.8272, F1: 0.9116
+Epoch 10 | Train Loss: 0.2080, Acc: 0.9567, Sens: 0.9590, Spec: 0.9544, AUC: 0.9923, MCC: 0.9134, F1: 0.9566
+Epoch 10 | Valid Loss: 0.2768, Acc: 0.8785, Sens: 0.7856, Spec: 0.9709, AUC: 0.9714, MCC: 0.7701, F1: 0.8657 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.1928, Acc: 0.9679, Sens: 0.9686, Spec: 0.9672, AUC: 0.9948, MCC: 0.9359, F1: 0.9678
+Epoch 11 | Valid Loss: 0.2414, Acc: 0.9111, Sens: 0.8871, Spec: 0.9350, AUC: 0.9673, MCC: 0.8232, F1: 0.9087
+Epoch 12 | Train Loss: 0.1915, Acc: 0.9684, Sens: 0.9703, Spec: 0.9664, AUC: 0.9950, MCC: 0.9367, F1: 0.9683
+Epoch 12 | Valid Loss: 0.2560, Acc: 0.9033, Sens: 0.8555, Spec: 0.9507, AUC: 0.9662, MCC: 0.8101, F1: 0.8981
+Epoch 13 | Train Loss: 0.1772, Acc: 0.9762, Sens: 0.9743, Spec: 0.9782, AUC: 0.9972, MCC: 0.9525, F1: 0.9761
+Epoch 13 | Valid Loss: 0.2406, Acc: 0.9123, Sens: 0.8781, Spec: 0.9462, AUC: 0.9667, MCC: 0.8264, F1: 0.9089
+Epoch 14 | Train Loss: 0.1770, Acc: 0.9768, Sens: 0.9782, Spec: 0.9754, AUC: 0.9971, MCC: 0.9536, F1: 0.9767
+Epoch 14 | Valid Loss: 0.2912, Acc: 0.8864, Sens: 0.7968, Spec: 0.9753, AUC: 0.9654, MCC: 0.7852, F1: 0.8748
+Epoch 15 | Train Loss: 0.1681, Acc: 0.9824, Sens: 0.9811, Spec: 0.9838, AUC: 0.9980, MCC: 0.9648, F1: 0.9823
+Epoch 15 | Valid Loss: 0.2478, Acc: 0.9066, Sens: 0.8646, Spec: 0.9484, AUC: 0.9658, MCC: 0.8161, F1: 0.9022
+Epoch 16 | Train Loss: 0.1640, Acc: 0.9823, Sens: 0.9814, Spec: 0.9832, AUC: 0.9987, MCC: 0.9646, F1: 0.9822
+Epoch 16 | Valid Loss: 0.2804, Acc: 0.8830, Sens: 0.8081, Spec: 0.9574, AUC: 0.9619, MCC: 0.7745, F1: 0.8732
+Epoch 17 | Train Loss: 0.1598, Acc: 0.9838, Sens: 0.9830, Spec: 0.9846, AUC: 0.9989, MCC: 0.9677, F1: 0.9837
+Epoch 17 | Valid Loss: 0.2583, Acc: 0.9010, Sens: 0.8488, Spec: 0.9529, AUC: 0.9601, MCC: 0.8063, F1: 0.8952
+Epoch 18 | Train Loss: 0.1634, Acc: 0.9826, Sens: 0.9825, Spec: 0.9826, AUC: 0.9984, MCC: 0.9651, F1: 0.9825
+Epoch 18 | Valid Loss: 0.2396, Acc: 0.9100, Sens: 0.9029, Spec: 0.9170, AUC: 0.9631, MCC: 0.8201, F1: 0.9091
+Epoch 19 | Train Loss: 0.1528, Acc: 0.9899, Sens: 0.9890, Spec: 0.9908, AUC: 0.9992, MCC: 0.9797, F1: 0.9898
+Epoch 19 | Valid Loss: 0.2370, Acc: 0.9123, Sens: 0.9052, Spec: 0.9193, AUC: 0.9636, MCC: 0.8246, F1: 0.9114
+Epoch 20 | Train Loss: 0.1469, Acc: 0.9927, Sens: 0.9918, Spec: 0.9936, AUC: 0.9996, MCC: 0.9854, F1: 0.9926
+Epoch 20 | Valid Loss: 0.2466, Acc: 0.9168, Sens: 0.9097, Spec: 0.9238, AUC: 0.9613, MCC: 0.8336, F1: 0.9159
+Epoch 21 | Train Loss: 0.1436, Acc: 0.9940, Sens: 0.9938, Spec: 0.9941, AUC: 0.9997, MCC: 0.9879, F1: 0.9939
+Epoch 21 | Valid Loss: 0.2525, Acc: 0.9010, Sens: 0.8691, Spec: 0.9327, AUC: 0.9630, MCC: 0.8036, F1: 0.8974
+Epoch 22 | Train Loss: 0.1435, Acc: 0.9944, Sens: 0.9946, Spec: 0.9941, AUC: 0.9998, MCC: 0.9887, F1: 0.9944
+Epoch 22 | Valid Loss: 0.2551, Acc: 0.9111, Sens: 0.9413, Spec: 0.8812, AUC: 0.9631, MCC: 0.8238, F1: 0.9135
+Epoch 23 | Train Loss: 0.1453, Acc: 0.9916, Sens: 0.9904, Spec: 0.9927, AUC: 0.9998, MCC: 0.9831, F1: 0.9915
+Epoch 23 | Valid Loss: 0.2867, Acc: 0.8943, Sens: 0.8262, Spec: 0.9619, AUC: 0.9532, MCC: 0.7957, F1: 0.8862
+Epoch 24 | Train Loss: 0.1417, Acc: 0.9951, Sens: 0.9958, Spec: 0.9944, AUC: 0.9999, MCC: 0.9902, F1: 0.9951
+Epoch 24 | Valid Loss: 0.2649, Acc: 0.9044, Sens: 0.8600, Spec: 0.9484, AUC: 0.9572, MCC: 0.8118, F1: 0.8996
+Epoch 25 | Train Loss: 0.1406, Acc: 0.9949, Sens: 0.9949, Spec: 0.9950, AUC: 0.9999, MCC: 0.9899, F1: 0.9949
+Epoch 25 | Valid Loss: 0.2879, Acc: 0.8909, Sens: 0.8194, Spec: 0.9619, AUC: 0.9549, MCC: 0.7896, F1: 0.8821
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_3d/seed_502/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_3d/seed_502/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_3d/seed_502/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_3d/seed_502/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9714 (对应 Acc: 0.8785)
+最优模型: ./results/ablation/no_3d/seed_502/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_3d/seed_502/train/best_model.pth
+ 结果保存: ./results/ablation/no_3d/seed_502/test/test_predictions.csv
+============================================================
+ 模型变体: no_3d (use_egnn=False, use_esm=True, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.8941
+Precision                     : 0.9555
+Sensitivity (Recall)          : 0.8258
+Specificity                   : 0.9619
+Matthews Corr Coef (MCC)      : 0.7955
+AUC                           : 0.9742
+F1-Score                      : 0.8859
+Confusion Matrix (TP/TN/FP/FN): 365 / 429 / 17 / 77
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_3d/seed_502/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_3d/seed502, 耗时 54s, AUC=0.9742
+
+################################################################
+# 消融单元: no_esm | seed 500
+# 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_esm | 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_esm/seed_500/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.57 M
+Epoch 00 | Train Loss: 0.5837, Acc: 0.7010, Sens: 0.6666, Spec: 0.7351, AUC: 0.7698, MCC: 0.4027, F1: 0.6894
+Epoch 00 | Valid Loss: 0.5234, Acc: 0.7345, Sens: 0.7630, Spec: 0.7063, AUC: 0.8244, MCC: 0.4700, F1: 0.7412 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.4951, Acc: 0.7747, Sens: 0.7539, Spec: 0.7953, AUC: 0.8585, MCC: 0.5497, F1: 0.7691
+Epoch 01 | Valid Loss: 0.4830, Acc: 0.7694, Sens: 0.7381, Spec: 0.8004, AUC: 0.8544, MCC: 0.5397, F1: 0.7614 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.4796, Acc: 0.7895, Sens: 0.7816, Spec: 0.7973, AUC: 0.8725, MCC: 0.5789, F1: 0.7870
+Epoch 02 | Valid Loss: 0.5017, Acc: 0.7435, Sens: 0.6140, Spec: 0.8722, AUC: 0.8581, MCC: 0.5035, F1: 0.7047 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.4643, Acc: 0.7970, Sens: 0.7903, Spec: 0.8037, AUC: 0.8824, MCC: 0.5941, F1: 0.7949
+Epoch 03 | Valid Loss: 0.4664, Acc: 0.7773, Sens: 0.7156, Spec: 0.8386, AUC: 0.8709, MCC: 0.5585, F1: 0.7620 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.4561, Acc: 0.8031, Sens: 0.8047, Spec: 0.8015, AUC: 0.8886, MCC: 0.6062, F1: 0.8027
+Epoch 04 | Valid Loss: 0.4458, Acc: 0.7874, Sens: 0.7788, Spec: 0.7960, AUC: 0.8736, MCC: 0.5748, F1: 0.7850 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.4524, Acc: 0.8072, Sens: 0.8045, Spec: 0.8099, AUC: 0.8907, MCC: 0.6143, F1: 0.8059
+Epoch 05 | Valid Loss: 0.4861, Acc: 0.7357, Sens: 0.5530, Spec: 0.9170, AUC: 0.8762, MCC: 0.5050, F1: 0.6759 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.4428, Acc: 0.8136, Sens: 0.8098, Spec: 0.8174, AUC: 0.8973, MCC: 0.6273, F1: 0.8122
+Epoch 06 | Valid Loss: 0.4377, Acc: 0.7975, Sens: 0.7878, Spec: 0.8072, AUC: 0.8794, MCC: 0.5951, F1: 0.7950 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.4443, Acc: 0.8152, Sens: 0.8192, Spec: 0.8113, AUC: 0.8970, MCC: 0.6304, F1: 0.8152
+Epoch 07 | Valid Loss: 0.4415, Acc: 0.7953, Sens: 0.7788, Spec: 0.8117, AUC: 0.8791, MCC: 0.5908, F1: 0.7913
+Epoch 08 | Train Loss: 0.4310, Acc: 0.8203, Sens: 0.8245, Spec: 0.8160, AUC: 0.9041, MCC: 0.6405, F1: 0.8204
+Epoch 08 | Valid Loss: 0.4246, Acc: 0.8043, Sens: 0.8149, Spec: 0.7937, AUC: 0.8864, MCC: 0.6087, F1: 0.8058 -> [已保存最优模型]
+Epoch 09 | Train Loss: 0.4287, Acc: 0.8283, Sens: 0.8420, Spec: 0.8146, AUC: 0.9064, MCC: 0.6569, F1: 0.8300
+Epoch 09 | Valid Loss: 0.4180, Acc: 0.8031, Sens: 0.8397, Spec: 0.7668, AUC: 0.8873, MCC: 0.6081, F1: 0.8096 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.4192, Acc: 0.8290, Sens: 0.8412, Spec: 0.8169, AUC: 0.9123, MCC: 0.6582, F1: 0.8304
+Epoch 10 | Valid Loss: 0.4283, Acc: 0.7975, Sens: 0.7336, Spec: 0.8610, AUC: 0.8900, MCC: 0.5997, F1: 0.7831 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.4165, Acc: 0.8328, Sens: 0.8375, Spec: 0.8281, AUC: 0.9135, MCC: 0.6656, F1: 0.8329
+Epoch 11 | Valid Loss: 0.4221, Acc: 0.8088, Sens: 0.8059, Spec: 0.8117, AUC: 0.8922, MCC: 0.6175, F1: 0.8077 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.4088, Acc: 0.8371, Sens: 0.8440, Spec: 0.8303, AUC: 0.9185, MCC: 0.6744, F1: 0.8376
+Epoch 12 | Valid Loss: 0.4404, Acc: 0.7773, Sens: 0.7630, Spec: 0.7915, AUC: 0.8772, MCC: 0.5547, F1: 0.7735
+Epoch 13 | Train Loss: 0.4072, Acc: 0.8397, Sens: 0.8517, Spec: 0.8278, AUC: 0.9185, MCC: 0.6796, F1: 0.8410
+Epoch 13 | Valid Loss: 0.4446, Acc: 0.7818, Sens: 0.6749, Spec: 0.8879, AUC: 0.8938, MCC: 0.5763, F1: 0.7551 -> [已保存最优模型]
+Epoch 14 | Train Loss: 0.4035, Acc: 0.8429, Sens: 0.8505, Spec: 0.8353, AUC: 0.9217, MCC: 0.6859, F1: 0.8435
+Epoch 14 | Valid Loss: 0.3991, Acc: 0.8110, Sens: 0.7923, Spec: 0.8296, AUC: 0.9028, MCC: 0.6224, F1: 0.8069 -> [已保存最优模型]
+Epoch 15 | Train Loss: 0.3952, Acc: 0.8489, Sens: 0.8542, Spec: 0.8437, AUC: 0.9258, MCC: 0.6979, F1: 0.8492
+Epoch 15 | Valid Loss: 0.4151, Acc: 0.7908, Sens: 0.6975, Spec: 0.8834, AUC: 0.9046, MCC: 0.5915, F1: 0.7687 -> [已保存最优模型]
+Epoch 16 | Train Loss: 0.3930, Acc: 0.8484, Sens: 0.8517, Spec: 0.8451, AUC: 0.9271, MCC: 0.6968, F1: 0.8483
+Epoch 16 | Valid Loss: 0.4170, Acc: 0.8076, Sens: 0.7494, Spec: 0.8655, AUC: 0.8956, MCC: 0.6192, F1: 0.7952
+Epoch 17 | Train Loss: 0.3927, Acc: 0.8485, Sens: 0.8570, Spec: 0.8401, AUC: 0.9270, MCC: 0.6972, F1: 0.8492
+Epoch 17 | Valid Loss: 0.4242, Acc: 0.8065, Sens: 0.8081, Spec: 0.8049, AUC: 0.8866, MCC: 0.6131, F1: 0.8063
+Epoch 18 | Train Loss: 0.3835, Acc: 0.8546, Sens: 0.8649, Spec: 0.8443, AUC: 0.9319, MCC: 0.7093, F1: 0.8555
+Epoch 18 | Valid Loss: 0.4032, Acc: 0.8099, Sens: 0.7540, Spec: 0.8655, AUC: 0.9052, MCC: 0.6235, F1: 0.7981 -> [已保存最优模型]
+Epoch 19 | Train Loss: 0.3794, Acc: 0.8619, Sens: 0.8714, Spec: 0.8524, AUC: 0.9340, MCC: 0.7239, F1: 0.8627
+Epoch 19 | Valid Loss: 0.3995, Acc: 0.7975, Sens: 0.7246, Spec: 0.8700, AUC: 0.9119, MCC: 0.6011, F1: 0.7810 -> [已保存最优模型]
+Epoch 20 | Train Loss: 0.3677, Acc: 0.8672, Sens: 0.8692, Spec: 0.8653, AUC: 0.9401, MCC: 0.7345, F1: 0.8670
+Epoch 20 | Valid Loss: 0.4249, Acc: 0.7897, Sens: 0.6998, Spec: 0.8789, AUC: 0.8982, MCC: 0.5884, F1: 0.7683
+Epoch 21 | Train Loss: 0.3703, Acc: 0.8636, Sens: 0.8720, Spec: 0.8552, AUC: 0.9386, MCC: 0.7273, F1: 0.8642
+Epoch 21 | Valid Loss: 0.3795, Acc: 0.8200, Sens: 0.7675, Spec: 0.8722, AUC: 0.9161, MCC: 0.6434, F1: 0.8095 -> [已保存最优模型]
+Epoch 22 | Train Loss: 0.3559, Acc: 0.8709, Sens: 0.8757, Spec: 0.8661, AUC: 0.9457, MCC: 0.7418, F1: 0.8710
+Epoch 22 | Valid Loss: 0.4031, Acc: 0.8020, Sens: 0.7336, Spec: 0.8700, AUC: 0.9099, MCC: 0.6094, F1: 0.7869
+Epoch 23 | Train Loss: 0.3618, Acc: 0.8660, Sens: 0.8717, Spec: 0.8603, AUC: 0.9429, MCC: 0.7320, F1: 0.8662
+Epoch 23 | Valid Loss: 0.3656, Acc: 0.8279, Sens: 0.8059, Spec: 0.8498, AUC: 0.9190, MCC: 0.6563, F1: 0.8235 -> [已保存最优模型]
+Epoch 24 | Train Loss: 0.3526, Acc: 0.8741, Sens: 0.8819, Spec: 0.8664, AUC: 0.9468, MCC: 0.7484, F1: 0.8746
+Epoch 24 | Valid Loss: 0.4141, Acc: 0.8020, Sens: 0.7630, Spec: 0.8408, AUC: 0.8953, MCC: 0.6057, F1: 0.7934
+Epoch 25 | Train Loss: 0.3535, Acc: 0.8744, Sens: 0.8788, Spec: 0.8701, AUC: 0.9466, MCC: 0.7488, F1: 0.8745
+Epoch 25 | Valid Loss: 0.3638, Acc: 0.8346, Sens: 0.7991, Spec: 0.8700, AUC: 0.9208, MCC: 0.6708, F1: 0.8281 -> [已保存最优模型]
+Epoch 26 | Train Loss: 0.3428, Acc: 0.8759, Sens: 0.8850, Spec: 0.8670, AUC: 0.9512, MCC: 0.7521, F1: 0.8766
+Epoch 26 | Valid Loss: 0.3521, Acc: 0.8313, Sens: 0.8194, Spec: 0.8430, AUC: 0.9253, MCC: 0.6627, F1: 0.8288 -> [已保存最优模型]
+Epoch 27 | Train Loss: 0.3440, Acc: 0.8806, Sens: 0.8890, Spec: 0.8723, AUC: 0.9508, MCC: 0.7613, F1: 0.8811
+Epoch 27 | Valid Loss: 0.3516, Acc: 0.8358, Sens: 0.8194, Spec: 0.8520, AUC: 0.9249, MCC: 0.6718, F1: 0.8326
+Epoch 28 | Train Loss: 0.3410, Acc: 0.8812, Sens: 0.8898, Spec: 0.8726, AUC: 0.9517, MCC: 0.7624, F1: 0.8817
+Epoch 28 | Valid Loss: 0.3698, Acc: 0.8234, Sens: 0.7449, Spec: 0.9013, AUC: 0.9244, MCC: 0.6545, F1: 0.8078
+Epoch 29 | Train Loss: 0.3281, Acc: 0.8906, Sens: 0.8988, Spec: 0.8824, AUC: 0.9574, MCC: 0.7813, F1: 0.8910
+Epoch 29 | Valid Loss: 0.3613, Acc: 0.8301, Sens: 0.7675, Spec: 0.8924, AUC: 0.9253, MCC: 0.6653, F1: 0.8183 -> [已保存最优模型]
+Epoch 30 | Train Loss: 0.3254, Acc: 0.8921, Sens: 0.8963, Spec: 0.8880, AUC: 0.9585, MCC: 0.7843, F1: 0.8921
+Epoch 30 | Valid Loss: 0.3436, Acc: 0.8346, Sens: 0.8014, Spec: 0.8677, AUC: 0.9311, MCC: 0.6706, F1: 0.8285 -> [已保存最优模型]
+Epoch 31 | Train Loss: 0.3235, Acc: 0.8945, Sens: 0.9090, Spec: 0.8801, AUC: 0.9590, MCC: 0.7894, F1: 0.8956
+Epoch 31 | Valid Loss: 0.3403, Acc: 0.8425, Sens: 0.8059, Spec: 0.8789, AUC: 0.9324, MCC: 0.6867, F1: 0.8361 -> [已保存最优模型]
+Epoch 32 | Train Loss: 0.3212, Acc: 0.8935, Sens: 0.9039, Spec: 0.8832, AUC: 0.9599, MCC: 0.7873, F1: 0.8942
+Epoch 32 | Valid Loss: 0.3412, Acc: 0.8346, Sens: 0.7991, Spec: 0.8700, AUC: 0.9308, MCC: 0.6708, F1: 0.8281
+Epoch 33 | Train Loss: 0.3117, Acc: 0.9004, Sens: 0.9082, Spec: 0.8927, AUC: 0.9639, MCC: 0.8010, F1: 0.9008
+Epoch 33 | Valid Loss: 0.3323, Acc: 0.8436, Sens: 0.7991, Spec: 0.8879, AUC: 0.9363, MCC: 0.6899, F1: 0.8359 -> [已保存最优模型]
+Epoch 34 | Train Loss: 0.3127, Acc: 0.8987, Sens: 0.9065, Spec: 0.8911, AUC: 0.9634, MCC: 0.7976, F1: 0.8991
+Epoch 34 | Valid Loss: 0.3293, Acc: 0.8504, Sens: 0.8284, Spec: 0.8722, AUC: 0.9346, MCC: 0.7014, F1: 0.8466
+Epoch 35 | Train Loss: 0.3080, Acc: 0.9003, Sens: 0.9073, Spec: 0.8933, AUC: 0.9652, MCC: 0.8007, F1: 0.9006
+Epoch 35 | Valid Loss: 0.3486, Acc: 0.8403, Sens: 0.7743, Spec: 0.9058, AUC: 0.9357, MCC: 0.6863, F1: 0.8285
+Epoch 36 | Train Loss: 0.3038, Acc: 0.9063, Sens: 0.9116, Spec: 0.9011, AUC: 0.9666, MCC: 0.8127, F1: 0.9064
+Epoch 36 | Valid Loss: 0.3247, Acc: 0.8470, Sens: 0.8126, Spec: 0.8812, AUC: 0.9379, MCC: 0.6956, F1: 0.8411 -> [已保存最优模型]
+Epoch 37 | Train Loss: 0.2985, Acc: 0.9091, Sens: 0.9172, Spec: 0.9011, AUC: 0.9681, MCC: 0.8184, F1: 0.9095
+Epoch 37 | Valid Loss: 0.3321, Acc: 0.8504, Sens: 0.8149, Spec: 0.8857, AUC: 0.9357, MCC: 0.7024, F1: 0.8444
+Epoch 38 | Train Loss: 0.2994, Acc: 0.9059, Sens: 0.9110, Spec: 0.9009, AUC: 0.9681, MCC: 0.8119, F1: 0.9060
+Epoch 38 | Valid Loss: 0.3274, Acc: 0.8470, Sens: 0.7856, Spec: 0.9081, AUC: 0.9400, MCC: 0.6991, F1: 0.8365 -> [已保存最优模型]
+Epoch 39 | Train Loss: 0.2982, Acc: 0.9086, Sens: 0.9155, Spec: 0.9017, AUC: 0.9685, MCC: 0.8173, F1: 0.9088
+Epoch 39 | Valid Loss: 0.3452, Acc: 0.8504, Sens: 0.7856, Spec: 0.9148, AUC: 0.9372, MCC: 0.7065, F1: 0.8396
+Epoch 40 | Train Loss: 0.2990, Acc: 0.9090, Sens: 0.9166, Spec: 0.9014, AUC: 0.9681, MCC: 0.8181, F1: 0.9093
+Epoch 40 | Valid Loss: 0.3169, Acc: 0.8538, Sens: 0.8284, Spec: 0.8789, AUC: 0.9404, MCC: 0.7084, F1: 0.8495 -> [已保存最优模型]
+Epoch 41 | Train Loss: 0.2947, Acc: 0.9128, Sens: 0.9195, Spec: 0.9062, AUC: 0.9699, MCC: 0.8257, F1: 0.9130
+Epoch 41 | Valid Loss: 0.3183, Acc: 0.8538, Sens: 0.8104, Spec: 0.8969, AUC: 0.9414, MCC: 0.7100, F1: 0.8467 -> [已保存最优模型]
+Epoch 42 | Train Loss: 0.2888, Acc: 0.9114, Sens: 0.9166, Spec: 0.9062, AUC: 0.9721, MCC: 0.8228, F1: 0.9115
+Epoch 42 | Valid Loss: 0.3142, Acc: 0.8583, Sens: 0.8307, Spec: 0.8857, AUC: 0.9411, MCC: 0.7175, F1: 0.8538
+Epoch 43 | Train Loss: 0.2909, Acc: 0.9136, Sens: 0.9234, Spec: 0.9039, AUC: 0.9711, MCC: 0.8275, F1: 0.9141
+Epoch 43 | Valid Loss: 0.3186, Acc: 0.8515, Sens: 0.8104, Spec: 0.8924, AUC: 0.9408, MCC: 0.7053, F1: 0.8447
+Epoch 44 | Train Loss: 0.2897, Acc: 0.9132, Sens: 0.9251, Spec: 0.9014, AUC: 0.9717, MCC: 0.8267, F1: 0.9139
+Epoch 44 | Valid Loss: 0.3321, Acc: 0.8549, Sens: 0.7968, Spec: 0.9126, AUC: 0.9398, MCC: 0.7144, F1: 0.8455
+Epoch 45 | Train Loss: 0.2873, Acc: 0.9143, Sens: 0.9220, Spec: 0.9067, AUC: 0.9726, MCC: 0.8288, F1: 0.9146
+Epoch 45 | Valid Loss: 0.3234, Acc: 0.8549, Sens: 0.8059, Spec: 0.9036, AUC: 0.9408, MCC: 0.7130, F1: 0.8470
+Epoch 46 | Train Loss: 0.2893, Acc: 0.9136, Sens: 0.9183, Spec: 0.9090, AUC: 0.9715, MCC: 0.8273, F1: 0.9137
+Epoch 46 | Valid Loss: 0.3203, Acc: 0.8560, Sens: 0.8126, Spec: 0.8991, AUC: 0.9410, MCC: 0.7146, F1: 0.8491
+Epoch 47 | Train Loss: 0.2873, Acc: 0.9115, Sens: 0.9164, Spec: 0.9067, AUC: 0.9724, MCC: 0.8231, F1: 0.9116
+Epoch 47 | Valid Loss: 0.3171, Acc: 0.8549, Sens: 0.8194, Spec: 0.8901, AUC: 0.9408, MCC: 0.7114, F1: 0.8491
+Epoch 48 | Train Loss: 0.2903, Acc: 0.9128, Sens: 0.9263, Spec: 0.8995, AUC: 0.9711, MCC: 0.8259, F1: 0.9136
+Epoch 48 | Valid Loss: 0.3188, Acc: 0.8560, Sens: 0.8149, Spec: 0.8969, AUC: 0.9410, MCC: 0.7143, F1: 0.8494
+Epoch 49 | Train Loss: 0.2880, Acc: 0.9155, Sens: 0.9226, Spec: 0.9084, AUC: 0.9720, MCC: 0.8310, F1: 0.9157
+Epoch 49 | Valid Loss: 0.3191, Acc: 0.8560, Sens: 0.8149, Spec: 0.8969, AUC: 0.9410, MCC: 0.7143, F1: 0.8494
+[保存] 验证集指标: ./results/ablation/no_esm/seed_500/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_esm/seed_500/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_esm/seed_500/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_esm/seed_500/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9414 (对应 Acc: 0.8538)
+最优模型: ./results/ablation/no_esm/seed_500/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_esm/seed_500/train/best_model.pth
+ 结果保存: ./results/ablation/no_esm/seed_500/test/test_predictions.csv
+============================================================
+ 模型变体: no_esm (use_egnn=True, use_esm=False, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.8637
+Precision                     : 0.8639
+Sensitivity (Recall)          : 0.8620
+Specificity                   : 0.8655
+Matthews Corr Coef (MCC)      : 0.7275
+AUC                           : 0.9387
+F1-Score                      : 0.8630
+Confusion Matrix (TP/TN/FP/FN): 381 / 386 / 60 / 61
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_esm/seed_500/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_esm/seed500, 耗时 335s, AUC=0.9387
+
+################################################################
+# 消融单元: no_esm | seed 501
+# 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_esm | 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_esm/seed_501/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.57 M
+Epoch 00 | Train Loss: 0.5939, Acc: 0.6952, Sens: 0.6880, Spec: 0.7023, AUC: 0.7667, MCC: 0.3904, F1: 0.6921
+Epoch 00 | Valid Loss: 0.5090, Acc: 0.7683, Sens: 0.6885, Spec: 0.8475, AUC: 0.8351, MCC: 0.5431, F1: 0.7475 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.4989, Acc: 0.7719, Sens: 0.7587, Spec: 0.7849, AUC: 0.8561, MCC: 0.5438, F1: 0.7680
+Epoch 01 | Valid Loss: 0.4980, Acc: 0.7627, Sens: 0.8533, Spec: 0.6726, AUC: 0.8538, MCC: 0.5345, F1: 0.7818 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.4894, Acc: 0.7845, Sens: 0.7728, Spec: 0.7961, AUC: 0.8649, MCC: 0.5691, F1: 0.7812
+Epoch 02 | Valid Loss: 0.4772, Acc: 0.7739, Sens: 0.7765, Spec: 0.7713, AUC: 0.8568, MCC: 0.5478, F1: 0.7739 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.4626, Acc: 0.7985, Sens: 0.7971, Spec: 0.7998, AUC: 0.8844, MCC: 0.5969, F1: 0.7975
+Epoch 03 | Valid Loss: 0.4668, Acc: 0.7705, Sens: 0.7020, Spec: 0.8386, AUC: 0.8692, MCC: 0.5458, F1: 0.7530 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.4550, Acc: 0.8062, Sens: 0.8098, Spec: 0.8026, AUC: 0.8893, MCC: 0.6124, F1: 0.8062
+Epoch 04 | Valid Loss: 0.4460, Acc: 0.7863, Sens: 0.7675, Spec: 0.8049, AUC: 0.8750, MCC: 0.5729, F1: 0.7816 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.4509, Acc: 0.8079, Sens: 0.8172, Spec: 0.7987, AUC: 0.8922, MCC: 0.6159, F1: 0.8090
+Epoch 05 | Valid Loss: 0.4379, Acc: 0.7930, Sens: 0.7472, Spec: 0.8386, AUC: 0.8823, MCC: 0.5883, F1: 0.7825 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.4448, Acc: 0.8139, Sens: 0.8251, Spec: 0.8029, AUC: 0.8962, MCC: 0.6281, F1: 0.8153
+Epoch 06 | Valid Loss: 0.4334, Acc: 0.7953, Sens: 0.7133, Spec: 0.8767, AUC: 0.8903, MCC: 0.5982, F1: 0.7764 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.4384, Acc: 0.8155, Sens: 0.8282, Spec: 0.8029, AUC: 0.8996, MCC: 0.6312, F1: 0.8171
+Epoch 07 | Valid Loss: 0.4586, Acc: 0.7717, Sens: 0.6840, Spec: 0.8587, AUC: 0.8772, MCC: 0.5514, F1: 0.7491
+Epoch 08 | Train Loss: 0.4273, Acc: 0.8215, Sens: 0.8225, Spec: 0.8205, AUC: 0.9074, MCC: 0.6430, F1: 0.8210
+Epoch 08 | Valid Loss: 0.4376, Acc: 0.7919, Sens: 0.8668, Spec: 0.7175, AUC: 0.8834, MCC: 0.5908, F1: 0.8059
+Epoch 09 | Train Loss: 0.4291, Acc: 0.8200, Sens: 0.8384, Spec: 0.8017, AUC: 0.9056, MCC: 0.6405, F1: 0.8226
+Epoch 09 | Valid Loss: 0.4191, Acc: 0.8020, Sens: 0.7743, Spec: 0.8296, AUC: 0.8935, MCC: 0.6049, F1: 0.7958 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.4191, Acc: 0.8339, Sens: 0.8494, Spec: 0.8185, AUC: 0.9126, MCC: 0.6682, F1: 0.8358
+Epoch 10 | Valid Loss: 0.4192, Acc: 0.7942, Sens: 0.7494, Spec: 0.8386, AUC: 0.8918, MCC: 0.5905, F1: 0.7839
+Epoch 11 | Train Loss: 0.4117, Acc: 0.8343, Sens: 0.8474, Spec: 0.8213, AUC: 0.9166, MCC: 0.6689, F1: 0.8358
+Epoch 11 | Valid Loss: 0.4127, Acc: 0.8065, Sens: 0.8691, Spec: 0.7444, AUC: 0.8962, MCC: 0.6181, F1: 0.8174 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.4106, Acc: 0.8336, Sens: 0.8522, Spec: 0.8152, AUC: 0.9173, MCC: 0.6678, F1: 0.8360
+Epoch 12 | Valid Loss: 0.4116, Acc: 0.7998, Sens: 0.7810, Spec: 0.8184, AUC: 0.8954, MCC: 0.5999, F1: 0.7954
+Epoch 13 | Train Loss: 0.4103, Acc: 0.8354, Sens: 0.8449, Spec: 0.8261, AUC: 0.9175, MCC: 0.6710, F1: 0.8364
+Epoch 13 | Valid Loss: 0.4467, Acc: 0.7784, Sens: 0.6817, Spec: 0.8744, AUC: 0.8839, MCC: 0.5670, F1: 0.7541
+Epoch 14 | Train Loss: 0.4017, Acc: 0.8414, Sens: 0.8502, Spec: 0.8325, AUC: 0.9224, MCC: 0.6828, F1: 0.8421
+Epoch 14 | Valid Loss: 0.4113, Acc: 0.8121, Sens: 0.7607, Spec: 0.8632, AUC: 0.9004, MCC: 0.6274, F1: 0.8014 -> [已保存最优模型]
+Epoch 15 | Train Loss: 0.4000, Acc: 0.8412, Sens: 0.8505, Spec: 0.8320, AUC: 0.9234, MCC: 0.6826, F1: 0.8421
+Epoch 15 | Valid Loss: 0.4243, Acc: 0.8099, Sens: 0.7991, Spec: 0.8206, AUC: 0.8864, MCC: 0.6199, F1: 0.8073
+Epoch 16 | Train Loss: 0.3989, Acc: 0.8439, Sens: 0.8542, Spec: 0.8337, AUC: 0.9239, MCC: 0.6880, F1: 0.8449
+Epoch 16 | Valid Loss: 0.4439, Acc: 0.7818, Sens: 0.7020, Spec: 0.8610, AUC: 0.8826, MCC: 0.5704, F1: 0.7623
+Epoch 17 | Train Loss: 0.3908, Acc: 0.8523, Sens: 0.8638, Spec: 0.8409, AUC: 0.9282, MCC: 0.7049, F1: 0.8534
+Epoch 17 | Valid Loss: 0.3919, Acc: 0.8155, Sens: 0.8217, Spec: 0.8094, AUC: 0.9042, MCC: 0.6311, F1: 0.8161 -> [已保存最优模型]
+Epoch 18 | Train Loss: 0.3862, Acc: 0.8543, Sens: 0.8618, Spec: 0.8468, AUC: 0.9308, MCC: 0.7087, F1: 0.8548
+Epoch 18 | Valid Loss: 0.4070, Acc: 0.8031, Sens: 0.8555, Spec: 0.7511, AUC: 0.8968, MCC: 0.6099, F1: 0.8124
+Epoch 19 | Train Loss: 0.3827, Acc: 0.8567, Sens: 0.8703, Spec: 0.8432, AUC: 0.9330, MCC: 0.7137, F1: 0.8581
+Epoch 19 | Valid Loss: 0.4059, Acc: 0.8133, Sens: 0.7607, Spec: 0.8655, AUC: 0.9024, MCC: 0.6298, F1: 0.8024
+Epoch 20 | Train Loss: 0.3746, Acc: 0.8630, Sens: 0.8723, Spec: 0.8538, AUC: 0.9369, MCC: 0.7262, F1: 0.8637
+Epoch 20 | Valid Loss: 0.3985, Acc: 0.8223, Sens: 0.7968, Spec: 0.8475, AUC: 0.9045, MCC: 0.6453, F1: 0.8171 -> [已保存最优模型]
+Epoch 21 | Train Loss: 0.3795, Acc: 0.8586, Sens: 0.8689, Spec: 0.8485, AUC: 0.9340, MCC: 0.7175, F1: 0.8595
+Epoch 21 | Valid Loss: 0.3887, Acc: 0.8121, Sens: 0.8239, Spec: 0.8004, AUC: 0.9060, MCC: 0.6245, F1: 0.8138 -> [已保存最优模型]
+Epoch 22 | Train Loss: 0.3758, Acc: 0.8585, Sens: 0.8717, Spec: 0.8454, AUC: 0.9360, MCC: 0.7173, F1: 0.8598
+Epoch 22 | Valid Loss: 0.3985, Acc: 0.8121, Sens: 0.7901, Spec: 0.8341, AUC: 0.9063, MCC: 0.6248, F1: 0.8074 -> [已保存最优模型]
+Epoch 23 | Train Loss: 0.3684, Acc: 0.8661, Sens: 0.8748, Spec: 0.8575, AUC: 0.9398, MCC: 0.7324, F1: 0.8667
+Epoch 23 | Valid Loss: 0.4099, Acc: 0.8110, Sens: 0.7878, Spec: 0.8341, AUC: 0.8960, MCC: 0.6226, F1: 0.8060
+Epoch 24 | Train Loss: 0.3686, Acc: 0.8674, Sens: 0.8760, Spec: 0.8589, AUC: 0.9398, MCC: 0.7349, F1: 0.8680
+Epoch 24 | Valid Loss: 0.4062, Acc: 0.8155, Sens: 0.7607, Spec: 0.8700, AUC: 0.9064, MCC: 0.6346, F1: 0.8043 -> [已保存最优模型]
+Epoch 25 | Train Loss: 0.3618, Acc: 0.8662, Sens: 0.8748, Spec: 0.8577, AUC: 0.9427, MCC: 0.7326, F1: 0.8669
+Epoch 25 | Valid Loss: 0.3971, Acc: 0.8178, Sens: 0.7765, Spec: 0.8587, AUC: 0.9071, MCC: 0.6375, F1: 0.8094 -> [已保存最优模型]
+Epoch 26 | Train Loss: 0.3608, Acc: 0.8682, Sens: 0.8765, Spec: 0.8600, AUC: 0.9435, MCC: 0.7366, F1: 0.8688
+Epoch 26 | Valid Loss: 0.3901, Acc: 0.8110, Sens: 0.7698, Spec: 0.8520, AUC: 0.9107, MCC: 0.6240, F1: 0.8024 -> [已保存最优模型]
+Epoch 27 | Train Loss: 0.3619, Acc: 0.8695, Sens: 0.8720, Spec: 0.8670, AUC: 0.9428, MCC: 0.7390, F1: 0.8693
+Epoch 27 | Valid Loss: 0.3867, Acc: 0.8166, Sens: 0.7923, Spec: 0.8408, AUC: 0.9092, MCC: 0.6339, F1: 0.8116
+Epoch 28 | Train Loss: 0.3533, Acc: 0.8741, Sens: 0.8793, Spec: 0.8689, AUC: 0.9467, MCC: 0.7483, F1: 0.8743
+Epoch 28 | Valid Loss: 0.3963, Acc: 0.8009, Sens: 0.7156, Spec: 0.8857, AUC: 0.9120, MCC: 0.6103, F1: 0.7818 -> [已保存最优模型]
+Epoch 29 | Train Loss: 0.3537, Acc: 0.8713, Sens: 0.8760, Spec: 0.8667, AUC: 0.9465, MCC: 0.7427, F1: 0.8714
+Epoch 29 | Valid Loss: 0.3859, Acc: 0.8155, Sens: 0.7833, Spec: 0.8475, AUC: 0.9092, MCC: 0.6322, F1: 0.8089
+Epoch 30 | Train Loss: 0.3460, Acc: 0.8792, Sens: 0.8870, Spec: 0.8715, AUC: 0.9498, MCC: 0.7585, F1: 0.8796
+Epoch 30 | Valid Loss: 0.3975, Acc: 0.8155, Sens: 0.7540, Spec: 0.8767, AUC: 0.9082, MCC: 0.6356, F1: 0.8029
+Epoch 31 | Train Loss: 0.3441, Acc: 0.8819, Sens: 0.8864, Spec: 0.8773, AUC: 0.9510, MCC: 0.7638, F1: 0.8819
+Epoch 31 | Valid Loss: 0.3885, Acc: 0.8155, Sens: 0.7540, Spec: 0.8767, AUC: 0.9136, MCC: 0.6356, F1: 0.8029 -> [已保存最优模型]
+Epoch 32 | Train Loss: 0.3415, Acc: 0.8819, Sens: 0.8867, Spec: 0.8771, AUC: 0.9518, MCC: 0.7638, F1: 0.8820
+Epoch 32 | Valid Loss: 0.3794, Acc: 0.8178, Sens: 0.7946, Spec: 0.8408, AUC: 0.9118, MCC: 0.6361, F1: 0.8129
+Epoch 33 | Train Loss: 0.3387, Acc: 0.8813, Sens: 0.8841, Spec: 0.8785, AUC: 0.9532, MCC: 0.7626, F1: 0.8812
+Epoch 33 | Valid Loss: 0.3782, Acc: 0.8178, Sens: 0.7765, Spec: 0.8587, AUC: 0.9140, MCC: 0.6375, F1: 0.8094 -> [已保存最优模型]
+Epoch 34 | Train Loss: 0.3389, Acc: 0.8859, Sens: 0.8918, Spec: 0.8801, AUC: 0.9531, MCC: 0.7719, F1: 0.8861
+Epoch 34 | Valid Loss: 0.3926, Acc: 0.8133, Sens: 0.7404, Spec: 0.8857, AUC: 0.9134, MCC: 0.6330, F1: 0.7981
+Epoch 35 | Train Loss: 0.3377, Acc: 0.8844, Sens: 0.8890, Spec: 0.8799, AUC: 0.9537, MCC: 0.7688, F1: 0.8845
+Epoch 35 | Valid Loss: 0.3818, Acc: 0.8211, Sens: 0.7720, Spec: 0.8700, AUC: 0.9143, MCC: 0.6452, F1: 0.8114 -> [已保存最优模型]
+Epoch 36 | Train Loss: 0.3306, Acc: 0.8869, Sens: 0.8892, Spec: 0.8846, AUC: 0.9567, MCC: 0.7739, F1: 0.8867
+Epoch 36 | Valid Loss: 0.3857, Acc: 0.8245, Sens: 0.7652, Spec: 0.8834, AUC: 0.9137, MCC: 0.6534, F1: 0.8129
+Epoch 37 | Train Loss: 0.3279, Acc: 0.8893, Sens: 0.8952, Spec: 0.8835, AUC: 0.9579, MCC: 0.7787, F1: 0.8895
+Epoch 37 | Valid Loss: 0.3761, Acc: 0.8268, Sens: 0.7878, Spec: 0.8655, AUC: 0.9161, MCC: 0.6554, F1: 0.8192 -> [已保存最优模型]
+Epoch 38 | Train Loss: 0.3233, Acc: 0.8930, Sens: 0.8955, Spec: 0.8905, AUC: 0.9598, MCC: 0.7860, F1: 0.8928
+Epoch 38 | Valid Loss: 0.3825, Acc: 0.8144, Sens: 0.7698, Spec: 0.8587, AUC: 0.9119, MCC: 0.6311, F1: 0.8052
+Epoch 39 | Train Loss: 0.3253, Acc: 0.8928, Sens: 0.8963, Spec: 0.8894, AUC: 0.9587, MCC: 0.7857, F1: 0.8928
+Epoch 39 | Valid Loss: 0.3677, Acc: 0.8268, Sens: 0.8262, Spec: 0.8274, AUC: 0.9158, MCC: 0.6535, F1: 0.8262
+Epoch 40 | Train Loss: 0.3226, Acc: 0.8938, Sens: 0.9005, Spec: 0.8871, AUC: 0.9599, MCC: 0.7877, F1: 0.8941
+Epoch 40 | Valid Loss: 0.3763, Acc: 0.8189, Sens: 0.7765, Spec: 0.8610, AUC: 0.9160, MCC: 0.6399, F1: 0.8104
+Epoch 41 | Train Loss: 0.3273, Acc: 0.8900, Sens: 0.8929, Spec: 0.8871, AUC: 0.9578, MCC: 0.7800, F1: 0.8899
+Epoch 41 | Valid Loss: 0.3742, Acc: 0.8245, Sens: 0.7901, Spec: 0.8587, AUC: 0.9154, MCC: 0.6504, F1: 0.8178
+Epoch 42 | Train Loss: 0.3191, Acc: 0.8956, Sens: 0.9019, Spec: 0.8894, AUC: 0.9616, MCC: 0.7914, F1: 0.8959
+Epoch 42 | Valid Loss: 0.3701, Acc: 0.8234, Sens: 0.7968, Spec: 0.8498, AUC: 0.9165, MCC: 0.6476, F1: 0.8181 -> [已保存最优模型]
+Epoch 43 | Train Loss: 0.3155, Acc: 0.8958, Sens: 0.9028, Spec: 0.8888, AUC: 0.9628, MCC: 0.7917, F1: 0.8961
+Epoch 43 | Valid Loss: 0.3734, Acc: 0.8234, Sens: 0.7743, Spec: 0.8722, AUC: 0.9181, MCC: 0.6497, F1: 0.8138 -> [已保存最优模型]
+Epoch 44 | Train Loss: 0.3187, Acc: 0.9008, Sens: 0.9022, Spec: 0.8995, AUC: 0.9612, MCC: 0.8017, F1: 0.9006
+Epoch 44 | Valid Loss: 0.3711, Acc: 0.8268, Sens: 0.7878, Spec: 0.8655, AUC: 0.9174, MCC: 0.6554, F1: 0.8192
+Epoch 45 | Train Loss: 0.3154, Acc: 0.8979, Sens: 0.9022, Spec: 0.8936, AUC: 0.9629, MCC: 0.7958, F1: 0.8979
+Epoch 45 | Valid Loss: 0.3712, Acc: 0.8256, Sens: 0.7788, Spec: 0.8722, AUC: 0.9185, MCC: 0.6540, F1: 0.8166 -> [已保存最优模型]
+Epoch 46 | Train Loss: 0.3160, Acc: 0.8979, Sens: 0.9005, Spec: 0.8953, AUC: 0.9626, MCC: 0.7958, F1: 0.8977
+Epoch 46 | Valid Loss: 0.3698, Acc: 0.8234, Sens: 0.7833, Spec: 0.8632, AUC: 0.9176, MCC: 0.6487, F1: 0.8155
+Epoch 47 | Train Loss: 0.3142, Acc: 0.8975, Sens: 0.8986, Spec: 0.8964, AUC: 0.9635, MCC: 0.7949, F1: 0.8972
+Epoch 47 | Valid Loss: 0.3695, Acc: 0.8245, Sens: 0.7833, Spec: 0.8655, AUC: 0.9178, MCC: 0.6511, F1: 0.8165
+Epoch 48 | Train Loss: 0.3148, Acc: 0.8994, Sens: 0.9068, Spec: 0.8922, AUC: 0.9628, MCC: 0.7990, F1: 0.8998
+Epoch 48 | Valid Loss: 0.3699, Acc: 0.8256, Sens: 0.7810, Spec: 0.8700, AUC: 0.9181, MCC: 0.6537, F1: 0.8170
+Epoch 49 | Train Loss: 0.3159, Acc: 0.8977, Sens: 0.8994, Spec: 0.8961, AUC: 0.9626, MCC: 0.7955, F1: 0.8975
+Epoch 49 | Valid Loss: 0.3698, Acc: 0.8256, Sens: 0.7810, Spec: 0.8700, AUC: 0.9181, MCC: 0.6537, F1: 0.8170
+[保存] 验证集指标: ./results/ablation/no_esm/seed_501/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_esm/seed_501/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_esm/seed_501/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_esm/seed_501/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9185 (对应 Acc: 0.8256)
+最优模型: ./results/ablation/no_esm/seed_501/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_esm/seed_501/train/best_model.pth
+ 结果保存: ./results/ablation/no_esm/seed_501/test/test_predictions.csv
+============================================================
+ 模型变体: no_esm (use_egnn=True, use_esm=False, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.8198
+Precision                     : 0.8279
+Sensitivity (Recall)          : 0.8054
+Specificity                   : 0.8341
+Matthews Corr Coef (MCC)      : 0.6398
+AUC                           : 0.9100
+F1-Score                      : 0.8165
+Confusion Matrix (TP/TN/FP/FN): 356 / 372 / 74 / 86
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_esm/seed_501/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_esm/seed501, 耗时 338s, AUC=0.9100
+
+################################################################
+# 消融单元: no_esm | seed 502
+# 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_esm | 开关: {'use_egnn': True, 'use_esm': False, 'use_cross_attn': True, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_esm/seed_502/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.57 M
+Epoch 00 | Train Loss: 0.6088, Acc: 0.6941, Sens: 0.6852, Spec: 0.7029, AUC: 0.7589, MCC: 0.3882, F1: 0.6904
+Epoch 00 | Valid Loss: 0.5550, Acc: 0.7188, Sens: 0.5327, Spec: 0.9036, AUC: 0.8295, MCC: 0.4701, F1: 0.6537 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.4982, Acc: 0.7764, Sens: 0.7646, Spec: 0.7880, AUC: 0.8575, MCC: 0.5528, F1: 0.7729
+Epoch 01 | Valid Loss: 0.4871, Acc: 0.7683, Sens: 0.6795, Spec: 0.8565, AUC: 0.8542, MCC: 0.5447, F1: 0.7450 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.4853, Acc: 0.7855, Sens: 0.7867, Spec: 0.7844, AUC: 0.8679, MCC: 0.5710, F1: 0.7850
+Epoch 02 | Valid Loss: 0.4879, Acc: 0.7705, Sens: 0.8375, Spec: 0.7040, AUC: 0.8571, MCC: 0.5463, F1: 0.7844 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.4661, Acc: 0.7997, Sens: 0.7892, Spec: 0.8101, AUC: 0.8829, MCC: 0.5995, F1: 0.7969
+Epoch 03 | Valid Loss: 0.4607, Acc: 0.7784, Sens: 0.7111, Spec: 0.8453, AUC: 0.8692, MCC: 0.5616, F1: 0.7618 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.4517, Acc: 0.8052, Sens: 0.7940, Spec: 0.8163, AUC: 0.8917, MCC: 0.6105, F1: 0.8023
+Epoch 04 | Valid Loss: 0.4516, Acc: 0.7807, Sens: 0.7314, Spec: 0.8296, AUC: 0.8745, MCC: 0.5638, F1: 0.7687 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.4502, Acc: 0.8053, Sens: 0.8022, Spec: 0.8085, AUC: 0.8924, MCC: 0.6107, F1: 0.8040
+Epoch 05 | Valid Loss: 0.4480, Acc: 0.7897, Sens: 0.7946, Spec: 0.7848, AUC: 0.8757, MCC: 0.5794, F1: 0.7901 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.4380, Acc: 0.8194, Sens: 0.8155, Spec: 0.8233, AUC: 0.9010, MCC: 0.6388, F1: 0.8180
+Epoch 06 | Valid Loss: 0.4467, Acc: 0.7807, Sens: 0.7178, Spec: 0.8430, AUC: 0.8785, MCC: 0.5655, F1: 0.7653 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.4316, Acc: 0.8194, Sens: 0.8203, Spec: 0.8185, AUC: 0.9052, MCC: 0.6388, F1: 0.8189
+Epoch 07 | Valid Loss: 0.4327, Acc: 0.7975, Sens: 0.8307, Spec: 0.7646, AUC: 0.8811, MCC: 0.5965, F1: 0.8035 -> [已保存最优模型]
+Epoch 08 | Train Loss: 0.4381, Acc: 0.8158, Sens: 0.8206, Spec: 0.8110, AUC: 0.9002, MCC: 0.6316, F1: 0.8160
+Epoch 08 | Valid Loss: 0.4215, Acc: 0.8054, Sens: 0.7923, Spec: 0.8184, AUC: 0.8879, MCC: 0.6109, F1: 0.8023 -> [已保存最优模型]
+Epoch 09 | Train Loss: 0.4293, Acc: 0.8201, Sens: 0.8299, Spec: 0.8104, AUC: 0.9063, MCC: 0.6404, F1: 0.8212
+Epoch 09 | Valid Loss: 0.4349, Acc: 0.7750, Sens: 0.6659, Spec: 0.8834, AUC: 0.8923, MCC: 0.5630, F1: 0.7468 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.4200, Acc: 0.8307, Sens: 0.8437, Spec: 0.8177, AUC: 0.9122, MCC: 0.6616, F1: 0.8322
+Epoch 10 | Valid Loss: 0.4335, Acc: 0.7908, Sens: 0.7156, Spec: 0.8655, AUC: 0.8922, MCC: 0.5879, F1: 0.7732
+Epoch 11 | Train Loss: 0.4149, Acc: 0.8287, Sens: 0.8372, Spec: 0.8202, AUC: 0.9150, MCC: 0.6575, F1: 0.8295
+Epoch 11 | Valid Loss: 0.4348, Acc: 0.7874, Sens: 0.7043, Spec: 0.8700, AUC: 0.8937, MCC: 0.5825, F1: 0.7675 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.4138, Acc: 0.8338, Sens: 0.8384, Spec: 0.8292, AUC: 0.9158, MCC: 0.6676, F1: 0.8339
+Epoch 12 | Valid Loss: 0.4176, Acc: 0.7930, Sens: 0.7246, Spec: 0.8610, AUC: 0.8975, MCC: 0.5913, F1: 0.7772 -> [已保存最优模型]
+Epoch 13 | Train Loss: 0.4021, Acc: 0.8414, Sens: 0.8514, Spec: 0.8314, AUC: 0.9217, MCC: 0.6829, F1: 0.8423
+Epoch 13 | Valid Loss: 0.4381, Acc: 0.7930, Sens: 0.7111, Spec: 0.8744, AUC: 0.8865, MCC: 0.5937, F1: 0.7740
+Epoch 14 | Train Loss: 0.4087, Acc: 0.8378, Sens: 0.8471, Spec: 0.8286, AUC: 0.9187, MCC: 0.6758, F1: 0.8387
+Epoch 14 | Valid Loss: 0.4138, Acc: 0.7987, Sens: 0.7178, Spec: 0.8789, AUC: 0.8998, MCC: 0.6049, F1: 0.7804 -> [已保存最优模型]
+Epoch 15 | Train Loss: 0.3975, Acc: 0.8460, Sens: 0.8545, Spec: 0.8376, AUC: 0.9249, MCC: 0.6921, F1: 0.8467
+Epoch 15 | Valid Loss: 0.4264, Acc: 0.7908, Sens: 0.7404, Spec: 0.8408, AUC: 0.8865, MCC: 0.5843, F1: 0.7791
+Epoch 16 | Train Loss: 0.4035, Acc: 0.8418, Sens: 0.8477, Spec: 0.8359, AUC: 0.9218, MCC: 0.6836, F1: 0.8421
+Epoch 16 | Valid Loss: 0.4104, Acc: 0.7987, Sens: 0.8149, Spec: 0.7825, AUC: 0.8939, MCC: 0.5977, F1: 0.8013
+Epoch 17 | Train Loss: 0.4046, Acc: 0.8422, Sens: 0.8539, Spec: 0.8306, AUC: 0.9209, MCC: 0.6846, F1: 0.8434
+Epoch 17 | Valid Loss: 0.4179, Acc: 0.8031, Sens: 0.7494, Spec: 0.8565, AUC: 0.8958, MCC: 0.6096, F1: 0.7914
+Epoch 18 | Train Loss: 0.3894, Acc: 0.8487, Sens: 0.8573, Spec: 0.8401, AUC: 0.9293, MCC: 0.6975, F1: 0.8494
+Epoch 18 | Valid Loss: 0.4021, Acc: 0.8076, Sens: 0.7743, Spec: 0.8408, AUC: 0.9008, MCC: 0.6165, F1: 0.8005 -> [已保存最优模型]
+Epoch 19 | Train Loss: 0.3822, Acc: 0.8567, Sens: 0.8615, Spec: 0.8519, AUC: 0.9330, MCC: 0.7134, F1: 0.8568
+Epoch 19 | Valid Loss: 0.4259, Acc: 0.7930, Sens: 0.7201, Spec: 0.8655, AUC: 0.8952, MCC: 0.5920, F1: 0.7762
+Epoch 20 | Train Loss: 0.3840, Acc: 0.8512, Sens: 0.8556, Spec: 0.8468, AUC: 0.9318, MCC: 0.7024, F1: 0.8513
+Epoch 20 | Valid Loss: 0.3962, Acc: 0.8076, Sens: 0.7698, Spec: 0.8453, AUC: 0.9049, MCC: 0.6169, F1: 0.7995 -> [已保存最优模型]
+Epoch 21 | Train Loss: 0.3766, Acc: 0.8627, Sens: 0.8686, Spec: 0.8569, AUC: 0.9359, MCC: 0.7255, F1: 0.8630
+Epoch 21 | Valid Loss: 0.3902, Acc: 0.8200, Sens: 0.7788, Spec: 0.8610, AUC: 0.9077, MCC: 0.6421, F1: 0.8118 -> [已保存最优模型]
+Epoch 22 | Train Loss: 0.3713, Acc: 0.8674, Sens: 0.8748, Spec: 0.8600, AUC: 0.9383, MCC: 0.7348, F1: 0.8678
+Epoch 22 | Valid Loss: 0.3949, Acc: 0.8211, Sens: 0.8352, Spec: 0.8072, AUC: 0.9025, MCC: 0.6426, F1: 0.8231
+Epoch 23 | Train Loss: 0.3750, Acc: 0.8636, Sens: 0.8734, Spec: 0.8538, AUC: 0.9365, MCC: 0.7273, F1: 0.8644
+Epoch 23 | Valid Loss: 0.3893, Acc: 0.8178, Sens: 0.7901, Spec: 0.8453, AUC: 0.9081, MCC: 0.6364, F1: 0.8121 -> [已保存最优模型]
+Epoch 24 | Train Loss: 0.3679, Acc: 0.8646, Sens: 0.8743, Spec: 0.8549, AUC: 0.9397, MCC: 0.7293, F1: 0.8653
+Epoch 24 | Valid Loss: 0.3903, Acc: 0.8133, Sens: 0.7878, Spec: 0.8386, AUC: 0.9070, MCC: 0.6272, F1: 0.8079
+Epoch 25 | Train Loss: 0.3599, Acc: 0.8696, Sens: 0.8717, Spec: 0.8675, AUC: 0.9441, MCC: 0.7393, F1: 0.8694
+Epoch 25 | Valid Loss: 0.3832, Acc: 0.8155, Sens: 0.7968, Spec: 0.8341, AUC: 0.9099, MCC: 0.6314, F1: 0.8115 -> [已保存最优模型]
+Epoch 26 | Train Loss: 0.3605, Acc: 0.8719, Sens: 0.8805, Spec: 0.8633, AUC: 0.9434, MCC: 0.7439, F1: 0.8725
+Epoch 26 | Valid Loss: 0.3872, Acc: 0.8178, Sens: 0.7856, Spec: 0.8498, AUC: 0.9095, MCC: 0.6367, F1: 0.8112
+Epoch 27 | Train Loss: 0.3577, Acc: 0.8744, Sens: 0.8791, Spec: 0.8698, AUC: 0.9447, MCC: 0.7489, F1: 0.8745
+Epoch 27 | Valid Loss: 0.3794, Acc: 0.8279, Sens: 0.7991, Spec: 0.8565, AUC: 0.9132, MCC: 0.6568, F1: 0.8223 -> [已保存最优模型]
+Epoch 28 | Train Loss: 0.3565, Acc: 0.8731, Sens: 0.8836, Spec: 0.8628, AUC: 0.9454, MCC: 0.7465, F1: 0.8740
+Epoch 28 | Valid Loss: 0.3898, Acc: 0.8234, Sens: 0.7856, Spec: 0.8610, AUC: 0.9086, MCC: 0.6485, F1: 0.8159
+Epoch 29 | Train Loss: 0.3521, Acc: 0.8779, Sens: 0.8816, Spec: 0.8743, AUC: 0.9475, MCC: 0.7559, F1: 0.8779
+Epoch 29 | Valid Loss: 0.3882, Acc: 0.8155, Sens: 0.8014, Spec: 0.8296, AUC: 0.9069, MCC: 0.6312, F1: 0.8124
+Epoch 30 | Train Loss: 0.3486, Acc: 0.8771, Sens: 0.8841, Spec: 0.8701, AUC: 0.9490, MCC: 0.7542, F1: 0.8775
+Epoch 30 | Valid Loss: 0.3898, Acc: 0.8166, Sens: 0.7720, Spec: 0.8610, AUC: 0.9097, MCC: 0.6356, F1: 0.8076
+Epoch 31 | Train Loss: 0.3477, Acc: 0.8805, Sens: 0.8839, Spec: 0.8771, AUC: 0.9498, MCC: 0.7609, F1: 0.8804
+Epoch 31 | Valid Loss: 0.3833, Acc: 0.8223, Sens: 0.7901, Spec: 0.8543, AUC: 0.9114, MCC: 0.6457, F1: 0.8159
+Epoch 32 | Train Loss: 0.3419, Acc: 0.8845, Sens: 0.8895, Spec: 0.8796, AUC: 0.9521, MCC: 0.7691, F1: 0.8846
+Epoch 32 | Valid Loss: 0.3964, Acc: 0.8166, Sens: 0.7675, Spec: 0.8655, AUC: 0.9080, MCC: 0.6362, F1: 0.8066
+Epoch 33 | Train Loss: 0.3341, Acc: 0.8835, Sens: 0.8873, Spec: 0.8799, AUC: 0.9552, MCC: 0.7671, F1: 0.8835
+Epoch 33 | Valid Loss: 0.3825, Acc: 0.8200, Sens: 0.7991, Spec: 0.8408, AUC: 0.9099, MCC: 0.6405, F1: 0.8157
+Epoch 34 | Train Loss: 0.3373, Acc: 0.8852, Sens: 0.8929, Spec: 0.8776, AUC: 0.9541, MCC: 0.7706, F1: 0.8857
+Epoch 34 | Valid Loss: 0.3902, Acc: 0.8256, Sens: 0.7810, Spec: 0.8700, AUC: 0.9102, MCC: 0.6537, F1: 0.8170
+Epoch 35 | Train Loss: 0.3360, Acc: 0.8831, Sens: 0.8881, Spec: 0.8782, AUC: 0.9550, MCC: 0.7663, F1: 0.8832
+Epoch 35 | Valid Loss: 0.3826, Acc: 0.8166, Sens: 0.7652, Spec: 0.8677, AUC: 0.9164, MCC: 0.6364, F1: 0.8062 -> [已保存最优模型]
+Epoch 36 | Train Loss: 0.3310, Acc: 0.8892, Sens: 0.8904, Spec: 0.8880, AUC: 0.9566, MCC: 0.7783, F1: 0.8889
+Epoch 36 | Valid Loss: 0.3775, Acc: 0.8223, Sens: 0.7856, Spec: 0.8587, AUC: 0.9140, MCC: 0.6461, F1: 0.8150
+Epoch 37 | Train Loss: 0.3326, Acc: 0.8868, Sens: 0.8966, Spec: 0.8771, AUC: 0.9557, MCC: 0.7737, F1: 0.8874
+Epoch 37 | Valid Loss: 0.3825, Acc: 0.8189, Sens: 0.7810, Spec: 0.8565, AUC: 0.9144, MCC: 0.6395, F1: 0.8113
+Epoch 38 | Train Loss: 0.3274, Acc: 0.8917, Sens: 0.8935, Spec: 0.8899, AUC: 0.9583, MCC: 0.7834, F1: 0.8915
+Epoch 38 | Valid Loss: 0.3697, Acc: 0.8189, Sens: 0.7991, Spec: 0.8386, AUC: 0.9166, MCC: 0.6382, F1: 0.8147 -> [已保存最优模型]
+Epoch 39 | Train Loss: 0.3279, Acc: 0.8886, Sens: 0.8988, Spec: 0.8785, AUC: 0.9580, MCC: 0.7774, F1: 0.8893
+Epoch 39 | Valid Loss: 0.3783, Acc: 0.8211, Sens: 0.7810, Spec: 0.8610, AUC: 0.9169, MCC: 0.6442, F1: 0.8132 -> [已保存最优模型]
+Epoch 40 | Train Loss: 0.3236, Acc: 0.8954, Sens: 0.8980, Spec: 0.8927, AUC: 0.9598, MCC: 0.7907, F1: 0.8952
+Epoch 40 | Valid Loss: 0.3803, Acc: 0.8279, Sens: 0.7856, Spec: 0.8700, AUC: 0.9167, MCC: 0.6580, F1: 0.8198
+Epoch 41 | Train Loss: 0.3195, Acc: 0.8934, Sens: 0.8960, Spec: 0.8908, AUC: 0.9615, MCC: 0.7868, F1: 0.8932
+Epoch 41 | Valid Loss: 0.3769, Acc: 0.8223, Sens: 0.7856, Spec: 0.8587, AUC: 0.9167, MCC: 0.6461, F1: 0.8150
+Epoch 42 | Train Loss: 0.3217, Acc: 0.8942, Sens: 0.8977, Spec: 0.8908, AUC: 0.9605, MCC: 0.7885, F1: 0.8942
+Epoch 42 | Valid Loss: 0.3837, Acc: 0.8189, Sens: 0.7652, Spec: 0.8722, AUC: 0.9169, MCC: 0.6413, F1: 0.8081 -> [已保存最优模型]
+Epoch 43 | Train Loss: 0.3203, Acc: 0.8968, Sens: 0.9017, Spec: 0.8919, AUC: 0.9610, MCC: 0.7936, F1: 0.8969
+Epoch 43 | Valid Loss: 0.3754, Acc: 0.8211, Sens: 0.7810, Spec: 0.8610, AUC: 0.9181, MCC: 0.6442, F1: 0.8132 -> [已保存最优模型]
+Epoch 44 | Train Loss: 0.3172, Acc: 0.9003, Sens: 0.9008, Spec: 0.8997, AUC: 0.9621, MCC: 0.8006, F1: 0.8999
+Epoch 44 | Valid Loss: 0.3714, Acc: 0.8268, Sens: 0.7923, Spec: 0.8610, AUC: 0.9177, MCC: 0.6550, F1: 0.8201
+Epoch 45 | Train Loss: 0.3157, Acc: 0.8985, Sens: 0.9059, Spec: 0.8911, AUC: 0.9632, MCC: 0.7970, F1: 0.8988
+Epoch 45 | Valid Loss: 0.3785, Acc: 0.8245, Sens: 0.7765, Spec: 0.8722, AUC: 0.9176, MCC: 0.6518, F1: 0.8152
+Epoch 46 | Train Loss: 0.3186, Acc: 0.8958, Sens: 0.8966, Spec: 0.8950, AUC: 0.9618, MCC: 0.7916, F1: 0.8954
+Epoch 46 | Valid Loss: 0.3725, Acc: 0.8301, Sens: 0.7878, Spec: 0.8722, AUC: 0.9180, MCC: 0.6625, F1: 0.8221
+Epoch 47 | Train Loss: 0.3167, Acc: 0.8992, Sens: 0.9036, Spec: 0.8947, AUC: 0.9627, MCC: 0.7984, F1: 0.8992
+Epoch 47 | Valid Loss: 0.3751, Acc: 0.8301, Sens: 0.7856, Spec: 0.8744, AUC: 0.9177, MCC: 0.6627, F1: 0.8217
+Epoch 48 | Train Loss: 0.3189, Acc: 0.8947, Sens: 0.9003, Spec: 0.8891, AUC: 0.9617, MCC: 0.7894, F1: 0.8948
+Epoch 48 | Valid Loss: 0.3745, Acc: 0.8290, Sens: 0.7856, Spec: 0.8722, AUC: 0.9180, MCC: 0.6604, F1: 0.8208
+Epoch 49 | Train Loss: 0.3170, Acc: 0.8976, Sens: 0.9019, Spec: 0.8933, AUC: 0.9625, MCC: 0.7953, F1: 0.8976
+Epoch 49 | Valid Loss: 0.3745, Acc: 0.8290, Sens: 0.7856, Spec: 0.8722, AUC: 0.9179, MCC: 0.6604, F1: 0.8208
+[保存] 验证集指标: ./results/ablation/no_esm/seed_502/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_esm/seed_502/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_esm/seed_502/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_esm/seed_502/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9181 (对应 Acc: 0.8211)
+最优模型: ./results/ablation/no_esm/seed_502/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_esm/seed_502/train/best_model.pth
+ 结果保存: ./results/ablation/no_esm/seed_502/test/test_predictions.csv
+============================================================
+ 模型变体: no_esm (use_egnn=True, use_esm=False, use_cross_attn=True, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.8255
+Precision                     : 0.8329
+Sensitivity (Recall)          : 0.8122
+Specificity                   : 0.8386
+Matthews Corr Coef (MCC)      : 0.6511
+AUC                           : 0.9104
+F1-Score                      : 0.8225
+Confusion Matrix (TP/TN/FP/FN): 359 / 374 / 72 / 83
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_esm/seed_502/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_esm/seed502, 耗时 525s, AUC=0.9104
+
+################################################################
+# 消融单元: no_attn | seed 500
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_attn | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_attn/seed_500/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.74 M
+Epoch 00 | Train Loss: 0.4399, Acc: 0.8122, Sens: 0.8285, Spec: 0.7961, AUC: 0.8983, MCC: 0.6249, F1: 0.8146
+Epoch 00 | Valid Loss: 0.2816, Acc: 0.8763, Sens: 0.8758, Spec: 0.8767, AUC: 0.9535, MCC: 0.7525, F1: 0.8758 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3120, Acc: 0.8997, Sens: 0.9062, Spec: 0.8933, AUC: 0.9641, MCC: 0.7995, F1: 0.9000
+Epoch 01 | Valid Loss: 0.3234, Acc: 0.8650, Sens: 0.7856, Spec: 0.9439, AUC: 0.9589, MCC: 0.7391, F1: 0.8529 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2837, Acc: 0.9163, Sens: 0.9155, Spec: 0.9171, AUC: 0.9739, MCC: 0.8326, F1: 0.9159
+Epoch 02 | Valid Loss: 0.2493, Acc: 0.8976, Sens: 0.9165, Spec: 0.8789, AUC: 0.9663, MCC: 0.7959, F1: 0.8992 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2657, Acc: 0.9269, Sens: 0.9344, Spec: 0.9194, AUC: 0.9793, MCC: 0.8538, F1: 0.9271
+Epoch 03 | Valid Loss: 0.2632, Acc: 0.8898, Sens: 0.8397, Spec: 0.9395, AUC: 0.9665, MCC: 0.7833, F1: 0.8836 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2617, Acc: 0.9332, Sens: 0.9347, Spec: 0.9317, AUC: 0.9794, MCC: 0.8664, F1: 0.9330
+Epoch 04 | Valid Loss: 0.2483, Acc: 0.8954, Sens: 0.9526, Spec: 0.8386, AUC: 0.9664, MCC: 0.7961, F1: 0.9007
+Epoch 05 | Train Loss: 0.2417, Acc: 0.9384, Sens: 0.9452, Spec: 0.9317, AUC: 0.9850, MCC: 0.8769, F1: 0.9386
+Epoch 05 | Valid Loss: 0.2286, Acc: 0.8988, Sens: 0.8962, Spec: 0.9013, AUC: 0.9706, MCC: 0.7975, F1: 0.8982 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2255, Acc: 0.9494, Sens: 0.9525, Spec: 0.9462, AUC: 0.9886, MCC: 0.8988, F1: 0.9493
+Epoch 06 | Valid Loss: 0.2738, Acc: 0.8785, Sens: 0.8059, Spec: 0.9507, AUC: 0.9703, MCC: 0.7649, F1: 0.8686
+Epoch 07 | Train Loss: 0.2166, Acc: 0.9541, Sens: 0.9556, Spec: 0.9527, AUC: 0.9906, MCC: 0.9083, F1: 0.9540
+Epoch 07 | Valid Loss: 0.2233, Acc: 0.9044, Sens: 0.8962, Spec: 0.9126, AUC: 0.9736, MCC: 0.8089, F1: 0.9033 -> [已保存最优模型]
+Epoch 08 | Train Loss: 0.2073, Acc: 0.9586, Sens: 0.9624, Spec: 0.9549, AUC: 0.9919, MCC: 0.9173, F1: 0.9586
+Epoch 08 | Valid Loss: 0.2335, Acc: 0.9066, Sens: 0.8668, Spec: 0.9462, AUC: 0.9748, MCC: 0.8158, F1: 0.9025 -> [已保存最优模型]
+Epoch 09 | Train Loss: 0.2027, Acc: 0.9630, Sens: 0.9619, Spec: 0.9642, AUC: 0.9930, MCC: 0.9260, F1: 0.9628
+Epoch 09 | Valid Loss: 0.2224, Acc: 0.9021, Sens: 0.9300, Spec: 0.8744, AUC: 0.9735, MCC: 0.8056, F1: 0.9045
+Epoch 10 | Train Loss: 0.1986, Acc: 0.9624, Sens: 0.9661, Spec: 0.9588, AUC: 0.9940, MCC: 0.9249, F1: 0.9624
+Epoch 10 | Valid Loss: 0.2220, Acc: 0.9100, Sens: 0.9052, Spec: 0.9148, AUC: 0.9744, MCC: 0.8200, F1: 0.9093
+Epoch 11 | Train Loss: 0.1857, Acc: 0.9713, Sens: 0.9700, Spec: 0.9726, AUC: 0.9953, MCC: 0.9426, F1: 0.9711
+Epoch 11 | Valid Loss: 0.2123, Acc: 0.9055, Sens: 0.9007, Spec: 0.9103, AUC: 0.9760, MCC: 0.8110, F1: 0.9048 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.1819, Acc: 0.9729, Sens: 0.9709, Spec: 0.9748, AUC: 0.9957, MCC: 0.9457, F1: 0.9727
+Epoch 12 | Valid Loss: 0.2663, Acc: 0.8931, Sens: 0.8149, Spec: 0.9709, AUC: 0.9721, MCC: 0.7958, F1: 0.8837
+Epoch 13 | Train Loss: 0.1741, Acc: 0.9769, Sens: 0.9771, Spec: 0.9768, AUC: 0.9971, MCC: 0.9539, F1: 0.9768
+Epoch 13 | Valid Loss: 0.2474, Acc: 0.9010, Sens: 0.8397, Spec: 0.9619, AUC: 0.9743, MCC: 0.8079, F1: 0.8942
+Epoch 14 | Train Loss: 0.1647, Acc: 0.9833, Sens: 0.9828, Spec: 0.9838, AUC: 0.9979, MCC: 0.9665, F1: 0.9832
+Epoch 14 | Valid Loss: 0.2289, Acc: 0.9134, Sens: 0.8781, Spec: 0.9484, AUC: 0.9700, MCC: 0.8287, F1: 0.9099
+Epoch 15 | Train Loss: 0.1633, Acc: 0.9838, Sens: 0.9836, Spec: 0.9840, AUC: 0.9979, MCC: 0.9677, F1: 0.9838
+Epoch 15 | Valid Loss: 0.2680, Acc: 0.8864, Sens: 0.8149, Spec: 0.9574, AUC: 0.9703, MCC: 0.7806, F1: 0.8773
+Epoch 16 | Train Loss: 0.1574, Acc: 0.9862, Sens: 0.9845, Spec: 0.9880, AUC: 0.9987, MCC: 0.9724, F1: 0.9861
+Epoch 16 | Valid Loss: 0.2368, Acc: 0.9021, Sens: 0.8758, Spec: 0.9283, AUC: 0.9711, MCC: 0.8053, F1: 0.8992
+Epoch 17 | Train Loss: 0.1596, Acc: 0.9841, Sens: 0.9825, Spec: 0.9857, AUC: 0.9984, MCC: 0.9682, F1: 0.9840
+Epoch 17 | Valid Loss: 0.2288, Acc: 0.9021, Sens: 0.8916, Spec: 0.9126, AUC: 0.9693, MCC: 0.8044, F1: 0.9008
+Epoch 18 | Train Loss: 0.1492, Acc: 0.9910, Sens: 0.9898, Spec: 0.9922, AUC: 0.9993, MCC: 0.9820, F1: 0.9909
+Epoch 18 | Valid Loss: 0.2413, Acc: 0.9078, Sens: 0.8646, Spec: 0.9507, AUC: 0.9686, MCC: 0.8185, F1: 0.9033
+Epoch 19 | Train Loss: 0.1471, Acc: 0.9910, Sens: 0.9895, Spec: 0.9924, AUC: 0.9995, MCC: 0.9820, F1: 0.9909
+Epoch 19 | Valid Loss: 0.2409, Acc: 0.9033, Sens: 0.8962, Spec: 0.9103, AUC: 0.9658, MCC: 0.8066, F1: 0.9023
+Epoch 20 | Train Loss: 0.1413, Acc: 0.9947, Sens: 0.9935, Spec: 0.9958, AUC: 0.9996, MCC: 0.9893, F1: 0.9946
+Epoch 20 | Valid Loss: 0.2606, Acc: 0.9021, Sens: 0.8600, Spec: 0.9439, AUC: 0.9597, MCC: 0.8070, F1: 0.8975
+Epoch 21 | Train Loss: 0.1406, Acc: 0.9944, Sens: 0.9941, Spec: 0.9947, AUC: 0.9997, MCC: 0.9887, F1: 0.9943
+Epoch 21 | Valid Loss: 0.2732, Acc: 0.9021, Sens: 0.8420, Spec: 0.9619, AUC: 0.9664, MCC: 0.8100, F1: 0.8956
+Epoch 22 | Train Loss: 0.1395, Acc: 0.9958, Sens: 0.9960, Spec: 0.9955, AUC: 0.9996, MCC: 0.9916, F1: 0.9958
+Epoch 22 | Valid Loss: 0.2512, Acc: 0.9055, Sens: 0.8555, Spec: 0.9552, AUC: 0.9651, MCC: 0.8150, F1: 0.9002
+Epoch 23 | Train Loss: 0.1370, Acc: 0.9956, Sens: 0.9952, Spec: 0.9961, AUC: 0.9999, MCC: 0.9913, F1: 0.9956
+Epoch 23 | Valid Loss: 0.2345, Acc: 0.9078, Sens: 0.8804, Spec: 0.9350, AUC: 0.9674, MCC: 0.8167, F1: 0.9049
+Epoch 24 | Train Loss: 0.1348, Acc: 0.9976, Sens: 0.9975, Spec: 0.9978, AUC: 0.9999, MCC: 0.9952, F1: 0.9976
+Epoch 24 | Valid Loss: 0.2368, Acc: 0.9055, Sens: 0.8916, Spec: 0.9193, AUC: 0.9660, MCC: 0.8113, F1: 0.9039
+Epoch 25 | Train Loss: 0.1347, Acc: 0.9972, Sens: 0.9969, Spec: 0.9975, AUC: 0.9999, MCC: 0.9944, F1: 0.9972
+Epoch 25 | Valid Loss: 0.2433, Acc: 0.9145, Sens: 0.8894, Spec: 0.9395, AUC: 0.9661, MCC: 0.8300, F1: 0.9120
+Epoch 26 | Train Loss: 0.1324, Acc: 0.9987, Sens: 0.9989, Spec: 0.9986, AUC: 0.9999, MCC: 0.9975, F1: 0.9987
+Epoch 26 | Valid Loss: 0.2692, Acc: 0.9044, Sens: 0.8533, Spec: 0.9552, AUC: 0.9626, MCC: 0.8129, F1: 0.8989
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_attn/seed_500/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_attn/seed_500/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_attn/seed_500/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_attn/seed_500/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9760 (对应 Acc: 0.9055)
+最优模型: ./results/ablation/no_attn/seed_500/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_attn/seed_500/train/best_model.pth
+ 结果保存: ./results/ablation/no_attn/seed_500/test/test_predictions.csv
+============================================================
+ 模型变体: no_attn (use_egnn=True, use_esm=True, use_cross_attn=False, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9189
+Precision                     : 0.9148
+Sensitivity (Recall)          : 0.9231
+Specificity                   : 0.9148
+Matthews Corr Coef (MCC)      : 0.8379
+AUC                           : 0.9774
+F1-Score                      : 0.9189
+Confusion Matrix (TP/TN/FP/FN): 408 / 408 / 38 / 34
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_attn/seed_500/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_attn/seed500, 耗时 348s, AUC=0.9774
+
+################################################################
+# 消融单元: no_attn | seed 501
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_attn | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_attn/seed_501/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.74 M
+Epoch 00 | Train Loss: 0.4298, Acc: 0.8222, Sens: 0.8254, Spec: 0.8191, AUC: 0.9060, MCC: 0.6445, F1: 0.8221
+Epoch 00 | Valid Loss: 0.2838, Acc: 0.8740, Sens: 0.8442, Spec: 0.9036, AUC: 0.9570, MCC: 0.7493, F1: 0.8698 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3107, Acc: 0.8994, Sens: 0.9045, Spec: 0.8944, AUC: 0.9653, MCC: 0.7989, F1: 0.8995
+Epoch 01 | Valid Loss: 0.2474, Acc: 0.8886, Sens: 0.9052, Spec: 0.8722, AUC: 0.9648, MCC: 0.7777, F1: 0.8901 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2994, Acc: 0.9084, Sens: 0.9147, Spec: 0.9023, AUC: 0.9687, MCC: 0.8170, F1: 0.9086
+Epoch 02 | Valid Loss: 0.2452, Acc: 0.8830, Sens: 0.9187, Spec: 0.8475, AUC: 0.9665, MCC: 0.7681, F1: 0.8867 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2723, Acc: 0.9248, Sens: 0.9305, Spec: 0.9191, AUC: 0.9775, MCC: 0.8496, F1: 0.9249
+Epoch 03 | Valid Loss: 0.2329, Acc: 0.8909, Sens: 0.9074, Spec: 0.8744, AUC: 0.9692, MCC: 0.7822, F1: 0.8923 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2544, Acc: 0.9343, Sens: 0.9398, Spec: 0.9289, AUC: 0.9824, MCC: 0.8687, F1: 0.9344
+Epoch 04 | Valid Loss: 0.2331, Acc: 0.9010, Sens: 0.8962, Spec: 0.9058, AUC: 0.9711, MCC: 0.8020, F1: 0.9002 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2431, Acc: 0.9411, Sens: 0.9460, Spec: 0.9362, AUC: 0.9848, MCC: 0.8822, F1: 0.9411
+Epoch 05 | Valid Loss: 0.2692, Acc: 0.8898, Sens: 0.8104, Spec: 0.9686, AUC: 0.9709, MCC: 0.7893, F1: 0.8799
+Epoch 06 | Train Loss: 0.2342, Acc: 0.9439, Sens: 0.9441, Spec: 0.9437, AUC: 0.9870, MCC: 0.8878, F1: 0.9437
+Epoch 06 | Valid Loss: 0.2421, Acc: 0.9021, Sens: 0.9007, Spec: 0.9036, AUC: 0.9657, MCC: 0.8043, F1: 0.9017
+Epoch 07 | Train Loss: 0.2247, Acc: 0.9495, Sens: 0.9528, Spec: 0.9462, AUC: 0.9894, MCC: 0.8990, F1: 0.9495
+Epoch 07 | Valid Loss: 0.2374, Acc: 0.9021, Sens: 0.8578, Spec: 0.9462, AUC: 0.9726, MCC: 0.8073, F1: 0.8973 -> [已保存最优模型]
+Epoch 08 | Train Loss: 0.2149, Acc: 0.9565, Sens: 0.9548, Spec: 0.9583, AUC: 0.9907, MCC: 0.9131, F1: 0.9563
+Epoch 08 | Valid Loss: 0.2484, Acc: 0.8909, Sens: 0.9481, Spec: 0.8341, AUC: 0.9723, MCC: 0.7871, F1: 0.8965
+Epoch 09 | Train Loss: 0.2156, Acc: 0.9553, Sens: 0.9562, Spec: 0.9544, AUC: 0.9902, MCC: 0.9105, F1: 0.9551
+Epoch 09 | Valid Loss: 0.2428, Acc: 0.9021, Sens: 0.8849, Spec: 0.9193, AUC: 0.9686, MCC: 0.8047, F1: 0.9001
+Epoch 10 | Train Loss: 0.2003, Acc: 0.9653, Sens: 0.9647, Spec: 0.9658, AUC: 0.9934, MCC: 0.9305, F1: 0.9651
+Epoch 10 | Valid Loss: 0.2207, Acc: 0.9134, Sens: 0.9278, Spec: 0.8991, AUC: 0.9735, MCC: 0.8271, F1: 0.9143 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.1848, Acc: 0.9736, Sens: 0.9746, Spec: 0.9726, AUC: 0.9957, MCC: 0.9471, F1: 0.9735
+Epoch 11 | Valid Loss: 0.2406, Acc: 0.9078, Sens: 0.8533, Spec: 0.9619, AUC: 0.9732, MCC: 0.8203, F1: 0.9021
+Epoch 12 | Train Loss: 0.1846, Acc: 0.9727, Sens: 0.9717, Spec: 0.9737, AUC: 0.9952, MCC: 0.9454, F1: 0.9726
+Epoch 12 | Valid Loss: 0.2705, Acc: 0.8841, Sens: 0.7991, Spec: 0.9686, AUC: 0.9701, MCC: 0.7793, F1: 0.8730
+Epoch 13 | Train Loss: 0.1805, Acc: 0.9736, Sens: 0.9723, Spec: 0.9748, AUC: 0.9962, MCC: 0.9471, F1: 0.9734
+Epoch 13 | Valid Loss: 0.2313, Acc: 0.9078, Sens: 0.8804, Spec: 0.9350, AUC: 0.9710, MCC: 0.8167, F1: 0.9049
+Epoch 14 | Train Loss: 0.1721, Acc: 0.9803, Sens: 0.9811, Spec: 0.9796, AUC: 0.9975, MCC: 0.9606, F1: 0.9802
+Epoch 14 | Valid Loss: 0.2267, Acc: 0.9089, Sens: 0.9120, Spec: 0.9058, AUC: 0.9689, MCC: 0.8178, F1: 0.9089
+Epoch 15 | Train Loss: 0.1635, Acc: 0.9828, Sens: 0.9816, Spec: 0.9840, AUC: 0.9981, MCC: 0.9657, F1: 0.9827
+Epoch 15 | Valid Loss: 0.2289, Acc: 0.9066, Sens: 0.8871, Spec: 0.9260, AUC: 0.9683, MCC: 0.8138, F1: 0.9045
+Epoch 16 | Train Loss: 0.1598, Acc: 0.9854, Sens: 0.9830, Spec: 0.9877, AUC: 0.9985, MCC: 0.9708, F1: 0.9853
+Epoch 16 | Valid Loss: 0.2283, Acc: 0.9145, Sens: 0.9165, Spec: 0.9126, AUC: 0.9682, MCC: 0.8290, F1: 0.9144
+Epoch 17 | Train Loss: 0.1594, Acc: 0.9851, Sens: 0.9830, Spec: 0.9871, AUC: 0.9985, MCC: 0.9702, F1: 0.9850
+Epoch 17 | Valid Loss: 0.2390, Acc: 0.9089, Sens: 0.9052, Spec: 0.9126, AUC: 0.9639, MCC: 0.8178, F1: 0.9083
+Epoch 18 | Train Loss: 0.1523, Acc: 0.9897, Sens: 0.9893, Spec: 0.9902, AUC: 0.9993, MCC: 0.9795, F1: 0.9897
+Epoch 18 | Valid Loss: 0.2504, Acc: 0.9066, Sens: 0.8871, Spec: 0.9260, AUC: 0.9624, MCC: 0.8138, F1: 0.9045
+Epoch 19 | Train Loss: 0.1492, Acc: 0.9914, Sens: 0.9912, Spec: 0.9916, AUC: 0.9995, MCC: 0.9828, F1: 0.9914
+Epoch 19 | Valid Loss: 0.2319, Acc: 0.9100, Sens: 0.9029, Spec: 0.9170, AUC: 0.9660, MCC: 0.8201, F1: 0.9091
+Epoch 20 | Train Loss: 0.1459, Acc: 0.9932, Sens: 0.9927, Spec: 0.9938, AUC: 0.9997, MCC: 0.9865, F1: 0.9932
+Epoch 20 | Valid Loss: 0.2432, Acc: 0.9078, Sens: 0.9165, Spec: 0.8991, AUC: 0.9654, MCC: 0.8157, F1: 0.9083
+Epoch 21 | Train Loss: 0.1465, Acc: 0.9927, Sens: 0.9932, Spec: 0.9922, AUC: 0.9994, MCC: 0.9854, F1: 0.9927
+Epoch 21 | Valid Loss: 0.2510, Acc: 0.9044, Sens: 0.8758, Spec: 0.9327, AUC: 0.9628, MCC: 0.8100, F1: 0.9013
+Epoch 22 | Train Loss: 0.1402, Acc: 0.9956, Sens: 0.9946, Spec: 0.9966, AUC: 0.9998, MCC: 0.9913, F1: 0.9956
+Epoch 22 | Valid Loss: 0.2431, Acc: 0.9021, Sens: 0.8758, Spec: 0.9283, AUC: 0.9639, MCC: 0.8053, F1: 0.8992
+Epoch 23 | Train Loss: 0.1363, Acc: 0.9969, Sens: 0.9960, Spec: 0.9978, AUC: 0.9999, MCC: 0.9938, F1: 0.9969
+Epoch 23 | Valid Loss: 0.2399, Acc: 0.9078, Sens: 0.9007, Spec: 0.9148, AUC: 0.9639, MCC: 0.8156, F1: 0.9068
+Epoch 24 | Train Loss: 0.1391, Acc: 0.9958, Sens: 0.9946, Spec: 0.9969, AUC: 0.9998, MCC: 0.9916, F1: 0.9958
+Epoch 24 | Valid Loss: 0.2844, Acc: 0.9078, Sens: 0.9549, Spec: 0.8610, AUC: 0.9552, MCC: 0.8192, F1: 0.9116
+Epoch 25 | Train Loss: 0.1384, Acc: 0.9959, Sens: 0.9955, Spec: 0.9964, AUC: 0.9999, MCC: 0.9918, F1: 0.9959
+Epoch 25 | Valid Loss: 0.2475, Acc: 0.9111, Sens: 0.9187, Spec: 0.9036, AUC: 0.9610, MCC: 0.8224, F1: 0.9115
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_attn/seed_501/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_attn/seed_501/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_attn/seed_501/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_attn/seed_501/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9735 (对应 Acc: 0.9134)
+最优模型: ./results/ablation/no_attn/seed_501/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_attn/seed_501/train/best_model.pth
+ 结果保存: ./results/ablation/no_attn/seed_501/test/test_predictions.csv
+============================================================
+ 模型变体: no_attn (use_egnn=True, use_esm=True, use_cross_attn=False, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9122
+Precision                     : 0.8856
+Sensitivity (Recall)          : 0.9457
+Specificity                   : 0.8789
+Matthews Corr Coef (MCC)      : 0.8263
+AUC                           : 0.9733
+F1-Score                      : 0.9147
+Confusion Matrix (TP/TN/FP/FN): 418 / 392 / 54 / 24
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_attn/seed_501/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_attn/seed501, 耗时 335s, AUC=0.9733
+
+################################################################
+# 消融单元: no_attn | seed 502
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_attn | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': False, 'use_coord_update': True}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_attn/seed_502/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.74 M
+Epoch 00 | Train Loss: 0.4391, Acc: 0.8143, Sens: 0.8271, Spec: 0.8017, AUC: 0.8997, MCC: 0.6290, F1: 0.8160
+Epoch 00 | Valid Loss: 0.3273, Acc: 0.8583, Sens: 0.7765, Spec: 0.9395, AUC: 0.9544, MCC: 0.7260, F1: 0.8452 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3138, Acc: 0.8958, Sens: 0.9082, Spec: 0.8835, AUC: 0.9630, MCC: 0.7918, F1: 0.8966
+Epoch 01 | Valid Loss: 0.2712, Acc: 0.8841, Sens: 0.9255, Spec: 0.8430, AUC: 0.9604, MCC: 0.7710, F1: 0.8884 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2894, Acc: 0.9127, Sens: 0.9198, Spec: 0.9056, AUC: 0.9721, MCC: 0.8254, F1: 0.9129
+Epoch 02 | Valid Loss: 0.2427, Acc: 0.8999, Sens: 0.8939, Spec: 0.9058, AUC: 0.9668, MCC: 0.7998, F1: 0.8990 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2703, Acc: 0.9215, Sens: 0.9308, Spec: 0.9123, AUC: 0.9776, MCC: 0.8432, F1: 0.9219
+Epoch 03 | Valid Loss: 0.2436, Acc: 0.9055, Sens: 0.8781, Spec: 0.9327, AUC: 0.9698, MCC: 0.8122, F1: 0.9026 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2563, Acc: 0.9302, Sens: 0.9361, Spec: 0.9244, AUC: 0.9812, MCC: 0.8605, F1: 0.9304
+Epoch 04 | Valid Loss: 0.2933, Acc: 0.8639, Sens: 0.7652, Spec: 0.9619, AUC: 0.9693, MCC: 0.7420, F1: 0.8486
+Epoch 05 | Train Loss: 0.2475, Acc: 0.9340, Sens: 0.9381, Spec: 0.9300, AUC: 0.9838, MCC: 0.8681, F1: 0.9340
+Epoch 05 | Valid Loss: 0.2896, Acc: 0.8796, Sens: 0.7946, Spec: 0.9641, AUC: 0.9707, MCC: 0.7702, F1: 0.8681 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2380, Acc: 0.9428, Sens: 0.9449, Spec: 0.9406, AUC: 0.9853, MCC: 0.8855, F1: 0.9426
+Epoch 06 | Valid Loss: 0.2203, Acc: 0.9033, Sens: 0.8962, Spec: 0.9103, AUC: 0.9736, MCC: 0.8066, F1: 0.9023 -> [已保存最优模型]
+Epoch 07 | Train Loss: 0.2269, Acc: 0.9478, Sens: 0.9531, Spec: 0.9426, AUC: 0.9883, MCC: 0.8957, F1: 0.9479
+Epoch 07 | Valid Loss: 0.2218, Acc: 0.9089, Sens: 0.8916, Spec: 0.9260, AUC: 0.9734, MCC: 0.8182, F1: 0.9070
+Epoch 08 | Train Loss: 0.2170, Acc: 0.9549, Sens: 0.9576, Spec: 0.9521, AUC: 0.9898, MCC: 0.9097, F1: 0.9548
+Epoch 08 | Valid Loss: 0.3323, Acc: 0.8470, Sens: 0.7223, Spec: 0.9709, AUC: 0.9647, MCC: 0.7161, F1: 0.8247
+Epoch 09 | Train Loss: 0.2164, Acc: 0.9518, Sens: 0.9542, Spec: 0.9493, AUC: 0.9902, MCC: 0.9035, F1: 0.9517
+Epoch 09 | Valid Loss: 0.2415, Acc: 0.9021, Sens: 0.8623, Spec: 0.9417, AUC: 0.9693, MCC: 0.8067, F1: 0.8978
+Epoch 10 | Train Loss: 0.2009, Acc: 0.9609, Sens: 0.9613, Spec: 0.9605, AUC: 0.9933, MCC: 0.9218, F1: 0.9607
+Epoch 10 | Valid Loss: 0.2184, Acc: 0.9066, Sens: 0.8984, Spec: 0.9148, AUC: 0.9737, MCC: 0.8134, F1: 0.9056 -> [已保存最优模型]
+Epoch 11 | Train Loss: 0.1965, Acc: 0.9640, Sens: 0.9633, Spec: 0.9647, AUC: 0.9934, MCC: 0.9280, F1: 0.9638
+Epoch 11 | Valid Loss: 0.2140, Acc: 0.9134, Sens: 0.8916, Spec: 0.9350, AUC: 0.9758, MCC: 0.8275, F1: 0.9112 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.1845, Acc: 0.9722, Sens: 0.9709, Spec: 0.9734, AUC: 0.9955, MCC: 0.9443, F1: 0.9720
+Epoch 12 | Valid Loss: 0.2562, Acc: 0.8886, Sens: 0.8307, Spec: 0.9462, AUC: 0.9674, MCC: 0.7824, F1: 0.8814
+Epoch 13 | Train Loss: 0.1796, Acc: 0.9733, Sens: 0.9723, Spec: 0.9742, AUC: 0.9963, MCC: 0.9466, F1: 0.9731
+Epoch 13 | Valid Loss: 0.2281, Acc: 0.9055, Sens: 0.8962, Spec: 0.9148, AUC: 0.9705, MCC: 0.8111, F1: 0.9043
+Epoch 14 | Train Loss: 0.1830, Acc: 0.9717, Sens: 0.9712, Spec: 0.9723, AUC: 0.9958, MCC: 0.9435, F1: 0.9716
+Epoch 14 | Valid Loss: 0.2169, Acc: 0.9179, Sens: 0.9142, Spec: 0.9215, AUC: 0.9761, MCC: 0.8358, F1: 0.9173 -> [已保存最优模型]
+Epoch 15 | Train Loss: 0.1685, Acc: 0.9799, Sens: 0.9777, Spec: 0.9821, AUC: 0.9980, MCC: 0.9598, F1: 0.9798
+Epoch 15 | Valid Loss: 0.2414, Acc: 0.9055, Sens: 0.8691, Spec: 0.9417, AUC: 0.9679, MCC: 0.8131, F1: 0.9016
+Epoch 16 | Train Loss: 0.1698, Acc: 0.9799, Sens: 0.9794, Spec: 0.9804, AUC: 0.9974, MCC: 0.9598, F1: 0.9798
+Epoch 16 | Valid Loss: 0.2365, Acc: 0.9134, Sens: 0.8646, Spec: 0.9619, AUC: 0.9709, MCC: 0.8306, F1: 0.9087
+Epoch 17 | Train Loss: 0.1563, Acc: 0.9852, Sens: 0.9833, Spec: 0.9871, AUC: 0.9988, MCC: 0.9705, F1: 0.9851
+Epoch 17 | Valid Loss: 0.2225, Acc: 0.9111, Sens: 0.9120, Spec: 0.9103, AUC: 0.9693, MCC: 0.8223, F1: 0.9109
+Epoch 18 | Train Loss: 0.1611, Acc: 0.9834, Sens: 0.9830, Spec: 0.9838, AUC: 0.9985, MCC: 0.9668, F1: 0.9833
+Epoch 18 | Valid Loss: 0.2769, Acc: 0.8931, Sens: 0.8262, Spec: 0.9596, AUC: 0.9615, MCC: 0.7932, F1: 0.8851
+Epoch 19 | Train Loss: 0.1501, Acc: 0.9895, Sens: 0.9890, Spec: 0.9899, AUC: 0.9994, MCC: 0.9789, F1: 0.9894
+Epoch 19 | Valid Loss: 0.2218, Acc: 0.9111, Sens: 0.8939, Spec: 0.9283, AUC: 0.9678, MCC: 0.8227, F1: 0.9093
+Epoch 20 | Train Loss: 0.1499, Acc: 0.9904, Sens: 0.9904, Spec: 0.9905, AUC: 0.9991, MCC: 0.9809, F1: 0.9904
+Epoch 20 | Valid Loss: 0.2314, Acc: 0.9123, Sens: 0.9165, Spec: 0.9081, AUC: 0.9665, MCC: 0.8246, F1: 0.9124
+Epoch 21 | Train Loss: 0.1448, Acc: 0.9925, Sens: 0.9910, Spec: 0.9941, AUC: 0.9996, MCC: 0.9851, F1: 0.9925
+Epoch 21 | Valid Loss: 0.2289, Acc: 0.9123, Sens: 0.9255, Spec: 0.8991, AUC: 0.9680, MCC: 0.8248, F1: 0.9131
+Epoch 22 | Train Loss: 0.1436, Acc: 0.9937, Sens: 0.9941, Spec: 0.9933, AUC: 0.9996, MCC: 0.9873, F1: 0.9936
+Epoch 22 | Valid Loss: 0.2645, Acc: 0.9055, Sens: 0.8420, Spec: 0.9686, AUC: 0.9614, MCC: 0.8175, F1: 0.8988
+Epoch 23 | Train Loss: 0.1401, Acc: 0.9942, Sens: 0.9938, Spec: 0.9947, AUC: 0.9997, MCC: 0.9885, F1: 0.9942
+Epoch 23 | Valid Loss: 0.2409, Acc: 0.9168, Sens: 0.8849, Spec: 0.9484, AUC: 0.9636, MCC: 0.8351, F1: 0.9138
+Epoch 24 | Train Loss: 0.1378, Acc: 0.9966, Sens: 0.9969, Spec: 0.9964, AUC: 0.9998, MCC: 0.9932, F1: 0.9966
+Epoch 24 | Valid Loss: 0.2760, Acc: 0.8943, Sens: 0.8262, Spec: 0.9619, AUC: 0.9557, MCC: 0.7957, F1: 0.8862
+Epoch 25 | Train Loss: 0.1371, Acc: 0.9952, Sens: 0.9941, Spec: 0.9964, AUC: 0.9998, MCC: 0.9904, F1: 0.9952
+Epoch 25 | Valid Loss: 0.2711, Acc: 0.8976, Sens: 0.8420, Spec: 0.9529, AUC: 0.9552, MCC: 0.8001, F1: 0.8913
+Epoch 26 | Train Loss: 0.1364, Acc: 0.9958, Sens: 0.9946, Spec: 0.9969, AUC: 0.9999, MCC: 0.9916, F1: 0.9958
+Epoch 26 | Valid Loss: 0.2454, Acc: 0.9145, Sens: 0.8758, Spec: 0.9529, AUC: 0.9604, MCC: 0.8314, F1: 0.9108
+Epoch 27 | Train Loss: 0.1347, Acc: 0.9968, Sens: 0.9969, Spec: 0.9966, AUC: 0.9999, MCC: 0.9935, F1: 0.9968
+Epoch 27 | Valid Loss: 0.2450, Acc: 0.9123, Sens: 0.8826, Spec: 0.9417, AUC: 0.9639, MCC: 0.8259, F1: 0.9093
+Epoch 28 | Train Loss: 0.1334, Acc: 0.9989, Sens: 0.9983, Spec: 0.9994, AUC: 1.0000, MCC: 0.9978, F1: 0.9989
+Epoch 28 | Valid Loss: 0.2395, Acc: 0.9168, Sens: 0.8962, Spec: 0.9372, AUC: 0.9640, MCC: 0.8342, F1: 0.9147
+Epoch 29 | Train Loss: 0.1317, Acc: 0.9973, Sens: 0.9975, Spec: 0.9972, AUC: 1.0000, MCC: 0.9947, F1: 0.9973
+Epoch 29 | Valid Loss: 0.2855, Acc: 0.8999, Sens: 0.8284, Spec: 0.9709, AUC: 0.9525, MCC: 0.8078, F1: 0.8919
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_attn/seed_502/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_attn/seed_502/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_attn/seed_502/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_attn/seed_502/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9761 (对应 Acc: 0.9179)
+最优模型: ./results/ablation/no_attn/seed_502/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_attn/seed_502/train/best_model.pth
+ 结果保存: ./results/ablation/no_attn/seed_502/test/test_predictions.csv
+============================================================
+ 模型变体: no_attn (use_egnn=True, use_esm=True, use_cross_attn=False, use_coord_update=True)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9088
+Precision                     : 0.9038
+Sensitivity (Recall)          : 0.9140
+Specificity                   : 0.9036
+Matthews Corr Coef (MCC)      : 0.8176
+AUC                           : 0.9712
+F1-Score                      : 0.9089
+Confusion Matrix (TP/TN/FP/FN): 404 / 403 / 43 / 38
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_attn/seed_502/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_attn/seed502, 耗时 386s, AUC=0.9712
+
+################################################################
+# 消融单元: no_coord | seed 500
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_coord | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_coord/seed_500/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.85 M
+Epoch 00 | Train Loss: 0.4352, Acc: 0.8228, Sens: 0.8511, Spec: 0.7947, AUC: 0.9035, MCC: 0.6467, F1: 0.8270
+Epoch 00 | Valid Loss: 0.2868, Acc: 0.8560, Sens: 0.9210, Spec: 0.7915, AUC: 0.9530, MCC: 0.7183, F1: 0.8644 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3058, Acc: 0.8994, Sens: 0.9147, Spec: 0.8843, AUC: 0.9665, MCC: 0.7993, F1: 0.9005
+Epoch 01 | Valid Loss: 0.2594, Acc: 0.8796, Sens: 0.9097, Spec: 0.8498, AUC: 0.9610, MCC: 0.7607, F1: 0.8828 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2854, Acc: 0.9131, Sens: 0.9178, Spec: 0.9084, AUC: 0.9735, MCC: 0.8262, F1: 0.9131
+Epoch 02 | Valid Loss: 0.2922, Acc: 0.8819, Sens: 0.8126, Spec: 0.9507, AUC: 0.9658, MCC: 0.7710, F1: 0.8727 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2714, Acc: 0.9233, Sens: 0.9282, Spec: 0.9185, AUC: 0.9774, MCC: 0.8467, F1: 0.9234
+Epoch 03 | Valid Loss: 0.2495, Acc: 0.9033, Sens: 0.8600, Spec: 0.9462, AUC: 0.9706, MCC: 0.8094, F1: 0.8986 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2591, Acc: 0.9314, Sens: 0.9412, Spec: 0.9216, AUC: 0.9801, MCC: 0.8629, F1: 0.9317
+Epoch 04 | Valid Loss: 0.3671, Acc: 0.8178, Sens: 0.6614, Spec: 0.9731, AUC: 0.9640, MCC: 0.6683, F1: 0.7834
+Epoch 05 | Train Loss: 0.2450, Acc: 0.9385, Sens: 0.9390, Spec: 0.9381, AUC: 0.9841, MCC: 0.8771, F1: 0.9383
+Epoch 05 | Valid Loss: 0.2401, Acc: 0.9033, Sens: 0.8578, Spec: 0.9484, AUC: 0.9730, MCC: 0.8098, F1: 0.8983 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2314, Acc: 0.9447, Sens: 0.9455, Spec: 0.9440, AUC: 0.9873, MCC: 0.8895, F1: 0.9445
+Epoch 06 | Valid Loss: 0.2663, Acc: 0.8864, Sens: 0.8239, Spec: 0.9484, AUC: 0.9669, MCC: 0.7787, F1: 0.8785
+Epoch 07 | Train Loss: 0.2234, Acc: 0.9502, Sens: 0.9534, Spec: 0.9471, AUC: 0.9889, MCC: 0.9004, F1: 0.9502
+Epoch 07 | Valid Loss: 0.2775, Acc: 0.8796, Sens: 0.7968, Spec: 0.9619, AUC: 0.9704, MCC: 0.7696, F1: 0.8684
+Epoch 08 | Train Loss: 0.2154, Acc: 0.9536, Sens: 0.9531, Spec: 0.9541, AUC: 0.9908, MCC: 0.9072, F1: 0.9534
+Epoch 08 | Valid Loss: 0.2600, Acc: 0.8943, Sens: 0.8465, Spec: 0.9417, AUC: 0.9675, MCC: 0.7920, F1: 0.8886
+Epoch 09 | Train Loss: 0.2086, Acc: 0.9551, Sens: 0.9568, Spec: 0.9535, AUC: 0.9920, MCC: 0.9103, F1: 0.9550
+Epoch 09 | Valid Loss: 0.2222, Acc: 0.9145, Sens: 0.9233, Spec: 0.9058, AUC: 0.9712, MCC: 0.8292, F1: 0.9150
+Epoch 10 | Train Loss: 0.2024, Acc: 0.9633, Sens: 0.9604, Spec: 0.9661, AUC: 0.9925, MCC: 0.9266, F1: 0.9630
+Epoch 10 | Valid Loss: 0.2994, Acc: 0.8729, Sens: 0.7765, Spec: 0.9686, AUC: 0.9647, MCC: 0.7597, F1: 0.8589
+Epoch 11 | Train Loss: 0.1901, Acc: 0.9669, Sens: 0.9633, Spec: 0.9706, AUC: 0.9947, MCC: 0.9339, F1: 0.9667
+Epoch 11 | Valid Loss: 0.2421, Acc: 0.9066, Sens: 0.9029, Spec: 0.9103, AUC: 0.9648, MCC: 0.8133, F1: 0.9060
+Epoch 12 | Train Loss: 0.1876, Acc: 0.9695, Sens: 0.9698, Spec: 0.9692, AUC: 0.9950, MCC: 0.9390, F1: 0.9694
+Epoch 12 | Valid Loss: 0.2231, Acc: 0.9089, Sens: 0.8939, Spec: 0.9238, AUC: 0.9716, MCC: 0.8181, F1: 0.9072
+Epoch 13 | Train Loss: 0.1822, Acc: 0.9719, Sens: 0.9689, Spec: 0.9748, AUC: 0.9959, MCC: 0.9438, F1: 0.9717
+Epoch 13 | Valid Loss: 0.2504, Acc: 0.8999, Sens: 0.8465, Spec: 0.9529, AUC: 0.9666, MCC: 0.8042, F1: 0.8939
+Epoch 14 | Train Loss: 0.1787, Acc: 0.9730, Sens: 0.9723, Spec: 0.9737, AUC: 0.9964, MCC: 0.9460, F1: 0.9729
+Epoch 14 | Valid Loss: 0.2602, Acc: 0.9055, Sens: 0.8600, Spec: 0.9507, AUC: 0.9675, MCC: 0.8143, F1: 0.9007
+Epoch 15 | Train Loss: 0.1703, Acc: 0.9779, Sens: 0.9749, Spec: 0.9810, AUC: 0.9972, MCC: 0.9559, F1: 0.9778
+Epoch 15 | Valid Loss: 0.2834, Acc: 0.8864, Sens: 0.8352, Spec: 0.9372, AUC: 0.9573, MCC: 0.7767, F1: 0.8799
+Epoch 16 | Train Loss: 0.1689, Acc: 0.9800, Sens: 0.9808, Spec: 0.9793, AUC: 0.9973, MCC: 0.9601, F1: 0.9800
+Epoch 16 | Valid Loss: 0.2837, Acc: 0.8886, Sens: 0.8262, Spec: 0.9507, AUC: 0.9579, MCC: 0.7832, F1: 0.8809
+Epoch 17 | Train Loss: 0.1698, Acc: 0.9778, Sens: 0.9774, Spec: 0.9782, AUC: 0.9969, MCC: 0.9556, F1: 0.9777
+Epoch 17 | Valid Loss: 0.3214, Acc: 0.8740, Sens: 0.7788, Spec: 0.9686, AUC: 0.9588, MCC: 0.7616, F1: 0.8603
+Epoch 18 | Train Loss: 0.1589, Acc: 0.9831, Sens: 0.9808, Spec: 0.9854, AUC: 0.9985, MCC: 0.9663, F1: 0.9830
+Epoch 18 | Valid Loss: 0.2855, Acc: 0.9066, Sens: 0.8555, Spec: 0.9574, AUC: 0.9572, MCC: 0.8174, F1: 0.9013
+Epoch 19 | Train Loss: 0.1497, Acc: 0.9880, Sens: 0.9856, Spec: 0.9905, AUC: 0.9992, MCC: 0.9761, F1: 0.9880
+Epoch 19 | Valid Loss: 0.2698, Acc: 0.9021, Sens: 0.8510, Spec: 0.9529, AUC: 0.9539, MCC: 0.8084, F1: 0.8966
+Epoch 20 | Train Loss: 0.1498, Acc: 0.9902, Sens: 0.9873, Spec: 0.9930, AUC: 0.9991, MCC: 0.9803, F1: 0.9901
+Epoch 20 | Valid Loss: 0.2526, Acc: 0.9010, Sens: 0.8871, Spec: 0.9148, AUC: 0.9617, MCC: 0.8023, F1: 0.8993
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_coord/seed_500/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_coord/seed_500/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_coord/seed_500/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_coord/seed_500/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9730 (对应 Acc: 0.9033)
+最优模型: ./results/ablation/no_coord/seed_500/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_coord/seed_500/train/best_model.pth
+ 结果保存: ./results/ablation/no_coord/seed_500/test/test_predictions.csv
+============================================================
+ 模型变体: no_coord (use_egnn=True, use_esm=True, use_cross_attn=True, use_coord_update=False)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9032
+Precision                     : 0.9279
+Sensitivity (Recall)          : 0.8733
+Specificity                   : 0.9327
+Matthews Corr Coef (MCC)      : 0.8076
+AUC                           : 0.9722
+F1-Score                      : 0.8998
+Confusion Matrix (TP/TN/FP/FN): 386 / 416 / 30 / 56
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_coord/seed_500/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_coord/seed500, 耗时 224s, AUC=0.9722
+
+################################################################
+# 消融单元: no_coord | seed 501
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_coord | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_coord/seed_501/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.85 M
+Epoch 00 | Train Loss: 0.4253, Acc: 0.8200, Sens: 0.8228, Spec: 0.8171, AUC: 0.9078, MCC: 0.6400, F1: 0.8198
+Epoch 00 | Valid Loss: 0.2888, Acc: 0.8785, Sens: 0.9097, Spec: 0.8475, AUC: 0.9536, MCC: 0.7586, F1: 0.8818 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3082, Acc: 0.9021, Sens: 0.9104, Spec: 0.8939, AUC: 0.9651, MCC: 0.8044, F1: 0.9025
+Epoch 01 | Valid Loss: 0.2604, Acc: 0.8886, Sens: 0.8555, Spec: 0.9215, AUC: 0.9624, MCC: 0.7789, F1: 0.8845 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2879, Acc: 0.9152, Sens: 0.9212, Spec: 0.9093, AUC: 0.9723, MCC: 0.8305, F1: 0.9153
+Epoch 02 | Valid Loss: 0.2976, Acc: 0.8684, Sens: 0.7698, Spec: 0.9664, AUC: 0.9646, MCC: 0.7512, F1: 0.8536 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2684, Acc: 0.9252, Sens: 0.9291, Spec: 0.9213, AUC: 0.9778, MCC: 0.8504, F1: 0.9252
+Epoch 03 | Valid Loss: 0.3037, Acc: 0.8594, Sens: 0.7540, Spec: 0.9641, AUC: 0.9650, MCC: 0.7349, F1: 0.8424 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2628, Acc: 0.9300, Sens: 0.9336, Spec: 0.9264, AUC: 0.9787, MCC: 0.8599, F1: 0.9299
+Epoch 04 | Valid Loss: 0.2354, Acc: 0.8898, Sens: 0.9120, Spec: 0.8677, AUC: 0.9702, MCC: 0.7803, F1: 0.8918 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2499, Acc: 0.9373, Sens: 0.9443, Spec: 0.9303, AUC: 0.9822, MCC: 0.8746, F1: 0.9374
+Epoch 05 | Valid Loss: 0.2615, Acc: 0.8931, Sens: 0.8284, Spec: 0.9574, AUC: 0.9730, MCC: 0.7927, F1: 0.8854 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2387, Acc: 0.9406, Sens: 0.9418, Spec: 0.9395, AUC: 0.9854, MCC: 0.8813, F1: 0.9405
+Epoch 06 | Valid Loss: 0.2340, Acc: 0.9066, Sens: 0.8916, Spec: 0.9215, AUC: 0.9708, MCC: 0.8136, F1: 0.9049
+Epoch 07 | Train Loss: 0.2270, Acc: 0.9491, Sens: 0.9508, Spec: 0.9474, AUC: 0.9877, MCC: 0.8982, F1: 0.9490
+Epoch 07 | Valid Loss: 0.2188, Acc: 0.9078, Sens: 0.9165, Spec: 0.8991, AUC: 0.9740, MCC: 0.8157, F1: 0.9083 -> [已保存最优模型]
+Epoch 08 | Train Loss: 0.2208, Acc: 0.9533, Sens: 0.9554, Spec: 0.9513, AUC: 0.9890, MCC: 0.9066, F1: 0.9532
+Epoch 08 | Valid Loss: 0.2166, Acc: 0.9100, Sens: 0.9007, Spec: 0.9193, AUC: 0.9725, MCC: 0.8201, F1: 0.9089
+Epoch 09 | Train Loss: 0.2039, Acc: 0.9603, Sens: 0.9613, Spec: 0.9594, AUC: 0.9924, MCC: 0.9207, F1: 0.9602
+Epoch 09 | Valid Loss: 0.2168, Acc: 0.9134, Sens: 0.9187, Spec: 0.9081, AUC: 0.9746, MCC: 0.8268, F1: 0.9136 -> [已保存最优模型]
+Epoch 10 | Train Loss: 0.1951, Acc: 0.9667, Sens: 0.9667, Spec: 0.9667, AUC: 0.9936, MCC: 0.9333, F1: 0.9665
+Epoch 10 | Valid Loss: 0.2342, Acc: 0.9021, Sens: 0.8488, Spec: 0.9552, AUC: 0.9744, MCC: 0.8087, F1: 0.8963
+Epoch 11 | Train Loss: 0.1955, Acc: 0.9647, Sens: 0.9644, Spec: 0.9650, AUC: 0.9935, MCC: 0.9294, F1: 0.9645
+Epoch 11 | Valid Loss: 0.2162, Acc: 0.9078, Sens: 0.9413, Spec: 0.8744, AUC: 0.9764, MCC: 0.8174, F1: 0.9105 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.1902, Acc: 0.9675, Sens: 0.9684, Spec: 0.9667, AUC: 0.9945, MCC: 0.9350, F1: 0.9674
+Epoch 12 | Valid Loss: 0.2216, Acc: 0.9111, Sens: 0.8600, Spec: 0.9619, AUC: 0.9763, MCC: 0.8265, F1: 0.9061
+Epoch 13 | Train Loss: 0.1823, Acc: 0.9716, Sens: 0.9723, Spec: 0.9709, AUC: 0.9955, MCC: 0.9432, F1: 0.9715
+Epoch 13 | Valid Loss: 0.2488, Acc: 0.9010, Sens: 0.8375, Spec: 0.9641, AUC: 0.9750, MCC: 0.8084, F1: 0.8940
+Epoch 14 | Train Loss: 0.1787, Acc: 0.9736, Sens: 0.9712, Spec: 0.9759, AUC: 0.9962, MCC: 0.9471, F1: 0.9734
+Epoch 14 | Valid Loss: 0.2135, Acc: 0.9134, Sens: 0.9165, Spec: 0.9103, AUC: 0.9746, MCC: 0.8268, F1: 0.9134
+Epoch 15 | Train Loss: 0.1718, Acc: 0.9776, Sens: 0.9774, Spec: 0.9779, AUC: 0.9970, MCC: 0.9553, F1: 0.9775
+Epoch 15 | Valid Loss: 0.2530, Acc: 0.9078, Sens: 0.8691, Spec: 0.9462, AUC: 0.9677, MCC: 0.8179, F1: 0.9038
+Epoch 16 | Train Loss: 0.1704, Acc: 0.9768, Sens: 0.9732, Spec: 0.9804, AUC: 0.9975, MCC: 0.9536, F1: 0.9766
+Epoch 16 | Valid Loss: 0.2370, Acc: 0.9179, Sens: 0.9007, Spec: 0.9350, AUC: 0.9704, MCC: 0.8362, F1: 0.9162
+Epoch 17 | Train Loss: 0.1621, Acc: 0.9824, Sens: 0.9808, Spec: 0.9840, AUC: 0.9980, MCC: 0.9648, F1: 0.9823
+Epoch 17 | Valid Loss: 0.2377, Acc: 0.9089, Sens: 0.9278, Spec: 0.8901, AUC: 0.9696, MCC: 0.8184, F1: 0.9103
+Epoch 18 | Train Loss: 0.1587, Acc: 0.9842, Sens: 0.9842, Spec: 0.9843, AUC: 0.9983, MCC: 0.9685, F1: 0.9842
+Epoch 18 | Valid Loss: 0.2196, Acc: 0.9224, Sens: 0.9323, Spec: 0.9126, AUC: 0.9734, MCC: 0.8450, F1: 0.9229
+Epoch 19 | Train Loss: 0.1503, Acc: 0.9876, Sens: 0.9864, Spec: 0.9888, AUC: 0.9989, MCC: 0.9752, F1: 0.9876
+Epoch 19 | Valid Loss: 0.2423, Acc: 0.9156, Sens: 0.9029, Spec: 0.9283, AUC: 0.9652, MCC: 0.8315, F1: 0.9143
+Epoch 20 | Train Loss: 0.1468, Acc: 0.9904, Sens: 0.9904, Spec: 0.9905, AUC: 0.9991, MCC: 0.9809, F1: 0.9904
+Epoch 20 | Valid Loss: 0.2566, Acc: 0.9078, Sens: 0.8826, Spec: 0.9327, AUC: 0.9647, MCC: 0.8165, F1: 0.9051
+Epoch 21 | Train Loss: 0.1469, Acc: 0.9906, Sens: 0.9901, Spec: 0.9910, AUC: 0.9990, MCC: 0.9812, F1: 0.9905
+Epoch 21 | Valid Loss: 0.2368, Acc: 0.9168, Sens: 0.9345, Spec: 0.8991, AUC: 0.9699, MCC: 0.8341, F1: 0.9180
+Epoch 22 | Train Loss: 0.1428, Acc: 0.9930, Sens: 0.9927, Spec: 0.9933, AUC: 0.9991, MCC: 0.9859, F1: 0.9929
+Epoch 22 | Valid Loss: 0.2215, Acc: 0.9224, Sens: 0.9120, Spec: 0.9327, AUC: 0.9728, MCC: 0.8449, F1: 0.9213
+Epoch 23 | Train Loss: 0.1397, Acc: 0.9932, Sens: 0.9927, Spec: 0.9938, AUC: 0.9995, MCC: 0.9865, F1: 0.9932
+Epoch 23 | Valid Loss: 0.2383, Acc: 0.9145, Sens: 0.8871, Spec: 0.9417, AUC: 0.9677, MCC: 0.8302, F1: 0.9118
+Epoch 24 | Train Loss: 0.1381, Acc: 0.9938, Sens: 0.9927, Spec: 0.9950, AUC: 0.9996, MCC: 0.9876, F1: 0.9938
+Epoch 24 | Valid Loss: 0.2274, Acc: 0.9258, Sens: 0.9300, Spec: 0.9215, AUC: 0.9682, MCC: 0.8516, F1: 0.9258
+Epoch 25 | Train Loss: 0.1387, Acc: 0.9937, Sens: 0.9941, Spec: 0.9933, AUC: 0.9994, MCC: 0.9873, F1: 0.9936
+Epoch 25 | Valid Loss: 0.2383, Acc: 0.9201, Sens: 0.9120, Spec: 0.9283, AUC: 0.9623, MCC: 0.8404, F1: 0.9192
+Epoch 26 | Train Loss: 0.1375, Acc: 0.9945, Sens: 0.9935, Spec: 0.9955, AUC: 0.9993, MCC: 0.9890, F1: 0.9945
+Epoch 26 | Valid Loss: 0.2362, Acc: 0.9168, Sens: 0.8781, Spec: 0.9552, AUC: 0.9697, MCC: 0.8359, F1: 0.9131
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_coord/seed_501/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_coord/seed_501/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_coord/seed_501/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_coord/seed_501/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9764 (对应 Acc: 0.9078)
+最优模型: ./results/ablation/no_coord/seed_501/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_coord/seed_501/train/best_model.pth
+ 结果保存: ./results/ablation/no_coord/seed_501/test/test_predictions.csv
+============================================================
+ 模型变体: no_coord (use_egnn=True, use_esm=True, use_cross_attn=True, use_coord_update=False)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9110
+Precision                     : 0.8712
+Sensitivity (Recall)          : 0.9638
+Specificity                   : 0.8587
+Matthews Corr Coef (MCC)      : 0.8268
+AUC                           : 0.9756
+F1-Score                      : 0.9151
+Confusion Matrix (TP/TN/FP/FN): 426 / 383 / 63 / 16
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_coord/seed_501/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_coord/seed501, 耗时 281s, AUC=0.9756
+
+################################################################
+# 消融单元: no_coord | seed 502
+# 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+################################################################
+============================================================
+ NeuroPred-3D-EGNN 训练 | 设备: cuda | 批大小: 128 | lr: 0.0005
+ 消融变体: no_coord | 开关: {'use_egnn': True, 'use_esm': True, 'use_cross_attn': True, 'use_coord_update': False}
+ ESM: esm2_t33_650M_UR50D | EGNN: 4 层 x 128 维 | kNN: 8 | 距离阈值: 10.0Å
+ 训练集: training_v2.csv | 验证集: validation_v2.csv
+ 最优权重: ./results/ablation/no_coord/seed_502/train/best_model.pth
+============================================================
+ 训练 batch 数: 56 | 验证 batch 数: 7
+ 可训练参数量: 0.85 M
+Epoch 00 | Train Loss: 0.4068, Acc: 0.8354, Sens: 0.8505, Spec: 0.8205, AUC: 0.9189, MCC: 0.6713, F1: 0.8373
+Epoch 00 | Valid Loss: 0.2740, Acc: 0.8695, Sens: 0.9187, Spec: 0.8206, AUC: 0.9555, MCC: 0.7428, F1: 0.8753 -> [已保存最优模型]
+Epoch 01 | Train Loss: 0.3112, Acc: 0.9028, Sens: 0.9127, Spec: 0.8930, AUC: 0.9637, MCC: 0.8058, F1: 0.9034
+Epoch 01 | Valid Loss: 0.2645, Acc: 0.8898, Sens: 0.8871, Spec: 0.8924, AUC: 0.9610, MCC: 0.7795, F1: 0.8891 -> [已保存最优模型]
+Epoch 02 | Train Loss: 0.2839, Acc: 0.9125, Sens: 0.9206, Spec: 0.9045, AUC: 0.9732, MCC: 0.8252, F1: 0.9129
+Epoch 02 | Valid Loss: 0.3452, Acc: 0.8403, Sens: 0.7043, Spec: 0.9753, AUC: 0.9644, MCC: 0.7065, F1: 0.8146 -> [已保存最优模型]
+Epoch 03 | Train Loss: 0.2732, Acc: 0.9224, Sens: 0.9271, Spec: 0.9177, AUC: 0.9762, MCC: 0.8448, F1: 0.9224
+Epoch 03 | Valid Loss: 0.2380, Acc: 0.8988, Sens: 0.8939, Spec: 0.9036, AUC: 0.9701, MCC: 0.7975, F1: 0.8980 -> [已保存最优模型]
+Epoch 04 | Train Loss: 0.2552, Acc: 0.9308, Sens: 0.9370, Spec: 0.9247, AUC: 0.9817, MCC: 0.8617, F1: 0.9309
+Epoch 04 | Valid Loss: 0.2282, Acc: 0.8988, Sens: 0.9300, Spec: 0.8677, AUC: 0.9724, MCC: 0.7992, F1: 0.9015 -> [已保存最优模型]
+Epoch 05 | Train Loss: 0.2460, Acc: 0.9377, Sens: 0.9438, Spec: 0.9317, AUC: 0.9835, MCC: 0.8755, F1: 0.9378
+Epoch 05 | Valid Loss: 0.2261, Acc: 0.9078, Sens: 0.9052, Spec: 0.9103, AUC: 0.9729, MCC: 0.8155, F1: 0.9072 -> [已保存最优模型]
+Epoch 06 | Train Loss: 0.2275, Acc: 0.9480, Sens: 0.9531, Spec: 0.9429, AUC: 0.9877, MCC: 0.8960, F1: 0.9480
+Epoch 06 | Valid Loss: 0.2491, Acc: 0.8954, Sens: 0.9503, Spec: 0.8408, AUC: 0.9713, MCC: 0.7957, F1: 0.9005
+Epoch 07 | Train Loss: 0.2213, Acc: 0.9509, Sens: 0.9539, Spec: 0.9479, AUC: 0.9894, MCC: 0.9018, F1: 0.9509
+Epoch 07 | Valid Loss: 0.2552, Acc: 0.8943, Sens: 0.8262, Spec: 0.9619, AUC: 0.9711, MCC: 0.7957, F1: 0.8862
+Epoch 08 | Train Loss: 0.2132, Acc: 0.9540, Sens: 0.9556, Spec: 0.9524, AUC: 0.9907, MCC: 0.9080, F1: 0.9539
+Epoch 08 | Valid Loss: 0.2374, Acc: 0.8965, Sens: 0.8510, Spec: 0.9417, AUC: 0.9727, MCC: 0.7962, F1: 0.8913
+Epoch 09 | Train Loss: 0.2076, Acc: 0.9568, Sens: 0.9576, Spec: 0.9560, AUC: 0.9918, MCC: 0.9136, F1: 0.9567
+Epoch 09 | Valid Loss: 0.2518, Acc: 0.9010, Sens: 0.8420, Spec: 0.9596, AUC: 0.9722, MCC: 0.8075, F1: 0.8945
+Epoch 10 | Train Loss: 0.1944, Acc: 0.9646, Sens: 0.9633, Spec: 0.9658, AUC: 0.9944, MCC: 0.9291, F1: 0.9644
+Epoch 10 | Valid Loss: 0.2262, Acc: 0.9055, Sens: 0.8781, Spec: 0.9327, AUC: 0.9723, MCC: 0.8122, F1: 0.9026
+Epoch 11 | Train Loss: 0.1878, Acc: 0.9679, Sens: 0.9655, Spec: 0.9703, AUC: 0.9950, MCC: 0.9359, F1: 0.9677
+Epoch 11 | Valid Loss: 0.2135, Acc: 0.9145, Sens: 0.9007, Spec: 0.9283, AUC: 0.9755, MCC: 0.8293, F1: 0.9130 -> [已保存最优模型]
+Epoch 12 | Train Loss: 0.1826, Acc: 0.9730, Sens: 0.9723, Spec: 0.9737, AUC: 0.9957, MCC: 0.9460, F1: 0.9729
+Epoch 12 | Valid Loss: 0.2428, Acc: 0.9089, Sens: 0.8488, Spec: 0.9686, AUC: 0.9671, MCC: 0.8236, F1: 0.9028
+Epoch 13 | Train Loss: 0.1782, Acc: 0.9745, Sens: 0.9740, Spec: 0.9751, AUC: 0.9963, MCC: 0.9491, F1: 0.9744
+Epoch 13 | Valid Loss: 0.2332, Acc: 0.9089, Sens: 0.8826, Spec: 0.9350, AUC: 0.9687, MCC: 0.8188, F1: 0.9061
+Epoch 14 | Train Loss: 0.1731, Acc: 0.9767, Sens: 0.9782, Spec: 0.9751, AUC: 0.9971, MCC: 0.9533, F1: 0.9766
+Epoch 14 | Valid Loss: 0.2533, Acc: 0.8965, Sens: 0.8352, Spec: 0.9574, AUC: 0.9676, MCC: 0.7989, F1: 0.8894
+Epoch 15 | Train Loss: 0.1726, Acc: 0.9765, Sens: 0.9737, Spec: 0.9793, AUC: 0.9971, MCC: 0.9530, F1: 0.9763
+Epoch 15 | Valid Loss: 0.2211, Acc: 0.9033, Sens: 0.8849, Spec: 0.9215, AUC: 0.9727, MCC: 0.8070, F1: 0.9011
+Epoch 16 | Train Loss: 0.1592, Acc: 0.9845, Sens: 0.9839, Spec: 0.9852, AUC: 0.9983, MCC: 0.9691, F1: 0.9845
+Epoch 16 | Valid Loss: 0.2498, Acc: 0.9055, Sens: 0.8691, Spec: 0.9417, AUC: 0.9664, MCC: 0.8131, F1: 0.9016
+Epoch 17 | Train Loss: 0.1542, Acc: 0.9871, Sens: 0.9864, Spec: 0.9877, AUC: 0.9988, MCC: 0.9741, F1: 0.9870
+Epoch 17 | Valid Loss: 0.2329, Acc: 0.9134, Sens: 0.9142, Spec: 0.9126, AUC: 0.9672, MCC: 0.8268, F1: 0.9132
+Epoch 18 | Train Loss: 0.1511, Acc: 0.9876, Sens: 0.9878, Spec: 0.9874, AUC: 0.9989, MCC: 0.9752, F1: 0.9876
+Epoch 18 | Valid Loss: 0.2420, Acc: 0.9100, Sens: 0.8849, Spec: 0.9350, AUC: 0.9678, MCC: 0.8210, F1: 0.9074
+Epoch 19 | Train Loss: 0.1485, Acc: 0.9897, Sens: 0.9884, Spec: 0.9910, AUC: 0.9991, MCC: 0.9795, F1: 0.9897
+Epoch 19 | Valid Loss: 0.2408, Acc: 0.9123, Sens: 0.8826, Spec: 0.9417, AUC: 0.9641, MCC: 0.8259, F1: 0.9093
+Epoch 20 | Train Loss: 0.1439, Acc: 0.9918, Sens: 0.9907, Spec: 0.9930, AUC: 0.9995, MCC: 0.9837, F1: 0.9918
+Epoch 20 | Valid Loss: 0.2438, Acc: 0.9078, Sens: 0.8849, Spec: 0.9305, AUC: 0.9598, MCC: 0.8163, F1: 0.9053
+Epoch 21 | Train Loss: 0.1444, Acc: 0.9911, Sens: 0.9912, Spec: 0.9910, AUC: 0.9993, MCC: 0.9823, F1: 0.9911
+Epoch 21 | Valid Loss: 0.2404, Acc: 0.9066, Sens: 0.8894, Spec: 0.9238, AUC: 0.9640, MCC: 0.8137, F1: 0.9047
+Epoch 22 | Train Loss: 0.1398, Acc: 0.9942, Sens: 0.9935, Spec: 0.9950, AUC: 0.9997, MCC: 0.9885, F1: 0.9942
+Epoch 22 | Valid Loss: 0.2411, Acc: 0.9156, Sens: 0.9210, Spec: 0.9103, AUC: 0.9640, MCC: 0.8313, F1: 0.9158
+Epoch 23 | Train Loss: 0.1381, Acc: 0.9944, Sens: 0.9952, Spec: 0.9936, AUC: 0.9997, MCC: 0.9887, F1: 0.9944
+Epoch 23 | Valid Loss: 0.2511, Acc: 0.9123, Sens: 0.8781, Spec: 0.9462, AUC: 0.9609, MCC: 0.8264, F1: 0.9089
+Epoch 24 | Train Loss: 0.1345, Acc: 0.9963, Sens: 0.9966, Spec: 0.9961, AUC: 0.9998, MCC: 0.9927, F1: 0.9963
+Epoch 24 | Valid Loss: 0.2496, Acc: 0.9078, Sens: 0.9029, Spec: 0.9126, AUC: 0.9639, MCC: 0.8155, F1: 0.9070
+Epoch 25 | Train Loss: 0.1334, Acc: 0.9972, Sens: 0.9969, Spec: 0.9975, AUC: 0.9999, MCC: 0.9944, F1: 0.9972
+Epoch 25 | Valid Loss: 0.2543, Acc: 0.9089, Sens: 0.8871, Spec: 0.9305, AUC: 0.9591, MCC: 0.8185, F1: 0.9066
+Epoch 26 | Train Loss: 0.1323, Acc: 0.9969, Sens: 0.9972, Spec: 0.9966, AUC: 1.0000, MCC: 0.9938, F1: 0.9969
+Epoch 26 | Valid Loss: 0.2868, Acc: 0.9010, Sens: 0.8442, Spec: 0.9574, AUC: 0.9565, MCC: 0.8071, F1: 0.8947
+[早停] 验证集 AUC 连续 15 轮未提升, 提前结束训练。
+[保存] 验证集指标: ./results/ablation/no_coord/seed_502/train/val_metrics.txt
+[保存] 验证集逐条预测: ./results/ablation/no_coord/seed_502/train/val_predictions.csv (共 889 条)
+[保存] 训练日志: ./results/ablation/no_coord/seed_502/train/training_log.csv | 最新 checkpoint: ./results/ablation/no_coord/seed_502/train/latest_checkpoint.pth
+============================================================
+训练完成! 最佳验证 AUC: 0.9755 (对应 Acc: 0.9145)
+最优模型: ./results/ablation/no_coord/seed_502/train/best_model.pth
+============================================================
+============================================================
+ NeuroPred-3D-EGNN 评估 | 设备: cuda | 测试集: testing_v2.csv
+ 加载模型: ./results/ablation/no_coord/seed_502/train/best_model.pth
+ 结果保存: ./results/ablation/no_coord/seed_502/test/test_predictions.csv
+============================================================
+ 模型变体: no_coord (use_egnn=True, use_esm=True, use_cross_attn=True, use_coord_update=False)
+
+----------------- 评估指标汇总 -----------------
+Accuracy                      : 0.9245
+Precision                     : 0.9391
+Sensitivity (Recall)          : 0.9072
+Specificity                   : 0.9417
+Matthews Corr Coef (MCC)      : 0.8496
+AUC                           : 0.9747
+F1-Score                      : 0.9229
+Confusion Matrix (TP/TN/FP/FN): 401 / 420 / 26 / 41
+------------------------------------------------
+
+预测明细已保存至: ./results/ablation/no_coord/seed_502/test/test_predictions.csv (共 888 条数据)
+>>> 单元完成 no_coord/seed502, 耗时 284s, AUC=0.9747
+
+==========================================================================================
+消融实验完成 (Mean ± Std)
+==========================================================================================
+Variant      Params     Accuracy    Precision  Sensitivity  Specificity          MCC          AUC     F1-Score
+--------------------------------------------------------------------------------------------------------------
+full         0.917M  0.9204±0.0013  0.9020±0.0073  0.9427±0.0073  0.8984±0.0091  0.8418±0.0022  0.9765±0.0018  0.9218±0.0009
+no_3d        0.271M  0.9017±0.0066  0.9415±0.0123  0.8560±0.0265  0.9469±0.0131  0.8069±0.0101  0.9743±0.0001  0.8964±0.0092
+no_esm       0.571M  0.8363±0.0239  0.8416±0.0195  0.8265±0.0309  0.8460±0.0170  0.6728±0.0477  0.9197±0.0164  0.8340±0.0253
+no_attn      0.735M  0.9133±0.0052  0.9014±0.0148  0.9276±0.0163  0.8991±0.0184  0.8273±0.0102  0.9739±0.0031  0.9142±0.0050
+no_coord     0.851M  0.9129±0.0108  0.9127±0.0364  0.9148±0.0457  0.9111±0.0455  0.8280±0.0210  0.9742±0.0018  0.9126±0.0118
+==========================================================================================
+原始明细: ./results/ablation/ablation_raw.csv
+汇总表  : ./results/ablation/ablation_summary.csv
+文本报告: ./results/ablation/ablation_report.txt
+
+全部单元结束: 成功 15/15, 总耗时 59.3 分钟

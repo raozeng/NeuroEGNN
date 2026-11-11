@@ -1,0 +1,14 @@
+Fold 1 test metrics (数据文件: testing_v2_fold2.csv)
+train: training_v2_fold2.csv | val: validation_v2_fold2.csv | test: testing_v2_fold2.csv
+-------------------------------------------------
+Test Metrics (fold_1)
+-------------------------------------------------
+Accuracy                      : 0.9033
+Precision                     : 0.8687
+Sensitivity (Recall)          : 0.9492
+Specificity                   : 0.8578
+Matthews Corr Coef (MCC)      : 0.8101
+AUC                           : 0.9742
+F1-Score                      : 0.9071
+Confusion Matrix (TP/TN/FP/FN): 840 / 766 / 127 / 45
+-------------------------------------------------

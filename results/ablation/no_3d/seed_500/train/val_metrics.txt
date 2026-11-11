@@ -1,0 +1,13 @@
+Validation metrics | validation_v2.csv | best selected by val AUC = 0.9735
+-------------------------------------------------
+Validation Metrics
+-------------------------------------------------
+Accuracy                      : 0.8875
+Precision                     : 0.9501
+Sensitivity (Recall)          : 0.8172
+Specificity                   : 0.9574
+Matthews Corr Coef (MCC)      : 0.7826
+AUC                           : 0.9735
+F1-Score                      : 0.8786
+Confusion Matrix (TP/TN/FP/FN): 362 / 427 / 19 / 81
+-------------------------------------------------
