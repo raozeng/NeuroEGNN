@@ -2,7 +2,7 @@ import os, sys, json, numpy as np, pandas as pd
 from scipy import stats
 CODE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, CODE_DIR)
-from run_jcim_supplements import AAS, load_ckpt, load_batch_tensors, forward_neuroegnn_numpy
+from run_debiased_and_relaxation import AAS, load_ckpt, load_batch_tensors, forward_neuroegnn_numpy
 
 s2g_stats = {"local_seq": [], "med_spatial": [], "long_spatial": [], "distant": []}
 g2s_stats = {"local_seq": [], "med_spatial": [], "long_spatial": [], "distant": []}

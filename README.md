@@ -42,11 +42,11 @@ NeuroEGNN/
 ├── run_interpretability.py         # Bidirectional cross-attention extraction & residue attribution analysis
 ├── run_case_study.py               # Representative high-confidence & boundary peptide case selector
 ├── run_supplement_experiments.py   # Classical, static-3D, & PLM baseline benchmarks + length-stratified evaluation
-├── run_jcim_supplements.py         # SOTA predictors, Non-Met1 debiased benchmark, EGNN relaxation, & pure-NumPy inference
+├── run_debiased_and_relaxation.py         # SOTA predictors, Non-Met1 debiased benchmark, EGNN relaxation, & pure-NumPy inference
 ├── compute_clean_all.py            # Out-of-fold & hold-out statistical diagnostics (DeLong, McNemar, calibration)
 ├── compute_oof_interp.py           # Zero-leakage 5-fold out-of-fold co-attention aggregation (N = 8,887)
 ├── generate_nc_architecture.py     # Vector generator for Figure 1 (NeuroEGNN architecture diagram)
-├── generate_all_figures.py         # Vector generator for Figures 2-7 and ACS TOC graphic
+├── generate_all_figures.py         # Vector generator for Figures 2-7 and TOC graphic
 ├── all_data.csv                    # Deduplicated benchmark corpus (N = 8,887: 4,424 Pos / 4,463 Neg)
 ├── training_v2.csv                 # Hold-out training split (N = 7,110)
 ├── validation_v2.csv               # Hold-out validation split (N = 889)
@@ -61,7 +61,7 @@ NeuroEGNN/
 │   ├── 5fold/                      # 5-fold CV checkpoints (fold_0..4/best_model.pth), OOF predictions, & metrics
 │   ├── ablation/                   # 15 hold-out checkpoints (5 variants x seeds 500-502/best_model.pth) & metrics
 │   ├── baselines/                  # Classical, static-3D, & PLM baseline summary/per-fold CSVs & ROC/PR curves
-│   ├── jcim_supplements/           # SOTA comparisons, Non-Met1 hard-subset results, 3D relaxation, & manifold stats
+│   ├── debiased_and_relaxation/           # SOTA comparisons, Non-Met1 hard-subset results, 3D relaxation, & manifold stats
 │   └── figure_data/                # Aggregated zero-leakage OOF diagnostics & co-attention statistics
 ├── requirements.txt                # Python package dependencies
 └── LICENSE                         # MIT License
@@ -128,7 +128,7 @@ python run_interpretability.py \
 ### 4.6 Baselines, Non-$\text{Met}_1$ Debiased Evaluation & 3D Coordinate Relaxation
 ```bash
 python run_supplement_experiments.py
-python run_jcim_supplements.py
+python run_debiased_and_relaxation.py
 ```
 
 ### 4.7 Regenerating Publication Figures

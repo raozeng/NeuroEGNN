@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-JCIM Top-Tier Supplementary Experiments for NeuroEGNN:
+Extended SOTA, Debiased Non-Met1, and 3D Relaxation Experiments for NeuroEGNN:
 1. Non-Met1 Hard Subset Evaluation & Counterfactual N-Terminal Masking Stress Test
    (across both 5-Fold Cross-Validation N=5,877 and Hold-Out Test N=586).
 2. Faithful Reproduction & Benchmarking of Named SOTA Neuropeptide Predictors:
@@ -11,7 +11,7 @@ JCIM Top-Tier Supplementary Experiments for NeuroEGNN:
 4. Latent Representation Manifold Separability (Silhouette, Davies-Bouldin,
    Calinski-Harabasz, Fisher Discriminant Ratio) and t-SNE Evolution.
 5. Generation of Figure 6 (fig6_structural_relaxation_and_debiased.pdf) and
-   ACS JCIM Table of Contents Graphic (fig_toc_graphic.pdf).
+   Table of Contents (TOC) Graphic (fig_toc_graphic.pdf).
 """
 
 import os
@@ -52,7 +52,7 @@ warnings.filterwarnings('ignore')
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _CAND_FIG_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'paper', 'figures')
 PAPER_FIG_DIR = _CAND_FIG_DIR if os.path.isdir(_CAND_FIG_DIR) else os.path.join(SCRIPT_DIR, 'results', 'figures')
-OUT_DIR = os.path.join(SCRIPT_DIR, 'results', 'jcim_supplements')
+OUT_DIR = os.path.join(SCRIPT_DIR, 'results', 'debiased_and_relaxation')
 os.makedirs(PAPER_FIG_DIR, exist_ok=True)
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -1017,7 +1017,7 @@ def run_coordinate_relaxation_and_counterfactual_analysis():
 # 5. Publication Figure 6 (Debiased Non-Met1 + 3D Relaxation + t-SNE) & TOC
 # ---------------------------------------------------------------------------
 
-def generate_jcim_figures(df_holdout_seeds, df_cv5_sum, struct_res):
+def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     print("\n" + "=" * 75)
     print("[Step 5] Generating Figure 6 (fig6_structural_relaxation_and_debiased.pdf) & TOC")
     print("=" * 75)
@@ -1204,7 +1204,7 @@ def generate_jcim_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     plt.close(fig)
     print(f"  -> Saved Figure 6 to {fig6_pdf}")
 
-    # --- Generate ACS JCIM Table of Contents (TOC) Graphic (8.25 cm x 4.45 cm ratio -> 6.5 in x 3.5 in) ---
+    # --- Generate Table of Contents (TOC) Graphic (8.25 cm x 4.45 cm ratio -> 6.5 in x 3.5 in) ---
     fig_toc, ax_toc = plt.subplots(figsize=(6.8, 3.6), dpi=300)
     ax_toc.set_xlim(0, 100)
     ax_toc.set_ylim(0, 53)
@@ -1286,11 +1286,11 @@ def generate_jcim_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     fig_toc.savefig(toc_pdf, bbox_inches="tight", dpi=300)
     fig_toc.savefig(toc_png, bbox_inches="tight", dpi=300)
     plt.close(fig_toc)
-    print(f"  -> Saved ACS JCIM TOC Graphic to {toc_pdf}")
+    print(f"  -> Saved TOC Graphic to {toc_pdf}")
 
 
 if __name__ == "__main__":
     df_holdout_seeds, df_cv5_sum = run_sota_and_non_met1_experiments()
     struct_res = run_coordinate_relaxation_and_counterfactual_analysis()
-    generate_jcim_figures(df_holdout_seeds, df_cv5_sum, struct_res)
-    print("\nALL JCIM SUPPLEMENTARY EXPERIMENTS COMPLETED SUCCESSFULLY!")
+    generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res)
+    print("\nALL EXTENDED EXPERIMENTS COMPLETED SUCCESSFULLY!")

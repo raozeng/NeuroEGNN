@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Regenerate all 7 publication-grade figures (Figures 2-7 + ACS JCIM TOC Graphic)
+Regenerate all 7 publication-grade figures (Figures 2-7 + TOC Graphic)
 with 100% zero-leakage statistics, unified uppercase (A)-(D) panel labels,
 and exact alignment with main.tex tables and captions.
 Note: fig0_architecture.pdf/.png (Figure 1) is intentionally preserved untouched.
@@ -35,7 +35,7 @@ DATA_DIR = os.path.join(CODE_DIR, "results", "figure_data")
 sys.path.insert(0, CODE_DIR)
 
 from make_split import cluster_sequences
-from run_jcim_supplements import (
+from run_debiased_and_relaxation import (
     AAS, extract_handcrafted_430, extract_multiscale_seq_features,
     extract_plm_multiscale_conv_features, load_ckpt, load_batch_tensors,
     forward_neuroegnn_numpy
@@ -340,7 +340,7 @@ def make_fig2_performance():
     # (C) 5-Fold CV Multi-Metric Comparison
     axC = fig.add_subplot(gs[1, 0])
     df_cv_base = pd.read_csv(os.path.join(CODE_DIR, "results", "baselines", "cv5_baselines_summary.csv")).set_index("Method")
-    df_cv_sota = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "cv5_sota_and_non_met1_summary.csv")).set_index("Method")
+    df_cv_sota = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "cv5_sota_and_non_met1_summary.csv")).set_index("Method")
 
     cv_items = [
         ("GBDT\n(1D)", df_cv_base.loc["AAC+DPC+PCP + GBDT"], "base"),
@@ -379,7 +379,7 @@ def make_fig2_performance():
 
     # (D) Fold-wise MCC box/strip plot + OOF DeLong / McNemar significance
     axD = fig.add_subplot(gs[1, 1])
-    df_pf = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "cv5_sota_and_non_met1_per_fold.csv"))
+    df_pf = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "cv5_sota_and_non_met1_per_fold.csv"))
     # Compute per-fold MCC for NeuroPred-FRL from clean_oof_and_holdout.npz
     oof_frl = OOF_NPZ["oof_NeuroPred-FRL"]
     oof_y = OOF_NPZ["oof_y"]
@@ -444,7 +444,7 @@ def make_fig2_performance():
 # ===========================================================================
 def make_fig3_ablation():
     print("[3/7] Generating fig3_ablation_and_length ...")
-    df_ab = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "holdout_seeds_sota_and_non_met1.csv")).set_index("Method")
+    df_ab = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "holdout_seeds_sota_and_non_met1.csv")).set_index("Method")
     df_len = pd.read_csv(os.path.join(CODE_DIR, "results", "baselines", "ablation_length_stratified.csv"))
 
     variants = [
@@ -805,8 +805,8 @@ def make_fig5_cases():
 # ===========================================================================
 def make_fig6_relax_debiased():
     print("[6/7] Generating fig6_structural_relaxation_and_debiased ...")
-    df_hs = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "holdout_seeds_sota_and_non_met1.csv")).set_index("Method")
-    df_sep = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "latent_separability_metrics.csv")).set_index("Representation")
+    df_hs = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "holdout_seeds_sota_and_non_met1.csv")).set_index("Method")
+    df_sep = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "latent_separability_metrics.csv")).set_index("Representation")
 
     bd = load_batch_tensors(
         os.path.join(CODE_DIR, "testing_v2.csv"),
@@ -984,7 +984,7 @@ def make_fig6_relax_debiased():
 
 
 # ===========================================================================
-# 7. ACS JCIM Table of Contents Graphic: exact 3.25 in x 1.75 in (<= 8.25 x 4.45 cm)
+# 7. Table of Contents (TOC) Graphic: exact 3.25 in x 1.75 in (<= 8.25 x 4.45 cm)
 # ===========================================================================
 def make_toc_graphic():
     print("[7/7] Generating fig_toc_graphic (exact 3.25 x 1.75 in) ...")

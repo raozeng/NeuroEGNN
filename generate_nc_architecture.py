@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Generate Publication-Grade All-Visual Architecture Figure (fig0_architecture.pdf / .png)
-for NeuroEGNN (ACS JCIM / Nature Machine Intelligence visual standard).
+for NeuroEGNN (Publication-grade vector architecture diagram).
 
 Key design principles:
 1. Zero redundant formulas — all mathematical details stay in main.tex; the figure uses
@@ -36,7 +36,7 @@ def mute_rgba(rgba, sat_scale=0.56, light_mix=0.06):
     return (r2, g2, b2, a)
 
 
-# Moderately Desaturated Scientific Palette (Nature / ACS JCIM Print Standard)
+# Moderately Desaturated Scientific Palette (Publication Print Standard)
 SLATE_DARK     = '#253140'
 SLATE_TEXT     = '#2D3748'
 SLATE_MUTED    = '#5A6677'

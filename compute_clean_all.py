@@ -9,7 +9,7 @@ from scipy import stats
 CODE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, CODE_DIR)
 
-from run_jcim_supplements import (
+from run_debiased_and_relaxation import (
     AAS, AA_TO_IDX, clean_seq, seq_hash,
     load_ckpt, load_batch_tensors, forward_neuroegnn_numpy,
     extract_plm_multiscale_conv_features, extract_multiscale_seq_features,
@@ -416,7 +416,7 @@ def main():
         m_frl_nm1 = compute_metrics(yf_te[nm1_f], prob_frl[nm1_f])
         frl_fold_metrics.append({"full": m_frl, "nm1": m_frl_nm1})
 
-    egnn_cv_df = pd.read_csv(os.path.join(CODE_DIR, "results", "jcim_supplements", "cv5_sota_and_non_met1_per_fold.csv"))
+    egnn_cv_df = pd.read_csv(os.path.join(CODE_DIR, "results", "debiased_and_relaxation", "cv5_sota_and_non_met1_per_fold.csv"))
     egnn_mccs = egnn_cv_df[egnn_cv_df["Method"] == "NeuroEGNN"]["Full_MCC"].values
     frl_mccs = np.array([x["full"]["MCC"] for x in frl_fold_metrics])
     _, p_frl_mcc = stats.ttest_rel(egnn_mccs, frl_mccs)
