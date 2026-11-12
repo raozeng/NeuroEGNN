@@ -9,10 +9,28 @@ Official PyTorch implementation, homology-isolated benchmark splits, trained che
 
 ---
 
-## 1. Repository Structure
+## 1. Model Architecture
+
+<p align="center">
+  <img src="assets/fig0_architecture.png" alt="NeuroEGNN Architecture Overview" width="100%"/>
+</p>
+
+**Overview of the NeuroEGNN framework (`L_max = 50`, `0.917M` trainable parameters):**
+
+* **(A) Homology-Debiased Input & Physicochemical Encoding:** Peptide sequences ($N = 8,887$) are partitioned via single-linkage sequence homology clustering at $\tau = 0.80$ ($C = 7,050$ clusters) to guarantee zero cross-split leakage and evaluated alongside a debiased Non-$\text{Met}_1$ hard subset. Each residue is encoded into a $26$-D biochemical node descriptor ($21$-D amino acid one-hot encoding plus $5$ normalized physicochemical properties: hydropathy, polarity, volume, net charge, and backbone flexibility) and projected to $128$-D node features $\mathbf{H}_{\text{node}}$.
+* **(B) 1D Evolutionary Semantic Pathway (Frozen ESM-2):** The primary sequence is fed into a frozen $33$-layer `ESM-2` (`esm2_t33_650M_UR50D`) protein language model to extract contextualized per-residue evolutionary embeddings $\mathbf{E} \in \mathbb{R}^{L \times 1280}$ (projected via Linear + LayerNorm + SiLU to $\mathbf{H}_{\text{seq}} \in \mathbb{R}^{L \times 128}$) alongside an unsupervised residue-residue contact probability map $\mathbf{C} \in [0, 1]^{L \times L}$.
+* **(C) 3D Conformational Graph & 4-Layer $E(3)$-Equivariant GNN:** Initial 3D $\text{C}\alpha$ coordinates $\mathbf{X}^{(0)} \in \mathbb{R}^{L \times 3}$ are deterministically reconstructed from $\mathbf{C}$ via calibrated Torgerson multidimensional scaling (MDS). A hybrid 3D spatial graph is built by taking the union of local backbone bonds ($|i - j| \le 2$), spatial cutoff edges ($d_{ij}^{(0)} < 10\,\text{\AA}$), and $8$-nearest-neighbor ($8$-NN) contacts. Four $E(3)$-equivariant message-passing layers jointly update node embeddings ($\mathbf{H}^{(0)} \to \mathbf{H}_{\text{graph}} \in \mathbb{R}^{L \times 128}$) and relax 3D coordinates ($\mathbf{X}^{(0)} \to \mathbf{X}^{(4)}$) while strictly preserving equivariance to 3D rotations, translations, and reflections.
+* **(D) Gated Bidirectional Sequence-Structure Co-Attention:** A $4$-head bidirectional cross-attention module aligns 1D evolutionary semantics and 3D structural representations ($\text{Seq} \to \text{Graph}$ attention $\mathbf{A}_{\text{s}\to\text{g}}$ and $\text{Graph} \to \text{Seq}$ attention $\mathbf{A}_{\text{g}\to\text{s}}$). An adaptive per-residue two-channel sigmoid gate $(\alpha_{\text{seq}}, \alpha_{\text{graph}})$ dynamically balances the two modalities before a residual 2-layer feed-forward network (FFN) outputs fused representations $\mathbf{H}_{\text{fuse}} \in \mathbb{R}^{L \times 128}$.
+* **(E) Masked Dual Pooling, Classification & Attribution:** Padding-masked mean pooling ($128$-D) and max pooling ($128$-D) are concatenated into a $256$-D global peptide descriptor and passed through a 3-layer MLP classifier ($256 \to 128 \to 32 \to 2$) trained with label-smoothed binary cross-entropy ($\varepsilon = 0.05$). Bidirectional co-attention weights provide residue- and contact-level mechanistic interpretability.
+
+---
+
+## 2. Repository Structure
 
 ```text
 NeuroEGNN/
+├── assets/
+│   └── fig0_architecture.png       # High-resolution NeuroEGNN architecture diagram
 ├── model.py                        # NeuroEGNN (NeuroPred3D) architecture, 4-layer E(3)-EGNN, & Gated Co-Attention
 ├── dataset.py                      # ESM-2 featurizer, calibrated Torgerson MDS 3D reconstruction, & 3D graph builder
 ├── make_split.py                   # Single-linkage homology clustering (tau=0.80) & quota-balanced partitioning
@@ -51,7 +69,7 @@ NeuroEGNN/
 
 ---
 
-## 2. Environment Setup
+## 3. Environment Setup
 
 Install dependencies (Python >= 3.10 recommended):
 
@@ -66,9 +84,9 @@ pip install -r requirements.txt
 
 ---
 
-## 3. Quick Start & Reproducing Experiments
+## 4. Quick Start & Reproducing Experiments
 
-### 3.1 Instant Hold-Out Evaluation Using Included Checkpoints ($N = 888$)
+### 4.1 Instant Hold-Out Evaluation Using Included Checkpoints ($N = 888$)
 ```bash
 # Evaluate pretrained hold-out NeuroEGNN (seed 500) on testing_v2.csv
 python test.py \
@@ -76,7 +94,7 @@ python test.py \
     --test_csv testing_v2.csv
 ```
 
-### 3.2 Homology-Isolated Dataset Partitioning ($\tau = 0.80$)
+### 4.2 Homology-Isolated Dataset Partitioning ($\tau = 0.80$)
 ```bash
 # Regenerate 80/10/10 hold-out splits (training_v2.csv, validation_v2.csv, testing_v2.csv)
 python make_split.py --sim 0.8 --seed 500
@@ -85,7 +103,7 @@ python make_split.py --sim 0.8 --seed 500
 python make_split.py --sim 0.8 --folds 5 --seed 500
 ```
 
-### 3.3 5-Fold Homology-Isolated Cross-Validation ($N = 8,887$)
+### 4.3 5-Fold Homology-Isolated Cross-Validation ($N = 8,887$)
 ```bash
 python run.py --mode cv --folds 5 --esm_model esm2_t33_650M_UR50D --epochs 50 --batch_size 128 --lr 5e-4
 
@@ -94,26 +112,26 @@ python run_independent_test.py
 ```
 > Hold-out results reported in the paper use the hold-out models in `results/ablation/full/seed_*/`; the 5-fold models must not be evaluated on `testing_v2.csv`.
 
-### 3.4 Hold-Out Training & Multi-Seed Component Ablation ($N = 888$)
+### 4.4 Hold-Out Training & Multi-Seed Component Ablation ($N = 888$)
 ```bash
 # Train & evaluate all 5 variants (full, no_coord, no_attn, no_3d, no_esm) across seeds 500, 501, 502
 python run_ablation.py --esm_model esm2_t33_650M_UR50D --seeds 500 501 502 --epochs 50
 ```
 
-### 3.5 Zero-Leakage Cross-Attention Interpretability
+### 4.5 Zero-Leakage Cross-Attention Interpretability
 ```bash
 python run_interpretability.py \
     --model_path results/ablation/full/seed_500/train/best_model.pth \
     --test_csv testing_v2.csv
 ```
 
-### 3.6 Baselines, Non-$\text{Met}_1$ Debiased Evaluation & 3D Coordinate Relaxation
+### 4.6 Baselines, Non-$\text{Met}_1$ Debiased Evaluation & 3D Coordinate Relaxation
 ```bash
 python run_supplement_experiments.py
 python run_jcim_supplements.py
 ```
 
-### 3.7 Regenerating Publication Figures
+### 4.7 Regenerating Publication Figures
 ```bash
 python generate_nc_architecture.py
 python generate_all_figures.py
