@@ -1,15 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Generate Publication-Grade All-Visual Architecture Figure (fig0_architecture.pdf / .png)
-for NeuroEGNN (Publication-grade vector architecture diagram).
-
-Key design principles:
-1. Zero redundant formulas — all mathematical details stay in main.tex; the figure uses
-   concise, high-impact visual schematics and short module labels.
-2. Large, legible typography (9.0pt - 13.0pt) designed to remain crystal clear when scaled
-   to single-column print width.
-3. Full-width aligned stage headers (a, b, c, d, e) with zero arrow crossings over headers.
-"""
+"""Render the NeuroEGNN architecture diagram (fig0_architecture.pdf/.png)."""
 
 import os
 import colorsys
@@ -36,7 +26,7 @@ def mute_rgba(rgba, sat_scale=0.56, light_mix=0.06):
     return (r2, g2, b2, a)
 
 
-# Moderately Desaturated Scientific Palette (Publication Print Standard)
+# Color palette
 SLATE_DARK     = '#253140'
 SLATE_TEXT     = '#2D3748'
 SLATE_MUTED    = '#5A6677'
@@ -116,8 +106,8 @@ def add_stage_container(ax, x, y, w, h, bg='#F8FAFC', edge='#CBD5E1', lw=1.35, r
     return patch
 
 
-def add_stage_header(ax, panel_letter, x, y, w, h, title, bg, fontsize=11.6, zorder=4):
-    badge_w = 0.40
+def add_stage_header(ax, panel_letter, x, y, w, h, title, bg, fontsize=12.4, zorder=4):
+    badge_w = 0.42
     badge = patches.FancyBboxPatch(
         (x, y), badge_w, h,
         boxstyle='round,pad=0.01,rounding_size=0.08',
@@ -125,7 +115,7 @@ def add_stage_header(ax, panel_letter, x, y, w, h, title, bg, fontsize=11.6, zor
     )
     ax.add_patch(badge)
     ax.text(x + badge_w / 2, y + h / 2, panel_letter,
-            ha='center', va='center', fontsize=13.5, fontweight='bold', color='white', zorder=zorder + 1)
+            ha='center', va='center', fontsize=14.5, fontweight='bold', color='white', zorder=zorder + 1)
 
     pill_x = x + badge_w + 0.08
     pill_w = w - badge_w - 0.08
@@ -140,7 +130,7 @@ def add_stage_header(ax, panel_letter, x, y, w, h, title, bg, fontsize=11.6, zor
 
 
 def add_card(ax, x, y, w, h, title=None, title_bg=None, title_fg=SLATE_DARK,
-             bg='white', edge='#CBD5E1', lw=1.15, radius=0.10, fontsize=10.8, zorder=3):
+             bg='white', edge='#CBD5E1', lw=1.15, radius=0.10, fontsize=11.0, zorder=3):
     shadow = patches.FancyBboxPatch(
         (x + 0.022, y - 0.024), w, h,
         boxstyle=f'round,pad=0.008,rounding_size={radius}',
@@ -154,7 +144,7 @@ def add_card(ax, x, y, w, h, title=None, title_bg=None, title_fg=SLATE_DARK,
     )
     ax.add_patch(card)
     if title:
-        band_h = 0.35
+        band_h = 0.36
         if title_bg:
             band = patches.FancyBboxPatch(
                 (x + 0.02, y + h - band_h - 0.01), w - 0.04, band_h,
@@ -163,7 +153,7 @@ def add_card(ax, x, y, w, h, title=None, title_bg=None, title_fg=SLATE_DARK,
             )
             ax.add_patch(band)
         ax.text(x + w / 2, y + h - band_h / 2 - 0.01, title,
-                ha='center', va='center', fontsize=fontsize, fontweight='bold',
+                ha='center', va='center', fontsize=fontsize + 0.7, fontweight='bold',
                 color=title_fg, zorder=zorder + 1)
     return card
 
@@ -228,11 +218,9 @@ def build_architecture_figure():
     ax.set_ylim(0, 9.6)
     ax.axis('off')
 
-    # =========================================================================
     # STAGE A: Homology-Isolated Input & Biochemical Encoding (x = 0.20 .. 3.38)
-    # =========================================================================
     add_stage_container(ax, 0.20, 0.28, 3.18, 9.04, bg='#F8FAFC', edge='#CBD5E1')
-    add_stage_header(ax, 'A', 0.36, 8.78, 2.86, 0.38, 'Homology-Debiased Input', bg=NAVY_PRIMARY, fontsize=10.8)
+    add_stage_header(ax, 'A', 0.36, 8.78, 2.86, 0.38, 'Homology-Debiased Input', bg=NAVY_PRIMARY, fontsize=11.8)
 
     # Card A1: Prepropeptide Cleavage & Mature Sequence (y = 6.36 .. 8.60)
     add_card(ax, 0.36, 6.36, 2.86, 2.24, title='Peptide Sequence & Mask',
@@ -375,12 +363,10 @@ def build_architecture_figure():
                      facecolor=TEAL_SOFT, edgecolor=TEAL_DARK,
                      label='$\\mathbf{H}_{\\mathrm{node}}$\n$128$-D', label_fg=TEAL_DARK, fontsize=8.4)
 
-    # =========================================================================
     # STAGE B: 1D Evolutionary Semantic Pathway (Top Middle: x = 3.90 .. 10.30, y = 5.56 .. 9.32)
-    # =========================================================================
     add_stage_container(ax, 3.90, 5.56, 6.40, 3.76, bg=AMBER_BG, edge=AMBER_STAGE_BD)
     add_stage_header(ax, 'B', 4.06, 8.78, 6.08, 0.38,
-                     '1D Evolutionary Pathway (Frozen ESM-2 Language Model)', bg=AMBER_DARK, fontsize=10.8)
+                     '1D Evolutionary Pathway (Frozen ESM-2 Language Model)', bg=AMBER_DARK, fontsize=12.4)
 
     # Card B1: Frozen ESM-2 (x = 4.06 .. 7.14, y = 5.74 .. 8.60)
     add_card(ax, 4.06, 5.74, 3.08, 2.86, title='Frozen ESM-2 (650M)',
@@ -437,12 +423,10 @@ def build_architecture_figure():
     draw_routed_arrow(ax, [(7.14, 7.42), (7.50, 7.42)], color=AMBER_DARK, lw=2.0)
     ax.text(7.32, 7.68, r'$\mathbf{E}$', ha='center', va='center', fontsize=9.8, fontweight='bold', color=AMBER_DARK)
 
-    # =========================================================================
     # STAGE C: 3D Conformational Graph & E(3)-EGNN (Bottom Middle: x = 3.90 .. 10.30, y = 0.28 .. 4.96)
-    # =========================================================================
     add_stage_container(ax, 3.90, 0.28, 6.40, 4.68, bg=TEAL_BG, edge=TEAL_STAGE_BD)
     add_stage_header(ax, 'C', 4.06, 4.44, 6.08, 0.38,
-                     '3D Conformational Graph & E(3)-Equivariant GNN', bg=TEAL_DARK, fontsize=10.8)
+                     '3D Conformational Graph & E(3)-Equivariant GNN', bg=TEAL_DARK, fontsize=13.2)
 
     # Card C1: 3D Structure & Hybrid Graph Construction (x = 4.06 .. 6.94, y = 0.46 .. 4.28)
     add_card(ax, 4.06, 0.46, 2.88, 3.82, title='3D Structure & Hybrid Graph',
@@ -559,7 +543,7 @@ def build_architecture_figure():
                 arrowprops=dict(arrowstyle='->', color=AMBER_DARK, lw=1.7, ls='--', mutation_scale=10), zorder=7)
     ax.scatter([cnew_x], [cnew_y], s=56, color=AMBER_MAIN, edgecolor='white', lw=0.8, zorder=7)
 
-    # Visual O(3) 3D Coordinate Axes Badge (sits cleanly below the top title!)
+    # O(3) coordinate axes badge
     ax.add_patch(patches.FancyBboxPatch((8.94, 2.54), 0.96, 0.98,
                                         boxstyle='round,pad=0.006,rounding_size=0.05',
                                         facecolor=TEAL_TINT, edgecolor=TEAL_MAIN, lw=0.9, zorder=4))
@@ -606,12 +590,10 @@ def build_architecture_figure():
 
     draw_routed_arrow(ax, [(6.94, 2.35), (7.20, 2.35)], color=TEAL_DARK, lw=2.0)
 
-    # =========================================================================
     # STAGE D: Symmetric Bidirectional Co-Attention (x = 10.82 .. 14.48, y = 0.28 .. 9.32)
-    # =========================================================================
     add_stage_container(ax, 10.82, 0.28, 3.66, 9.04, bg=PURPLE_BG, edge=PURPLE_BORDER)
     add_stage_header(ax, 'D', 10.98, 8.78, 3.34, 0.38,
-                     'Gated Bidirectional Co-Attention', bg=PURPLE_DARK, fontsize=10.8)
+                     'Gated Bidirectional Co-Attention', bg=PURPLE_DARK, fontsize=12.0)
 
     # Card D1 (TOP): Visual Seq -> Graph Cross-Attention (y = 6.42 .. 8.60)
     add_card(ax, 10.98, 6.42, 3.34, 2.18,
@@ -759,11 +741,9 @@ def build_architecture_figure():
     ax.text(13.24, 2.85, r'$\mathbf{Z}_{\mathrm{g}\to\mathrm{s}}$', ha='right', va='center',
             fontsize=9.0, fontweight='bold', color=NAVY_PRIMARY)
 
-    # =========================================================================
     # STAGE E: Masked Dual Readout, Classification & Interpretability (x = 14.96 .. 18.18)
-    # =========================================================================
     add_stage_container(ax, 14.96, 0.28, 3.22, 9.04, bg=CRIMSON_BG, edge=CRIMSON_BORDER)
-    add_stage_header(ax, 'E', 15.12, 8.78, 2.90, 0.38, 'Readout & Interpretability', bg=CRIMSON_DARK, fontsize=10.8)
+    add_stage_header(ax, 'E', 15.12, 8.78, 2.90, 0.38, 'Readout & Interpretability', bg=CRIMSON_DARK, fontsize=11.8)
 
     # Card E1: Visual Masked Dual Pooling (y = 6.42 .. 8.60)
     add_card(ax, 15.12, 6.42, 2.90, 2.18, title='Masked Dual Pooling (256-D)',
@@ -830,7 +810,7 @@ def build_architecture_figure():
     py_prof = np.array([0.20, 0.16, 0.22, 0.72, 0.28, 0.68, 0.26, 0.80, 0.92, 0.85]) * 0.84
     for x_p, h_p, aa_l in zip(px_prof, py_prof, seq_tokens):
         bcol = CRIMSON_MAIN if h_p > 0.48 else '#94A3B8'
-        ax.add_patch(patches.Rectangle((x_p - 0.08, 1.78), 0.16, h_p, facecolor=bcol, alpha=0.88, zorder=5))
+        ax.add_patch(patches.Rectangle((x_p - 0.08, 1.78), 0.16, h_p, facecolor=bcol, edgecolor='none', lw=0, alpha=0.85, zorder=5))
         ax.text(x_p, 1.60, aa_l, ha='center', va='center', fontsize=8.2, fontweight='bold', color=SLATE_TEXT, zorder=5)
     ax.plot([15.23, 17.90], [1.78, 1.78], color='#64748B', lw=0.9, zorder=5)
     ax.text(17.10, 2.74, 'C-term GPCR Core', ha='center', va='center',
@@ -849,9 +829,7 @@ def build_architecture_figure():
     draw_routed_arrow(ax, [(16.57, 6.42), (16.57, 6.12)], color=CRIMSON_DARK, lw=1.9)
     draw_routed_arrow(ax, [(16.57, 3.58), (16.57, 3.28)], color=NAVY_PRIMARY, lw=1.8)
 
-    # =========================================================================
     # PRECISION INTER-STAGE ROUTING
-    # =========================================================================
     draw_routed_arrow(ax, [(3.22, 7.50), (4.06, 7.50)], color=AMBER_DARK, lw=2.1)
 
     draw_routed_arrow(ax, [(4.06, 6.00), (3.64, 6.00), (3.64, 3.30), (4.06, 3.30)],

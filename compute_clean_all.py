@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Compute dataset summary statistics, hold-out interpretability, Rg-normalized RMSD, and DeLong/McNemar tests."""
 import os
 import sys
 import json
@@ -76,7 +77,6 @@ def mcnemar_p_value(y_true, pred1, pred2):
 def main():
     out = {}
 
-    # 1. Exact Dataset & Split Verification
     tr_df = pd.read_csv(os.path.join(CODE_DIR, "training_v2.csv"))
     va_df = pd.read_csv(os.path.join(CODE_DIR, "validation_v2.csv"))
     te_df = pd.read_csv(os.path.join(CODE_DIR, "testing_v2.csv"))
@@ -144,7 +144,7 @@ def main():
     print("\n=== Exact Trainable Parameter Counts from State Dict ===")
     print(param_counts)
 
-    # 2. Clean Zero-Leakage Interpretability on testing_v2.csv using ablation/full/seed_500..502
+    # Hold-out co-attention statistics across seeds 500..502
     test_csv = os.path.join(CODE_DIR, "testing_v2.csv")
     test_npz = os.path.join(CODE_DIR, "cache", "esm", "testing_v2_t33_650M_L50.npz")
     batch_dict = load_batch_tensors(test_csv, test_npz)
@@ -186,7 +186,6 @@ def main():
             pred = int(preds_arr[i])
             s2g = s2g_arr[i, :L, :L]
             g2s = g2s_arr[i, :L, :L]
-            # How did run_interpretability.py define residue_attn? Let's check:
             # Incoming marginal attention (mean over query axis=0 of 0.5*(s2g + g2s))
             res_attn = 0.5 * (s2g.mean(axis=0) + g2s.mean(axis=0))
             norm_attn = res_attn / (np.mean(res_attn) + 1e-8)
@@ -234,7 +233,7 @@ def main():
                         s2g_pair_stats[key].append(float(np.mean(s2g[mask_k]) * scale))
                         g2s_pair_stats[key].append(float(np.mean(g2s[mask_k]) * scale))
 
-        print(f"\n=== Clean Zero-Leakage Interpretability ({mode_name}) ===")
+        print(f"\n[Hold-Out Interpretability] ({mode_name})")
         for k in ["local_seq", "med_spatial", "long_spatial", "distant"]:
             print(f"  {k:14s}: s2g={np.mean(s2g_pair_stats[k]):.4f}±{np.std(s2g_pair_stats[k]):.4f} | "
                   f"g2s={np.mean(g2s_pair_stats[k]):.4f}±{np.std(g2s_pair_stats[k]):.4f} (n={len(s2g_pair_stats[k])})")
@@ -291,7 +290,7 @@ def main():
             "p_156": float(probs_arr[156]),
         }
 
-    # 3. Rg-normalized RMSD Mean, SD, Median, IQR across layers on testing_v2.csv (seed_500)
+    # Rg-normalized RMSD distribution across EGNN layers on testing_v2.csv (seed_500)
     coord_traj = seed_outs[500]["coord_traj"]
     print("\n=== Rg-Normalized RMSD Distribution Across Layers (seed_500) ===")
     rmsd_dist = {}
@@ -316,8 +315,8 @@ def main():
         print(f"  Layer {l}: Mean={arr.mean():.3f} ± {arr.std():.3f} A | Median={q50:.3f} [IQR {q25:.3f}-{q75:.3f}, 95th={q95:.3f}] A")
     out["rmsd_rg_dist"] = rmsd_dist
 
-    # 4. Run NeuroPred-FRL on 5-Fold CV + Compute OOF DeLong & McNemar tests (N=8,887)
-    print("\n=== Running 5-Fold CV SOTA OOF Predictions (including NeuroPred-FRL) & DeLong/McNemar Tests ===")
+    # Pooled 5-fold OOF DeLong and exact McNemar tests (N=8,887)
+    print("\n[OOF Significance] Running 5-fold OOF baseline comparisons and DeLong/McNemar tests...")
     oof_y = []
     oof_probs = {
         "NeuroEGNN": [],

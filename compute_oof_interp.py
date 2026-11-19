@@ -1,3 +1,5 @@
+"""Aggregate 5-fold out-of-fold bidirectional co-attention statistics (N = 8,887)."""
+
 import os, sys, json, numpy as np, pandas as pd
 from scipy import stats
 CODE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -66,7 +68,7 @@ for f_idx in range(5):
                         s2g_stats[key].append(float(np.mean(s2g[mk])*L))
                         g2s_stats[key].append(float(np.mean(g2s[mk])*L))
 
-print("=== 5-Fold Out-Of-Fold (N=8,887, 100% Zero-Leakage) Interpretability ===")
+print("[OOF Interpretability] N=8,887 across 5 folds:")
 for k in ["local_seq", "med_spatial", "long_spatial", "distant"]:
     print(f"  {k:14s}: s2g={np.mean(s2g_stats[k]):.4f}±{np.std(s2g_stats[k]):.4f} | g2s={np.mean(g2s_stats[k]):.4f}±{np.std(g2s_stats[k]):.4f}")
 lr_pct = (np.mean(s2g_stats['long_spatial']) / np.mean(s2g_stats['local_seq']) - 1) * 100

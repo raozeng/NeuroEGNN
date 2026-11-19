@@ -1,34 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Supplementary Experiments & Comprehensive Statistical/Interpretability Analysis
-for NeuroEGNN SCI Manuscript.
-
-Tasks performed:
-1. Dataset statistical characterization (length distribution, AA enrichment,
-   N-terminal Met bias, homology cluster distribution, 3D structural properties).
-2. Comprehensive Baseline Comparison across 3 paradigms on BOTH:
-   (a) 5-Fold Homology-Isolated Cross-Validation (folds 1..5, N=8,887)
-   (b) Standard Homology-Isolated Hold-Out Benchmark (train=7,110, val=889, test=888)
-   Baselines:
-     - AAC+DPC+PCP + Logistic Regression (LR)
-     - AAC+DPC+PCP + Support Vector Machine (SVM-RBF)
-     - AAC+DPC+PCP + Random Forest (RF)
-     - AAC+DPC+PCP + HistGradientBoosting (GBDT)
-     - AAC+DPC+PCP + Multi-Layer Perceptron (MLP)
-     - 3D Geometric Topology + PCP + RF
-     - 3D Geometric Topology + PCP + MLP
-     - ESM-2 (t6_8M, 320D) + LR (Hold-out)
-     - ESM-2 (t6_8M, 320D) + MLP (Hold-out)
-     - ESM-2 (t33_650M, 1280D) + LR
-     - ESM-2 (t33_650M, 1280D) + RF
-     - ESM-2 (t33_650M, 1280D) + SVM-RBF
-3. Statistical significance testing (Paired t-test, Wilcoxon signed-rank test,
-   Bootstrap AUC p-values, AUPRC computation) for Baselines and Ablation variants.
-4. Length-stratified performance analysis (Short <=15 aa, Medium 16-30 aa, Long >30 aa).
-5. Global quantitative interpretability analysis across all 888 test sequences
-   (amino acid attention enrichment, spatial distance vs. sequence separation in s2g/g2s).
-6. Generation of publication-grade figures saved to ../paper/figures/.
-"""
+"""Classical 1D, static 3D geometric, and pooled PLM baselines plus length-stratified evaluations."""
 
 import os
 import sys
@@ -56,8 +27,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore')
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-_CAND_FIG_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'paper', 'figures')
-PAPER_FIG_DIR = _CAND_FIG_DIR if os.path.isdir(_CAND_FIG_DIR) else os.path.join(SCRIPT_DIR, 'results', 'figures')
+PAPER_FIG_DIR = os.path.join(SCRIPT_DIR, 'results', 'baselines', 'figures')
 BASELINE_OUT_DIR = os.path.join(SCRIPT_DIR, 'results', 'baselines')
 os.makedirs(PAPER_FIG_DIR, exist_ok=True)
 os.makedirs(BASELINE_OUT_DIR, exist_ok=True)
@@ -539,7 +509,7 @@ def analyze_interpretability_global():
 
 
 def generate_publication_figures(df_holdout, preds_dict, df_cv_sum, df_len, df_aa, s2g_stats, g2s_stats):
-    print("\n--- [5/5] Generating High-Resolution Publication Figures in paper/figures/ ---")
+    print("\n[Baselines] Saving diagnostic plots...")
     plt.rcParams.update({
         'font.size': 10,
         'axes.titlesize': 11,
@@ -842,5 +812,5 @@ if __name__ == '__main__':
     df_len = analyze_length_stratification()
     df_aa, s2g_stats, g2s_stats, tp_regions = analyze_interpretability_global()
     generate_publication_figures(df_holdout, preds_dict, df_cv_sum, df_len, df_aa, s2g_stats, g2s_stats)
-    print("\n=== ALL SUPPLEMENTARY EXPERIMENTS & ANALYSES COMPLETED SUCCESSFULLY ===")
+    print("[Baselines] Done.")
 

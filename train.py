@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-NeuroPred-3D-EGNN 训练脚本
-
-训练协议与 baseline 保持一致 (Softmax 输出 + one-hot BCE 损失), 指标对齐,
-便于公平对比 1D-TCN 方案与本方案 (3D-EGNN + 交叉注意力融合)。
-
-用法:
-    python train.py --epochs 50 --batch_size 128
-    python train.py --limit 300 --epochs 3          # 快速冒烟
-"""
+"""Training routine for NeuroEGNN with label-smoothed BCE, cosine scheduling, and validation AUC early stopping."""
 
 import os
 import random
@@ -48,7 +39,6 @@ def set_seed(seed=500):
 
 
 def calculate_metrics(labels, preds, probs):
-    """Accuracy / Sensitivity / Specificity / AUC / MCC / F1 (与 baseline 对齐)。"""
     labels, preds, probs = np.array(labels), np.array(preds), np.array(probs)
     acc = accuracy_score(labels, preds)
     cm = confusion_matrix(labels, preds, labels=[0, 1])
@@ -66,7 +56,6 @@ def calculate_metrics(labels, preds, probs):
 
 
 def full_metrics(labels, preds, probs):
-    """与 test.py 对齐的全套指标 (含 Precision 与混淆矩阵计数)。"""
     labels, preds, probs = np.array(labels), np.array(preds), np.array(probs)
     cm = confusion_matrix(labels, preds, labels=[0, 1])
     tn, fp, fn, tp = cm.ravel()
@@ -87,24 +76,24 @@ def full_metrics(labels, preds, probs):
 
 
 def format_metrics_text(metrics, title):
-    """把指标字典渲染成与 test.py 控制台报表一致的纯文本。"""
-    lines = ['-' * 49, title, '-' * 49,
-             f"Accuracy                      : {metrics['Accuracy']:.4f}",
-             f"Precision                     : {metrics['Precision']:.4f}",
-             f"Sensitivity (Recall)          : {metrics['Sensitivity']:.4f}",
-             f"Specificity                   : {metrics['Specificity']:.4f}",
-             f"Matthews Corr Coef (MCC)      : {metrics['MCC']:.4f}",
-             f"AUC                           : {metrics['AUC']:.4f}",
-             f"F1-Score                      : {metrics['F1-Score']:.4f}",
-             f"Confusion Matrix (TP/TN/FP/FN): "
-             f"{metrics['TP']} / {metrics['TN']} / {metrics['FP']} / {metrics['FN']}",
-             '-' * 49]
+    lines = [
+        '-' * 49, title, '-' * 49,
+        f"Accuracy                      : {metrics['Accuracy']:.4f}",
+        f"Precision                     : {metrics['Precision']:.4f}",
+        f"Sensitivity (Recall)          : {metrics['Sensitivity']:.4f}",
+        f"Specificity                   : {metrics['Specificity']:.4f}",
+        f"Matthews Corr Coef (MCC)      : {metrics['MCC']:.4f}",
+        f"AUC                           : {metrics['AUC']:.4f}",
+        f"F1-Score                      : {metrics['F1-Score']:.4f}",
+        f"Confusion Matrix (TP/TN/FP/FN): "
+        f"{metrics['TP']} / {metrics['TN']} / {metrics['FP']} / {metrics['FN']}",
+        '-' * 49,
+    ]
     return '\n'.join(lines) + '\n'
 
 
 @torch.no_grad()
 def predict(model, dataloader, device):
-    """对给定数据集做纯推理, 返回序列/真实标签/预测标签/正类概率。"""
     model.eval()
     all_seqs, all_labels, all_preds, all_probs = [], [], [], []
     for batch in dataloader:
@@ -121,7 +110,6 @@ def predict(model, dataloader, device):
 
 def run_epoch(model, dataloader, criterion, optimizer, device, train_mode=True,
               label_smoothing=0.0):
-    """单轮训练或验证。label_smoothing>0 时对 one-hot 目标做平滑, 抑制过度自信。"""
     model.train() if train_mode else model.eval()
     total_loss, n_samples = 0.0, 0
     all_labels, all_preds, all_probs = [], [], []
@@ -135,8 +123,7 @@ def run_epoch(model, dataloader, criterion, optimizer, device, train_mode=True,
             outputs = model(**inputs)
             target = torch.nn.functional.one_hot(labels, num_classes=2).float()
             if label_smoothing > 0:
-                target = (target * (1.0 - label_smoothing) +
-                          label_smoothing / 2.0)
+                target = target * (1.0 - label_smoothing) + label_smoothing / 2.0
             loss = criterion(outputs, target)
 
             if train_mode:
@@ -181,36 +168,14 @@ def train(train_csv='training_v2.csv',
           limit=0,
           out_dir=None,
           ablation='full'):
-    """训练主函数: 确保缓存 -> 构建数据加载器 -> 逐轮训练 + 独立验证集做模型选择。
-
-    ablation: 消融变体名 (full/no_3d/no_esm/no_attn/no_coord),
-        见 model.ABLATION_PRESETS; 开关会写入 checkpoint config,
-        test.py 评估时自动按相同变体构建模型。
-
-    out_dir 不为 None 时 (五折交叉验证每折调用), 在该目录下保存:
-        best_model.pth         验证集 AUC 最优的模型权重 (用于测试集评估)
-        latest_checkpoint.pth  最后一轮 checkpoint (含优化器/调度器状态, 可断点续训)
-        training_log.csv       逐 epoch 训练/验证指标日志
-        val_metrics.txt        最优模型在验证集上的全套指标
-        val_predictions.csv    验证集每个样本的真实标签/预测标签/正类概率
-    单折旧用法 (out_dir=None) 的保存行为保持不变。
-
-    抗过拟合协议:
-        - train / validation / testing 三集同源不重叠 (见 make_split.py),
-          验证集仅用于早停与最优模型选择, 不接触测试集;
-        - 以验证集 AUC (而非 Acc) 严格提升作为保存/早停判据, 减少阈值噪声;
-        - label smoothing + 较高 dropout/weight_decay + 较小学习率。
-    """
+    """Train NeuroEGNN or an ablation variant and select the checkpoint maximizing validation AUC."""
     set_seed(seed)
     if ablation not in ABLATION_PRESETS:
-        raise ValueError(
-            f"未知消融变体 '{ablation}', 可选: {list(ABLATION_PRESETS)}")
+        raise ValueError(f"Unknown ablation preset '{ablation}'. Available: {list(ABLATION_PRESETS)}")
     ablation_flags = ABLATION_PRESETS[ablation]
-    if device is None:
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    else:
-        device = torch.device(device)
-    # ---- 每折产物目录 (五折交叉验证) ----
+    device = torch.device(device) if device is not None else torch.device(
+        'cuda' if torch.cuda.is_available() else 'cpu')
+
     if out_dir is not None:
         os.makedirs(out_dir, exist_ok=True)
         latest_path = os.path.join(out_dir, 'latest_checkpoint.pth')
@@ -224,15 +189,10 @@ def train(train_csv='training_v2.csv',
         if save_path is None:
             save_path = os.path.join(SCRIPT_DIR, 'neuro3d_best_model.pth')
 
-    print('=' * 60)
-    print(f" NeuroPred-3D-EGNN 训练 | 设备: {device} | 批大小: {batch_size} | lr: {lr}")
-    print(f" 消融变体: {ablation} | 开关: {ablation_flags}")
-    print(f" ESM: {esm_model} | EGNN: {egnn_layers} 层 x {hidden_dim} 维 | kNN: {knn} | 距离阈值: {contact_dist}Å")
-    print(f" 训练集: {train_csv} | 验证集: {val_csv}")
-    print(f" 最优权重: {save_path}")
-    print('=' * 60)
+    print(f"[Train] NeuroEGNN ({ablation}) | device={device} | bs={batch_size} | lr={lr}")
+    print(f"[Train] esm={esm_model} | egnn={egnn_layers}x{hidden_dim} | knn={knn} | cutoff={contact_dist}A")
+    print(f"[Train] train={train_csv} | val={val_csv} | save={save_path}")
 
-    # ---- 数据缓存与加载器 ----
     train_npz = ensure_caches(train_csv, CACHE_DIR, esm_model=esm_model,
                               max_len=max_len, use_api=use_api, api_limit=api_limit)
     val_npz = ensure_caches(val_csv, CACHE_DIR, esm_model=esm_model, max_len=max_len)
@@ -245,30 +205,23 @@ def train(train_csv='training_v2.csv',
         shuffle=False, max_len=max_len, knn=knn,
         contact_dist=contact_dist,
         limit=int(limit * 4) if limit else 0)
-    print(f" 训练 batch 数: {len(train_loader)} | 验证 batch 数: {len(val_loader)}")
 
-    # ---- 模型 (按消融预设构建; 关闭的模块整组不存在) ----
     model = NeuroPred3D(esm_dim=_read_esm_dim(train_npz), hidden_dim=hidden_dim,
                         egnn_layers=egnn_layers, heads=heads, dropout=dropout,
-                        **ablation_flags)
-    model = model.to(device)
+                        **ablation_flags).to(device)
     n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f" 可训练参数量: {n_params / 1e6:.2f} M")
+    print(f"[Train] trainable_params={n_params / 1e6:.3f}M | train_batches={len(train_loader)} | val_batches={len(val_loader)}")
 
     criterion = nn.BCELoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr,
-                                  weight_decay=weight_decay)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
-        optimizer, T_max=max(epochs, 1))
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=max(epochs, 1))
 
-    # ---- 训练循环 (验证集 AUC 严格提升才保存, 并在内存保留最优权重) ----
     best_auc, best_acc, best_metrics, bad_epochs = 0.0, 0.0, {}, 0
     best_state = None
     history = []
     for epoch in range(epochs):
         train_m = run_epoch(model, train_loader, criterion, optimizer,
-                            device, train_mode=True,
-                            label_smoothing=label_smoothing)
+                            device, train_mode=True, label_smoothing=label_smoothing)
         val_m = run_epoch(model, val_loader, criterion, None,
                           device, train_mode=False)
         scheduler.step()
@@ -278,15 +231,14 @@ def train(train_csv='training_v2.csv',
             best_auc = val_m['auc']
             best_acc = val_m['acc']
             best_metrics = val_m.copy()
-            best_state = {k: v.detach().cpu().clone()
-                          for k, v in model.state_dict().items()}
+            best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
             torch.save({'state_dict': best_state,
                         'config': {**model.config, 'ablation': ablation,
                                    'esm_model': esm_model,
                                    'max_len': max_len, 'knn': knn,
                                    'contact_dist': contact_dist}},
                        save_path)
-            saved_tag = ' -> [已保存最优模型]'
+            saved_tag = ' *'
             bad_epochs = 0
         else:
             bad_epochs += 1
@@ -300,7 +252,6 @@ def train(train_csv='training_v2.csv',
               f"Spec: {val_m['specificity']:.4f}, AUC: {val_m['auc']:.4f}, "
               f"MCC: {val_m['mcc']:.4f}, F1: {val_m['f1']:.4f}{saved_tag}")
 
-        # ---- 逐 epoch 日志 + 最新 checkpoint (可断点续训) ----
         history.append({
             'epoch': epoch,
             'train_loss': train_m['loss'], 'train_acc': train_m['acc'],
@@ -320,8 +271,7 @@ def train(train_csv='training_v2.csv',
         if latest_path is not None:
             torch.save({
                 'epoch': epoch,
-                'state_dict': {k: v.detach().cpu().clone()
-                               for k, v in model.state_dict().items()},
+                'state_dict': {k: v.detach().cpu().clone() for k, v in model.state_dict().items()},
                 'optimizer_state_dict': optimizer.state_dict(),
                 'scheduler_state_dict': scheduler.state_dict(),
                 'best_auc': best_auc,
@@ -332,17 +282,14 @@ def train(train_csv='training_v2.csv',
             }, latest_path)
 
         if bad_epochs >= patience:
-            print(f"[早停] 验证集 AUC 连续 {patience} 轮未提升, 提前结束训练。")
+            print(f"[EarlyStopping] Validation AUC did not improve for {patience} epochs.")
             break
 
-    # 恢复验证集最优权重, 保证最终模型即最优模型
     if best_state is not None:
         model.load_state_dict(best_state)
 
-    # ---- 最优模型在验证集上的全套指标 + 逐条预测 (五折每折必存) ----
     if val_metrics_path is not None and val_pred_path is not None:
-        val_seqs, val_labels, val_preds, val_probs = predict(
-            model, val_loader, device)
+        val_seqs, val_labels, val_preds, val_probs = predict(model, val_loader, device)
         val_full = full_metrics(val_labels, val_preds, val_probs)
         raw_seqs = (val_dataset.dataset.raw_sequences
                     if isinstance(val_dataset, torch.utils.data.Subset)
@@ -357,67 +304,54 @@ def train(train_csv='training_v2.csv',
             f.write(f"Validation metrics | {os.path.basename(str(val_csv))} | "
                     f"best selected by val AUC = {best_auc:.4f}\n")
             f.write(format_metrics_text(val_full, 'Validation Metrics'))
-        print(f"[保存] 验证集指标: {val_metrics_path}")
-        print(f"[保存] 验证集逐条预测: {val_pred_path} "
-              f"(共 {len(val_labels)} 条)")
-        print(f"[保存] 训练日志: {log_path} | 最新 checkpoint: {latest_path}")
 
-    print('=' * 60)
-    print(f"训练完成! 最佳验证 AUC: {best_auc:.4f} (对应 Acc: {best_acc:.4f})")
-    print(f"最优模型: {save_path}")
-    print('=' * 60)
+    print(f"[Train] Done | best_val_auc={best_auc:.4f} (val_acc={best_acc:.4f}) -> {save_path}")
     return {'best_auc': best_auc, 'best_acc': best_acc,
             'best_metrics': best_metrics, 'save_path': save_path,
             'n_params': n_params}
 
 
 def _read_esm_dim(npz_path):
-    import numpy as np
     with np.load(npz_path, allow_pickle=True) as data:
         return int(data['esm_dim'])
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='NeuroPred-3D-EGNN 训练脚本')
+    parser = argparse.ArgumentParser(description='Train NeuroEGNN or an ablation variant')
     parser.add_argument('--train_csv', type=str, default='training_v2.csv')
     parser.add_argument('--val_csv', type=str, default='validation_v2.csv',
-                        help='独立验证集 (仅用于早停/选模, 勿与测试集混用)')
+                        help='Validation CSV used for early stopping and checkpoint selection')
     parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=int, default=128)
     parser.add_argument('--lr', type=float, default=5e-4)
     parser.add_argument('--weight_decay', type=float, default=5e-4)
     parser.add_argument('--esm_model', type=str, default='esm2_t33_650M_UR50D',
-                        help="ESM-2 型号 (默认论文配置: esm2_t33_650M_UR50D; "
-                             "轻量冒烟可选 esm2_t6_8M_UR50D)")
+                        help='Pretrained ESM-2 backbone name')
     parser.add_argument('--max_len', type=int, default=50)
-    parser.add_argument('--knn', type=int, default=8, help='kNN 空间近邻数')
+    parser.add_argument('--knn', type=int, default=8, help='k-nearest spatial neighbors')
     parser.add_argument('--contact_dist', type=float, default=10.0,
-                        help='残基接触距离阈值 (Å)')
+                        help='Spatial distance cutoff in Angstroms')
     parser.add_argument('--hidden_dim', type=int, default=128)
     parser.add_argument('--egnn_layers', type=int, default=4)
     parser.add_argument('--heads', type=int, default=4)
     parser.add_argument('--dropout', type=float, default=0.2)
-    parser.add_argument('--patience', type=int, default=15, help='早停耐心轮数')
+    parser.add_argument('--patience', type=int, default=15, help='Early stopping patience')
     parser.add_argument('--label_smoothing', type=float, default=0.05,
-                        help='one-hot BCE 标签平滑系数 (0=关闭)')
+                        help='Label smoothing factor (0 disables smoothing)')
     parser.add_argument('--save_path', type=str, default=None)
     parser.add_argument('--device', type=str, default=None)
     parser.add_argument('--seed', type=int, default=500)
     parser.add_argument('--use_api', action='store_true',
-                        help='尝试调用 ESMFold 在线 API 获取真实结构 (需联网)')
+                        help='Query ESMFold online API for 3D coordinates when uncached')
     parser.add_argument('--api_limit', type=int, default=0,
-                        help='API 调用上限 (0=不限制)')
+                        help='Maximum number of ESMFold API requests (0 = unlimited)')
     parser.add_argument('--limit', type=int, default=0,
-                        help='调试用: 仅使用前 N 条训练数据 (0=全量)')
+                        help='Optional sample cap for quick debugging (0 = full dataset)')
     parser.add_argument('--out_dir', type=str, default=None,
-                        help='五折交叉验证: 本折训练产物目录 '
-                             '(best_model/latest_checkpoint/training_log/'
-                             'val_metrics/val_predictions)')
+                        help='Directory for checkpoints, logs, and validation predictions')
     parser.add_argument('--ablation', type=str, default='full',
                         choices=list(ABLATION_PRESETS),
-                        help='消融变体: full(完整) / no_3d(去3D-EGNN) / '
-                             'no_esm(去ESM) / no_attn(去交叉注意力) / '
-                             'no_coord(去等变坐标更新)')
+                        help='Model variant preset')
     return parser.parse_args()
 
 
@@ -430,6 +364,5 @@ if __name__ == '__main__':
           contact_dist=args.contact_dist, hidden_dim=args.hidden_dim,
           egnn_layers=args.egnn_layers, heads=args.heads, dropout=args.dropout,
           patience=args.patience, label_smoothing=args.label_smoothing,
-          use_api=args.use_api,
-          api_limit=args.api_limit, limit=args.limit, out_dir=args.out_dir,
-          ablation=args.ablation)
+          use_api=args.use_api, api_limit=args.api_limit, limit=args.limit,
+          out_dir=args.out_dir, ablation=args.ablation)

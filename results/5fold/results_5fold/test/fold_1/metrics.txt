@@ -1,4 +1,4 @@
-Fold 1 test metrics (数据文件: testing_v2_fold2.csv)
+Fold 1 test metrics (testing_v2_fold2.csv)
 train: training_v2_fold2.csv | val: validation_v2_fold2.csv | test: testing_v2_fold2.csv
 -------------------------------------------------
 Test Metrics (fold_1)

@@ -1,18 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Extended SOTA, Debiased Non-Met1, and 3D Relaxation Experiments for NeuroEGNN:
-1. Non-Met1 Hard Subset Evaluation & Counterfactual N-Terminal Masking Stress Test
-   (across both 5-Fold Cross-Validation N=5,877 and Hold-Out Test N=586).
-2. Faithful Reproduction & Benchmarking of Named SOTA Neuropeptide Predictors:
-   PredNeuroP (BiB 2020), NeuroPred-FRL (BiB 2021), NeuroPred-CLQ (Bioinformatics 2022),
-   UniDL4BioPep (BiB 2023), and NeuroPred-PLM (BiB 2024).
-3. Quantitative Biophysical Analysis of Dynamic E(n)-EGNN Coordinate Relaxation
-   (X^(0) -> X^(1) -> X^(2) -> X^(3) -> X^(4)) and High-Throughput Runtime Benchmark.
-4. Latent Representation Manifold Separability (Silhouette, Davies-Bouldin,
-   Calinski-Harabasz, Fisher Discriminant Ratio) and t-SNE Evolution.
-5. Generation of Figure 6 (fig6_structural_relaxation_and_debiased.pdf) and
-   Table of Contents (TOC) Graphic (fig_toc_graphic.pdf).
-"""
+"""Published baseline reproductions, Non-Met1 debiased evaluation, counterfactual masking, and EGNN coordinate relaxation."""
 
 import os
 import io
@@ -50,15 +37,12 @@ from matplotlib.patches import FancyBboxPatch
 warnings.filterwarnings('ignore')
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-_CAND_FIG_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'paper', 'figures')
-PAPER_FIG_DIR = _CAND_FIG_DIR if os.path.isdir(_CAND_FIG_DIR) else os.path.join(SCRIPT_DIR, 'results', 'figures')
+PAPER_FIG_DIR = os.path.join(SCRIPT_DIR, 'results', 'debiased_and_relaxation', 'figures')
 OUT_DIR = os.path.join(SCRIPT_DIR, 'results', 'debiased_and_relaxation')
 os.makedirs(PAPER_FIG_DIR, exist_ok=True)
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# ---------------------------------------------------------------------------
-# 1. Pure-NumPy Checkpoint Loader & Exact NeuroEGNN Forward Pass
-# ---------------------------------------------------------------------------
+# Pure-NumPy Checkpoint Loader & Exact NeuroEGNN Forward Pass
 
 class TorchZipLoader(pickle.Unpickler):
     def __init__(self, file, zf):
@@ -407,9 +391,7 @@ def compute_metrics(y_true, y_prob, thresh=0.5):
     )
 
 
-# ---------------------------------------------------------------------------
-# 2. Feature Extractors for Named SOTA Baselines
-# ---------------------------------------------------------------------------
+# Feature Extractors for Named SOTA Baselines
 
 def extract_handcrafted_430(seqs):
     N = len(seqs)
@@ -515,16 +497,14 @@ def extract_plm_multiscale_conv_features(csv_path, npz_path, max_len=50):
     )
 
 
-# ---------------------------------------------------------------------------
-# 3. Run Named SOTA Baselines & Non-Met1 Hard Subset Evaluation
-# ---------------------------------------------------------------------------
+# Run Named SOTA Baselines & Non-Met1 Hard Subset Evaluation
 
 def run_sota_and_non_met1_experiments():
     print("=" * 75)
     print("[Step 1 & 2] Running Named SOTA Predictors & Non-Met1 Hard Subset Benchmark")
     print("=" * 75)
 
-    # --- A. Hold-Out Benchmark (train=7110, val=889, test=888) ---
+    # A. Hold-Out Benchmark (train=7110, val=889, test=888)
     train_csv = os.path.join(SCRIPT_DIR, "training_v2.csv")
     test_csv = os.path.join(SCRIPT_DIR, "testing_v2.csv")
     train_npz = os.path.join(SCRIPT_DIR, "cache", "esm", "training_v2_t33_650M_L50.npz")
@@ -698,7 +678,7 @@ def run_sota_and_non_met1_experiments():
               f"MCC={r['NonM1_MCC_mean']:.4f}±{r['NonM1_MCC_std']:.4f}, AUC={r['NonM1_AUC_mean']:.4f}, "
               f"Sn={r['NonM1_Sn_mean']:.4f}, Sp={r['NonM1_Sp_mean']:.4f}")
 
-    # --- B. 5-Fold Homology-Isolated Cross-Validation (N=8,887 total, N=5,877 Non-Met1) ---
+    # B. 5-Fold Homology-Isolated Cross-Validation (N=8,887 total, N=5,877 Non-Met1)
     print("\n  -> Running 5-Fold Cross-Validation for Named SOTA Predictors & Non-Met1 Subset ...")
     cv5_rows = []
     for fold_idx in range(5):
@@ -826,9 +806,7 @@ def run_sota_and_non_met1_experiments():
     return df_holdout_seeds, pd.DataFrame(cv5_summary)
 
 
-# ---------------------------------------------------------------------------
-# 4. Counterfactual N-Terminal Masking & Dynamic 3D Coordinate Relaxation
-# ---------------------------------------------------------------------------
+# Counterfactual N-Terminal Masking & Dynamic 3D Coordinate Relaxation
 
 def run_coordinate_relaxation_and_counterfactual_analysis():
     print("\n" + "=" * 75)
@@ -858,7 +836,7 @@ def run_coordinate_relaxation_and_counterfactual_analysis():
     out_no3d = forward_neuroegnn_numpy(ckpt_no3d["state_dict"], ckpt_no3d["config"], batch_dict, return_details=True)
     out_noesm = forward_neuroegnn_numpy(ckpt_noesm["state_dict"], ckpt_noesm["config"], batch_dict, return_details=True)
 
-    # Counterfactual Experiment: Masking position 1 (N-terminal residue) on the 9 rare Met1-positive test peptides!
+    # Counterfactual position-1 masking on Met1-initiated positive test peptides
     mask_cf = batch_dict["mask"].copy()
     mask_cf[:, 0] = 0.0  # Mask out position 0 (first residue)
     probs_cf_full = forward_neuroegnn_numpy(ckpt_full["state_dict"], ckpt_full["config"], batch_dict, mask_override=mask_cf)
@@ -962,7 +940,7 @@ def run_coordinate_relaxation_and_counterfactual_analysis():
 
     pd.DataFrame(relax_rows).to_csv(os.path.join(OUT_DIR, "egnn_coord_relaxation_stats.csv"), index=False)
 
-    # --- Latent Representation Separability & t-SNE ---
+    # Latent Representation Separability & t-SNE
     print("\n  -> Computing Latent Manifold Separability Metrics & t-SNE Projections ...")
     X_raw_1d = StandardScaler().fit_transform(extract_handcrafted_430(raw_seqs))
     X_no_esm = out_noesm["pooled"]   # 3D-EGNN Only (256-D)
@@ -1013,9 +991,7 @@ def run_coordinate_relaxation_and_counterfactual_analysis():
     )
 
 
-# ---------------------------------------------------------------------------
-# 5. Publication Figure 6 (Debiased Non-Met1 + 3D Relaxation + t-SNE) & TOC
-# ---------------------------------------------------------------------------
+# Diagnostic plots
 
 def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     print("\n" + "=" * 75)
@@ -1038,7 +1014,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     gs = fig.add_gridspec(2, 2, width_ratios=[1.08, 1.0], height_ratios=[1.0, 1.0],
                           wspace=0.25, hspace=0.32)
 
-    # --- Panel A: Non-Met1 Hard Subset Benchmark & Counterfactual Met1 Masking ---
+    # Panel A: Non-Met1 Hard Subset Benchmark & Counterfactual Met1 Masking
     axA = fig.add_subplot(gs[0, 0])
     methods_order = [
         "NeuroPred-CLQ (Bioinf 2022)",
@@ -1092,7 +1068,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
                  fontsize=7.3, fontweight="bold", color="#9E2A2B",
                  arrowprops=dict(arrowstyle="->", color="#9E2A2B", lw=1.0))
 
-    # --- Panel B: Dynamic E(n)-EGNN Coordinate Relaxation Trajectory ---
+    # Panel B: Dynamic E(n)-EGNN Coordinate Relaxation Trajectory
     axB = fig.add_subplot(gs[0, 1])
     relax_df = struct_res["relax_df"]
     layers = relax_df["Layer"].values
@@ -1132,7 +1108,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     axB.legend(lines1 + lines2, labels1 + labels2, loc="lower left", fontsize=7.0,
                frameon=True, facecolor="white", framealpha=0.9)
 
-    # --- Panel C: Counterfactual N-Terminal Met1 Masking Rescue on Rare Met1-Positives ---
+    # Panel C: Counterfactual N-Terminal Met1 Masking Rescue on Rare Met1-Positives
     axC = fig.add_subplot(gs[1, 0])
     m1_idx = struct_res["m1_pos_idx"]
     raw_seqs = struct_res["batch_dict"]["raw_seqs"]
@@ -1165,7 +1141,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     axC.spines["right"].set_visible(False)
     axC.legend(loc="lower right", frameon=True, facecolor="white", framealpha=0.92, fontsize=7.2)
 
-    # --- Panel D: Latent Representation Manifold Evolution (t-SNE Comparison) ---
+    # Panel D: Latent Representation Manifold Evolution (t-SNE Comparison)
     gs_D = gs[1, 1].subgridspec(1, 2, wspace=0.14)
     axD1 = fig.add_subplot(gs_D[0, 0])
     axD2 = fig.add_subplot(gs_D[0, 1])
@@ -1204,7 +1180,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     plt.close(fig)
     print(f"  -> Saved Figure 6 to {fig6_pdf}")
 
-    # --- Generate Table of Contents (TOC) Graphic (8.25 cm x 4.45 cm ratio -> 6.5 in x 3.5 in) ---
+    # Generate Table of Contents (TOC) Graphic (8.25 cm x 4.45 cm ratio -> 6.5 in x 3.5 in)
     fig_toc, ax_toc = plt.subplots(figsize=(6.8, 3.6), dpi=300)
     ax_toc.set_xlim(0, 100)
     ax_toc.set_ylim(0, 53)
@@ -1257,7 +1233,7 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     ax_toc.text(50.0, 14.1, "4-Layer 3D E(n)-Equivariant GNN\nDynamic Force Relaxation X^(0) → X^(4)",
                 ha="center", va="center", fontsize=6.6, fontweight="bold", color="#115E59")
 
-    # Right Box: Mechanistic & Quantitative Breakthrough
+    # Right summary panel
     b_right = FancyBboxPatch((71.7, 7.5), 25.5, 38.0, boxstyle="round,pad=0.4,rounding_size=1.5",
                              facecolor="#ECFDF5", edgecolor="#059669", linewidth=1.0)
     ax_toc.add_patch(b_right)
@@ -1278,8 +1254,6 @@ def generate_structural_figures(df_holdout_seeds, df_cv5_sum, struct_res):
     ax_toc.annotate("", xy=(71.5, 26.5), xytext=(68.7, 26.5),
                     arrowprops=dict(arrowstyle="->", lw=1.6, color="#059669"))
 
-    ax_toc.text(50, 3.4, "For Table of Contents Only — Journal of Chemical Information and Modeling",
-                ha="center", va="center", fontsize=6.8, style="italic", color="#64748B")
 
     toc_pdf = os.path.join(PAPER_FIG_DIR, "fig_toc_graphic.pdf")
     toc_png = os.path.join(PAPER_FIG_DIR, "fig_toc_graphic.png")
