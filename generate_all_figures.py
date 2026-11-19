@@ -203,7 +203,7 @@ def make_fig1_dataset():
             label="Negative Controls")
     axD.bar(positions + w_d / 2, pos_m_freq, width=w_d * 0.90, color=BAR_ROSE, edgecolor="none", lw=0,
             label="Mature Neuropeptides")
-    axD.annotate("65.47% Neg vs. 1.99% Pos\n(32.9× N-terminal $\\mathrm{Met}_1$ shortcut!)",
+    axD.annotate("65.47% Neg vs. 1.99% Pos\n(32.9× N-terminal $\\mathrm{Met}_1$ disparity)",
                  xy=(1 - w_d / 2, 65.5), xytext=(3.3, 55.0),
                  fontsize=8.2, fontweight="bold", color=NAVY,
                  bbox=dict(boxstyle="round,pad=0.35", facecolor="#FAF3F3", edgecolor=BAR_ROSE, lw=0.9),
@@ -778,7 +778,8 @@ def make_fig5_cases():
         step = 1 if L <= 14 else 2
         for ax_h, im in [(ax1, im1), (ax2, im2)]:
             ax_h.set_xticks(np.arange(0, L, step))
-            ax_h.set_xticklabels([res_ticks[k] for k in range(0, L, step)], rotation=45, ha="right", fontsize=7.2)
+            ax_h.set_xticklabels([res_ticks[k] for k in range(0, L, step)],
+                                 rotation=45, ha="right", va="top", rotation_mode="anchor", fontsize=7.2)
             ax_h.set_yticks(np.arange(0, L, step))
             ax_h.set_yticklabels([res_ticks[k] for k in range(0, L, step)], fontsize=7.2)
             plt.colorbar(im, ax=ax_h, fraction=0.046, pad=0.04)
@@ -804,7 +805,7 @@ def make_fig5_cases():
             Patch(facecolor=BAR_BLUE, edgecolor="none", label=f"Internal Basic Motif ({res_ticks[extra_idx]})"),
         ]
         ax3.set_xticks(x_r)
-        ax3.set_xticklabels(res_ticks, rotation=45, ha="right", fontsize=7.3, fontweight="bold")
+        ax3.set_xticklabels(res_ticks, rotation=90, ha="center", va="top", fontsize=7.3, fontweight="bold")
         ax3.set_ylim(0, max(comb_norm) * 1.38)
         ax3.set_ylabel("Marginal Attribution ($\\times$ Uniform)")
         ax3.set_title("Combined Residue Attribution Profile", fontsize=12.2, fontweight="bold", pad=10)
@@ -1263,7 +1264,7 @@ def make_toc_graphic():
 
         _pill(8.5, 22.0, 78.0, 9.8, "7,050 Homology Clusters",
               bg=C_NAVY_TINT, edge=C_NAVY_BD, fg=C_NAVY_PRI, fontsize=4.0)
-        _pill(8.5, 9.2, 78.0, 9.8, "Zero Cross-Split Leakage",
+        _pill(8.5, 9.2, 78.0, 9.8, "Disjoint Splits (Sim < 0.80)",
               bg="#F8FAFC", edge="#CBD5E1", fg=C_SLATE_MUTED, fontsize=4.0)
 
         # STAGE 2 (Center Hero): NeuroEGNN Dual-Stream Architecture (x = 100.5 .. 226.5)

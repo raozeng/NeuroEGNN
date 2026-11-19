@@ -240,7 +240,7 @@ def build_architecture_figure():
     ax.plot([0.93, 1.03], [8.12, 8.20], color=CRIMSON_MAIN, lw=1.2, zorder=6)
     ax.plot([0.93, 1.03], [8.20, 8.12], color=CRIMSON_MAIN, lw=1.2, zorder=6)
     ax.scatter([0.92, 0.92], [8.11, 8.21], s=16, facecolors='none', edgecolors=CRIMSON_MAIN, lw=1.0, zorder=6)
-    ax.text(1.24, 8.16, 'KR Cut', ha='center', va='center', fontsize=7.6, fontweight='bold', color=CRIMSON_MAIN, zorder=6)
+    ax.text(1.07, 8.16, 'Precursor Cut', ha='left', va='center', fontsize=7.4, fontweight='bold', color=CRIMSON_MAIN, zorder=6)
 
     # Mature peptide bead ribbon (S-G-G-F-A-F-S-P-R-L)
     seq_tokens = ['S', 'G', 'G', 'F', 'A', 'F', 'S', 'P', 'R', 'L']
@@ -309,8 +309,8 @@ def build_architecture_figure():
                  '7,050 Homology Clusters',
                  bg=NAVY_TINT, edge=NAVY_BORDER, fg=NAVY_PRIMARY, fontsize=8.8)
     add_pill_box(ax, 0.50, 3.66, 2.58, 0.32,
-                 'Zero Cross-Split Leakage',
-                 bg='#F8FAFC', edge='#CBD5E1', fg=SLATE_MUTED, fontsize=8.5)
+                 'Disjoint Clusters (Sim < 0.80)',
+                 bg='#F8FAFC', edge='#CBD5E1', fg=SLATE_MUTED, fontsize=8.4)
 
     # Card A3: 26-D Residue Biochemical Feature Encoding (y = 0.46 .. 3.36)
     add_card(ax, 0.36, 0.46, 2.86, 2.90, title='26-D Residue Encoding',
@@ -450,7 +450,7 @@ def build_architecture_figure():
             fontsize=8.2, fontweight='bold', color=NAVY_PRIMARY, zorder=5)
 
     draw_routed_arrow(ax, [(5.14, 3.28), (5.54, 3.28)], color=TEAL_DARK, lw=1.6, mutation_scale=9)
-    ax.text(5.34, 3.55, 'MDS /\nESMFold', ha='center', va='center',
+    ax.text(5.34, 3.55, 'Torgerson\nMDS', ha='center', va='center',
             fontsize=7.6, fontweight='bold', color=TEAL_DARK, linespacing=1.06, zorder=5)
 
     pts_3d = [
